@@ -57,6 +57,7 @@ After completing the steps, summarize:
 - Current status (0/N artifacts complete)
 - The template for the first artifact
 - Prompt: "Ready to create the first artifact? Run `/opsx-continue` or just describe what this change is about and I'll draft it."
+- Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
 
 **Guardrails**
 - Do NOT create any artifacts yet - just show the instructions
