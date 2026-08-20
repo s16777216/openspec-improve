@@ -1,116 +1,45 @@
-# OpenSpec
+# OpenSpec (Fork / 增強版)
 
-> AI 輔助的規格驅動開發工作流程。Artifact 管線 + Agent skills。
+> AI 輔助的規格驅動開發工作流程。**基於官方 skills 的改進。**
 
-## 總覽
+**[English](README.md)** | **繁體中文**
 
-OpenSpec 是一套結構化的 AI 輔助開發工作流程系統，強制執行清晰的管線：
+## 與官方版本的差異
 
-```
-new → continue → apply → verify → archive
-```
+| 領域                    | 官方                               | 本 Fork                              |
+| ----------------------- | ---------------------------------- | ------------------------------------ |
+| **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me    |
+| **自訂驗證**            | ❌ 不支援                           | **`VERIFY.md`** — 宣告式、具範圍感知 |
+| **指令前綴**            | `/openspec-*`                      | `/opsx:*` (較短、命名空間友善)       |
+| **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性            |
 
-每個步驟都會產出明確的 artifacts（提案、規格、設計、任務），既是文件也是實作契約。
 
-### 工作流程時間軸
+---
 
-```
-┌───────────────────────────────────────────────────────────────────────────────────┐
-│                         OPEN SPEC 工作流程時間軸                                  │
-├───────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                   │
-│   ┌──────────┐      ┌──────────┐      ┌──────────┐      ┌──────────┐              │
-│   │   NEW    │────▶│ CONTINUE │────▶│  APPLY   │────▶│  VERIFY  │────▶ARCHIVE │ 
-│   └──────────┘      └──────────┘      └──────────┘      └──────────┘              │
-│        │                │                │                │                       │ 
-│        ▼               ▼               ▼               ▼                      │ 
-│   ┌──────────────────────────────────────────────────────────────────────────┐    │
-│   │                        產出的 ARTIFACTS                                  │    │
-│   ├─────────────────┬──────────────┬─────────────────┬───────────────────────┤    │
-│   │  proposal.md    │  specs/*.md  │  design.md      │  tasks.md             │    │
-│   │  (做什麼/為什麼)│  (需求規格)  │  (怎麼做/架構)  │  (檢查清單)           │    │
-│   └─────────────────┴──────────────┴─────────────────┴───────────────────────┘    │
-│                                                                                   │
-│   ┌──────────────────────────────────────────────────────────────────────────┐    │
-│   │                        選項 / 平行流程                                   │    │
-│   ├──────────────────────┬──────────────────────┬────────────────────────────┤    │
-│   │ /opsx:propose        │ /opsx:explore        │ /opsx:grill                │    │
-│   │ (一次產出所有        │ (思考夥伴模式)       │ (設計樹問答)               │    │
-│   │  artifacts)          │                      │                            │    │
-│   └──────────────────────┴──────────────────────┴────────────────────────────┘    │
-│                                                                                   │
-│   ┌──────────────────────────────────────────────────────────────────────────┐    │
-│   │                        同步 / 維護                                       │    │
-│   ├──────────────────────┬──────────────────────┬────────────────────────────┤    │
-│   │ /opsx:sync           │ /opsx:verify         │ /opsx:ff                   │    │
-│   │ (delta→main spec)   │ (自訂 VERIFY.md)     │ (快速通過)                 │    │ 
-│   └──────────────────────┴──────────────────────┴────────────────────────────┘    │
-│                                                                                   │
-└───────────────────────────────────────────────────────────────────────────────────┘
-```
+## 本 Fork 的核心改進
 
-## 核心概念
+### 1. Openspec-Grill (與 grill-me 的整合與增強)
 
-| 概念         | 說明                                                                   |
-| ------------ | ---------------------------------------------------------------------- |
-| **Change**   | 一個工作單元，擁有獨立目錄 `openspec/changes/<name>/`                  |
-| **Artifact** | 結構化 Markdown 檔案：`proposal.md`、`specs/`、`design.md`、`tasks.md` |
-| **Schema**   | 工作流程定義（如 `spec-driven`），決定 artifact 順序與相依性           |
-| **CLI**      | `openspec` 指令管理狀態、產生模板、追蹤進度                            |
+#### 新增功能
 
-## 快速開始
+- **反向提問 (Reverse Questioning)** — 在開始前主動澄清需求
+- **問答樹 (Q&A Tree)** — 結構化、可追蹤的討論流程
+- **specs 意識** — 直接引用與討論 spec 文件
+- **設計樹整合** — 自動生成 design.md
+- **狀態追蹤** — 記錄問答狀態，避免重複
 
-```bash
-# 初始化 OpenSpec
-openspec init
+#### 輸出結果
 
-# 開始新的 change
-/opsx:new add-user-auth
+討論結束後自動生成：
+- ✅ `design.md` — 結構化的設計決策
+- ✅ `tasks.md` — 可執行的任務清單
+- ✅ `specs/` — spec 文件更新（若有需要）
 
-# 繼續建立 artifacts（提案 → 規格 → 設計 → 任務）
-/opsx:continue
+---
 
-# 實作任務
-/opsx:apply
+### 2. VERIFY.md — 宣告式自訂驗證
 
-# 歸檔前驗證
-/opsx:verify
-
-# 歸檔完成的 change
-/opsx:archive
-```
-
-## Skills（Agent 工作流程）
-
-位於 `openspec-src/skills/`，這些是 Agent 可執行的工作流程：
-
-| Skill                      | 指令             | 用途                        |
-| -------------------------- | ---------------- | --------------------------- |
-| `openspec-new-change`      | `/opsx:new`      | 建立新 change 目錄          |
-| `openspec-continue-change` | `/opsx:continue` | 建立下一個 artifact         |
-| `openspec-propose`         | `/opsx:propose`  | 一步產生所有 artifacts      |
-| `openspec-apply-change`    | `/opsx:apply`    | 實作任務                    |
-| `openspec-verify-change`   | `/opsx:verify`   | 三維度驗證                  |
-| `openspec-archive-change`  | `/opsx:archive`  | 歸檔完成的 change           |
-| `openspec-sync-specs`      | `/opsx:sync`     | Delta spec 同步到 main spec |
-| `openspec-explore`         | `/opsx:explore`  | 思考夥伴模式                |
-| `openspec-grill`           | `/opsx:grill`    | 設計樹問答                  |
-| `openspec-onboard`         | `/opsx:onboard`  | 專案導入                    |
-| `openspec-ff-change`       | `/opsx:ff`       | 快速通過 artifacts          |
-
-## 驗證系統
-
-### 內建三維度
-
-1. **完整性** — 任務完成率 + 規格覆蓋率
-2. **正確性** — 需求實現 + 場景覆蓋
-3. **一致性** — 設計遵循度 + 程式碼模式一致性
-
-### 自訂驗證（VERIFY.md）
-
-透過 `VERIFY.md` 加入專案特定檢查：
-
-```markdown
+````markdown
 # Verification
 
 ## my-repo
@@ -120,11 +49,53 @@ npm run lint
 npm run typecheck
 npm test
 ```
+
+## shared-lib
+
+```bash
+cargo build
+cargo test
+```
+````
+
+**運作方式：**
+- Agent 讀取 `VERIFY.md`（專案級 + change 級，**累加**）
+- 交叉比對 change 影響的檔案，**判斷哪些 repo section 在範圍內**
+- 只執行在範圍內的 section
+- 略過的 section 會在報告中註記：`"Skipped shared-lib (not in change scope)"`
+
+### 2. 累加式 Change 級設定
+
+```
+專案 VERIFY.md：     所有 repo 的 lint + typecheck + test
+Change VERIFY.md：   針對 auth repo 額外加 security-scan
+結果：               兩者都執行，合併進報告
 ```
 
-**位置**：`openspec/VERIFY.md`（專案級）+ `openspec/changes/<name>/VERIFY.md`（change 級，累加模式）
+---
 
-**執行**：Agent 讀取 VERIFY.md，根據 change 影響的檔案/Repo 判斷哪些 section 在範圍內，只執行相關的指令。
+## Skills (Agent 工作流程)
+
+```
+     |
+    ●-- explore / grill : 需求討論，設計樹問答與交流
+     |
+     |
+    ●-- propose : 根據討論結果產出提案
+     |
+     |
+    ●-- apply : 根據提案實作
+     |
+     |
+    ●-- verify : 根據提案與實作結果產出驗證報告
+     |
+     |
+    ●-- archive : 歸檔提案
+     |
+     v
+```
+
+---
 
 ## 目錄結構
 
@@ -135,13 +106,17 @@ openspec/
 │       ├── .openspec.yaml
 │       ├── proposal.md
 │       ├── specs/
-│       │   └── auth/
-│       │       └── spec.md
+│       │   └── auth/spec.md
 │       ├── design.md
 │       ├── tasks.md
-│       └── VERIFY.md          # change 級驗證
+│       └── VERIFY.md          # change 級（累加）
 ├── specs/
-│   └── auth/
-│       └── spec.md            # 主規格（透過 /opsx:sync 同步）
-└── VERIFY.md                  # 專案級驗證
+│   └── auth/spec.md           # 主規格
+└── VERIFY.md                  # 專案級
 ```
+
+---
+
+## 授權
+
+MIT
