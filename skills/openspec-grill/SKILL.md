@@ -28,10 +28,14 @@ You have full context of the OpenSpec system. Use it naturally, don't force it.
 openspec list --json
 ```
 
+Also check for a glossary:
+- `openspec/GLOSSARY.md` — project-level terms (read it if present; these terms shape the conversation)
+
 This tells you:
 - If there are active changes
 - Their names, schemas, and status
 - What the user might be working on
+- The project's domain terminology
 
 ### When a change exists
 
@@ -41,6 +45,8 @@ If the user mentions a change or you detect one is relevant:
    - `openspec/changes/<name>/proposal.md`
    - `openspec/changes/<name>/design.md`
    - `openspec/changes/<name>/tasks.md`
+   - `openspec/GLOSSARY.md` (project-level terms, if exists)
+   - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
    - etc.
 
 2. **Reference them naturally in conversation**
@@ -56,12 +62,14 @@ If the user mentions a change or you detect one is relevant:
     | Requirement changed        | `specs/<capability>/spec.md` |
     | Scope changed              | `proposal.md`                |
     | New work identified        | `tasks.md`                   |
+    | New term introduced        | `openspec/changes/<name>/GLOSSARY.md` |
     | Assumption invalidated     | Relevant artifact              |
 
    Example offers:
    - "That's a design decision. Capture it in design.md?"
    - "This is a new requirement. Add it to specs?"
    - "This changes scope. Update the proposal?"
+   - "You keep using 'principal' — should we record that term in GLOSSARY.md?"
 
 4. **The user decides** - Offer and move on. Don't pressure. Don't auto-capture.
 
@@ -156,13 +164,50 @@ Each question should be formatted like so:
 
 ---
 
+## Detecting & Handing Off Terms (Glossary)
+
+Throughout the conversation, maintain an internal list of **detected project-specific terms** — jargon, abbreviations, domain-specific vocabulary that you notice the user using.
+
+### Detection Rules
+
+- **Explicit definitions**: User says "we call X...", "X means Y", "X stands for..." → X is a term
+- **Capitalized proper nouns**: Repeated use of capitalized words that aren't common English → potential terms
+- **Abbreviations**: User introduces an abbreviation (e.g., "sess for session") → abbreviation is a term
+- **Domain-specific words**: Words that would confuse an outsider → potential terms
+
+### Handoff to Propose (no file writes)
+
+Grill is a thinking phase — it never writes files. When the frontier is empty (before the final summary):
+
+1. **List detected terms**: Present a draft list of all detected terms
+2. **Ask for each term**: Confirm definition + aliases
+3. **User decides**: Only confirmed terms pass through to the summary
+4. **Include in the final summary** as **Terms to Record** — `/opsx-propose` (or `/opsx-continue`) writes them to change-level `GLOSSARY.md`
+
+**Format** (as recorded by propose):
+```
+- **Term** — Definition. Aliases: alias1、alias2。
+```
+
+**Guardrails**:
+- Never auto-capture terms — always confirm with user
+- Don't ask for terms that are obvious common English
+- Never write to any file — GLOSSARY writing happens at propose/continue time
+- If no terms detected, skip this section entirely
+
+---
+
 ## Ending the Session
 
 The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed.
 
 **Do not act on it until the user confirms you have reached a shared understanding.**
 
-When the frontier is empty, summarize:
+When the frontier is empty:
+
+1. **Process detected terms** (if any) — list, confirm with user, then carry confirmed terms into the summary as **Terms to Record** (see ## Detecting & Handing Off Terms). Do NOT write to any file — GLOSSARY.md is written by `/opsx-propose` or `/opsx-continue`.
+
+2. **Then summarize:**
 
 ```
 ## Design Tree Complete
@@ -172,6 +217,10 @@ When the frontier is empty, summarize:
 **Decisions Made**:
 - Q1: [answer]
 - Q2: [answer]
+- ...
+
+**Terms to Record** (for /opsx-propose):
+- **Term** — Definition. Aliases: alias1、alias2。
 - ...
 
 **Open Questions**: [if any remain]

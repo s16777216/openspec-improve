@@ -72,6 +72,16 @@ When ready to implement, run /opsx-apply
       - Use **AskUserQuestion tool** to clarify
       - Then continue with creation
 
+   d. **Record confirmed terms to GLOSSARY (if any)**
+      - After all `applyRequires` artifacts are complete, check the conversation for **confirmed project-specific terms**:
+        - From a previous grill/explore session's "Terms to Record" output
+        - Or terms confirmed during artifact creation
+      - If any exist and are NOT already in project-level `openspec/GLOSSARY.md`, write them to `openspec/changes/<name>/GLOSSARY.md`:
+        - Grouped by capability: `## <capability>`
+        - Format: `- **Term** — Definition. Aliases: alias1、alias2。`
+      - Only record terms confirmed with the user — never fabricate
+      - If no confirmed terms, skip this step entirely
+
 5. **Show final status**
    ```bash
    openspec status --change "<name>"
@@ -83,6 +93,7 @@ After completing all artifacts, summarize:
 - Change name and location
 - List of artifacts created with brief descriptions
 - What's ready: "All artifacts created! Ready for implementation."
+- Terms recorded to GLOSSARY.md (N terms) or "(no terms recorded)"
 - Prompt: "Run `/opsx-apply` to start implementing."
 - Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
 

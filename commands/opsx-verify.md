@@ -34,6 +34,10 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 
    This returns the change directory and `contextFiles` (artifact ID -> array of concrete file paths). Read all available artifacts from `contextFiles`.
 
+   Also read the glossaries if present — delta specs may reference terms defined there:
+   - `openspec/GLOSSARY.md` (project-level terms, if exists)
+   - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
+
 4. **Initialize verification report structure**
 
    Create a report structure with three dimensions:

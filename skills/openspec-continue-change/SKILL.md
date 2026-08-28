@@ -68,6 +68,12 @@ Continue working on a change by creating the next artifact.
      - Use `template` as the structure - fill in its sections
      - Apply `context` and `rules` as constraints when writing - but do NOT copy them into the file
      - Write to the output path specified in instructions
+   - **If the created artifact is the proposal** (the change-describing artifact):
+     - Check the conversation for **confirmed project-specific terms** (from a previous grill/explore "Terms to Record" output or confirmed during this session)
+     - If any exist and are NOT already in project-level `openspec/GLOSSARY.md`, write them to `openspec/changes/<name>/GLOSSARY.md`:
+       - Grouped by capability: `## <capability>`
+       - Format: `- **Term** — Definition. Aliases: alias1、alias2。`
+     - Only record terms confirmed with the user — never fabricate; skip if none
    - Show what was created and what's now unlocked
    - STOP after creating ONE artifact
 

@@ -86,10 +86,14 @@ At the start, quickly check what exists:
 openspec list --json
 ```
 
+Also check for a glossary:
+- `openspec/GLOSSARY.md` — project-level terms (read it if present; these terms shape the conversation)
+
 This tells you:
 - If there are active changes
 - Their names, schemas, and status
 - What the user might be working on
+- The project's domain terminology
 
 If the user mentioned a specific change name, read its artifacts for context.
 
@@ -108,6 +112,8 @@ If the user mentions a change or you detect one is relevant:
    - `openspec/changes/<name>/proposal.md`
    - `openspec/changes/<name>/design.md`
    - `openspec/changes/<name>/tasks.md`
+   - `openspec/GLOSSARY.md` (project-level terms, if exists)
+   - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
    - etc.
 
 2. **Reference them naturally in conversation**
@@ -123,12 +129,14 @@ If the user mentions a change or you detect one is relevant:
     | Design decision made       | `design.md`                  |
     | Scope changed              | `proposal.md`                |
     | New work identified        | `tasks.md`                   |
+    | New term introduced        | `openspec/changes/<name>/GLOSSARY.md` |
     | Assumption invalidated     | Relevant artifact              |
 
    Example offers:
    - "That's a design decision. Capture it in design.md?"
    - "This is a new requirement. Add it to specs?"
    - "This changes scope. Update the proposal?"
+   - "You keep using 'principal' — should we record that term in GLOSSARY.md?"
 
 4. **The user decides** - Offer and move on. Don't pressure. Don't auto-capture.
 

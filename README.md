@@ -10,6 +10,7 @@
 | ---------------------------------- | ---------------------------------- | --------------------------------------------- |
 | **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration** |
 | **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware    |
+| **Glossary**                       | ❌ Not supported                    | **`GLOSSARY.md`** — project + change-level domain terms |
 | **Command Prefix**                 | `/openspec-*`                      | `/opsx:*` (shorter, namespace-friendly)       |
 | **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — single-repo simplicity            |
 
@@ -73,6 +74,28 @@ Result:                Both run, merged in report
 
 ---
 
+### 3. GLOSSARY.md — Domain Terminology Registry
+
+Central registry for project-specific terms (jargon, abbreviations, domain vocabulary).
+
+**Format** — `term + definition + aliases` in a pure list (no manual ADDED/MODIFIED flags; the diff happens at archive time):
+
+```markdown
+# Glossary
+
+## auth
+
+- **Principal** — Authenticated request principal. Aliases: user、account。
+```
+
+**How it works:**
+- **Create (grill)**: `/opsx-grill` detects project-specific terms during the conversation, confirms definitions + aliases with the user, then writes them to `openspec/changes/<name>/GLOSSARY.md`
+- **Archive**: `/opsx-archive` merges the change-level `GLOSSARY.md` into project-level `openspec/GLOSSARY.md` — new terms appended, existing terms overwritten — then deletes the change-level file
+
+Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive.
+
+---
+
 ## Skills (Agent Workflows)
 
 ```
@@ -108,10 +131,12 @@ openspec/
 │       │   └── auth/spec.md
 │       ├── design.md
 │       ├── tasks.md
-│       └── VERIFY.md          # change-level (additive)
+│       ├── VERIFY.md          # change-level (additive)
+│       └── GLOSSARY.md        # change-level terms (merged at archive)
 ├── specs/
 │   └── auth/spec.md           # main specs
-└── VERIFY.md                  # project-level
+├── VERIFY.md                  # project-level
+└── GLOSSARY.md                # project-level (single source of truth)
 ```
 
 ---

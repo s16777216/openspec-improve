@@ -125,16 +125,27 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
       - For conflicts, apply in resolved order
       - Track if sync was done
 
-   b. **Perform the archive**:
+   b. **Merge GLOSSARY (if present)** for each change, in the determined order:
+      - Check if `openspec/changes/<name>/GLOSSARY.md` exists
+      - If project-level `openspec/GLOSSARY.md` doesn't exist → create it from the change-level content as-is
+      - Otherwise, merge each term from each change-level GLOSSARY (in the archival order):
+        - Term not present in project-level → append to the corresponding `## section`
+        - Term already present → overwrite with the change-level definition (later changes win)
+        - Terms only in project-level → keep unchanged
+      - After merging, delete each `openspec/changes/<name>/GLOSSARY.md`
+      - Note any overwrites in the summary (e.g. "overwrote Principal (was: 登入使用者)")
+
+   c. **Perform the archive**:
       ```bash
       mkdir -p openspec/changes/archive
       mv openspec/changes/<name> openspec/changes/archive/YYYY-MM-DD-<name>
       ```
 
-   c. **Track outcome** for each change:
+   d. **Track outcome** for each change:
       - Success: archived successfully
       - Failed: error during archive (record error)
       - Skipped: user chose not to archive (if applicable)
+      - Also track whether GLOSSARY was merged for this change
 
 9. **Display summary**
 
@@ -154,6 +165,10 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
    Spec sync summary:
    - 4 delta specs synced to main specs
    - 1 conflict resolved (auth: applied both in chronological order)
+
+   Glossary merge summary:
+   - 2 change GLOSSARYs merged into openspec/GLOSSARY.md
+   - 1 term overwritten (Principal updated by later change)
    ```
 
    If any failures:
@@ -207,6 +222,9 @@ Archived N changes:
 Spec sync summary:
 - N delta specs synced to main specs
 - No conflicts (or: M conflicts resolved)
+
+Glossary merge summary:
+- N change GLOSSARYs merged into openspec/GLOSSARY.md
 ```
 
 **Output On Partial Success**

@@ -67,6 +67,19 @@ Archive a completed change in the experimental workflow.
 
 5. **Perform the archive**
 
+   **Merge GLOSSARY (if present):**
+
+   Check if `openspec/changes/<name>/GLOSSARY.md` exists.
+
+   **If it exists:**
+   - If project-level `openspec/GLOSSARY.md` doesn't exist → create it from the change-level content as-is
+   - Otherwise, merge each term from the change-level GLOSSARY:
+     - Term not present in project-level → append to the corresponding `## section`
+     - Term already present → overwrite with the change-level definition
+     - Terms only in project-level → keep unchanged
+   - After merging, delete `openspec/changes/<name>/GLOSSARY.md`
+   - Note any overwrites in the summary, e.g. "overwrote Principal (was: 登入使用者)"
+
    Create the archive directory if it doesn't exist:
    ```bash
    mkdir -p openspec/changes/archive
@@ -89,6 +102,7 @@ Archive a completed change in the experimental workflow.
    - Schema that was used
    - Archive location
    - Whether specs were synced (if applicable)
+   - Whether GLOSSARY was merged (if applicable)
    - Note about any warnings (incomplete artifacts/tasks)
 
 **Output On Success**
@@ -100,6 +114,7 @@ Archive a completed change in the experimental workflow.
 **Schema:** <schema-name>
 **Archived to:** openspec/changes/archive/YYYY-MM-DD-<name>/
 **Specs:** ✓ Synced to main specs (or "No delta specs" or "Sync skipped")
+**Glossary:** ✓ Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
 
 All artifacts complete. All tasks complete.
 ```
