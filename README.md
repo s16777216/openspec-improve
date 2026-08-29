@@ -96,6 +96,91 @@ Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level
 
 ---
 
+## 🚀 Installation & Setup (Agent-Assisted Installation)
+
+This Fork is specifically designed and optimized for AI Coding Agents. Simply copy and paste the **single-line command** matching your Agent tool, and your Agent will fetch this guide and follow the exact steps automatically:
+
+| Tool | Single-Line Command for Agent |
+| :--- | :--- |
+| **Antigravity** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#antigravity` |
+| **Codex** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#codex` |
+| **OpenCode** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#opencode` |
+
+---
+
+### <a id="antigravity"></a> Google Antigravity
+
+When the Agent receives the `#antigravity` installation instruction, execute the following steps:
+
+1. **Environment Check**:
+   - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+2. **Initialize Project**:
+   - Run `openspec init --no-animation --tools antigravity` in the project root to establish OpenSpec structure and configuration.
+3. **Overwrite Enhanced Skills & Workflows**:
+   - Copy `skills/` from this repo into `<project-root>/.agent/skills/` (or `.agents/skills/`), overwriting existing files.
+   - Copy `commands/` from this repo into `<project-root>/.agent/workflows/` (enabling `/opsx-*` slash commands), overwriting existing files.
+   - *(Optional Global)*: If global installation is requested, copy into `~/.gemini/config/skills/` and `~/.gemini/config/global_workflows/`.
+   - If not present, create project-level starter templates for `openspec/VERIFY.md` and `openspec/GLOSSARY.md` following the [Starter Template Specifications](#templates) below.
+
+---
+
+### <a id="codex"></a> Codex
+
+When the Agent receives the `#codex` installation instruction, execute the following steps:
+
+1. **Environment Check**:
+   - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+2. **Initialize Project**:
+   - Run `openspec init --no-animation --tools codex` in the project root to establish OpenSpec structure and configuration.
+3. **Overwrite Enhanced Skills**:
+   - Copy `skills/` from this repo into `<project-root>/.agents/skills/`, overwriting existing files.
+   - Codex operates primarily via Skills (e.g. `$openspec-propose`).
+   - If not present, create project-level starter templates for `openspec/VERIFY.md` and `openspec/GLOSSARY.md` following the [Starter Template Specifications](#templates) below.
+
+---
+
+### <a id="opencode"></a> OpenCode
+
+When the Agent receives the `#opencode` installation instruction, execute the following steps:
+
+1. **Environment Check**:
+   - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+2. **Initialize Project**:
+   - Run `openspec init --no-animation --tools opencode` in the project root to establish OpenSpec structure and configuration.
+3. **Overwrite Enhanced Commands & Skills**:
+   - Copy `commands/` from this repo into `<project-root>/.opencode/commands/` (enabling `/opsx-*` slash commands), overwriting existing files.
+   - Copy `skills/` from this repo into `<project-root>/.opencode/skills/`, overwriting existing files.
+   - If not present, create project-level starter templates for `openspec/VERIFY.md` and `openspec/GLOSSARY.md` following the [Starter Template Specifications](#templates) below.
+
+---
+
+### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)
+
+When initializing, the Agent should create the following files under `openspec/` if they do not exist:
+
+1. **`openspec/VERIFY.md`** (Declarative Custom Verification)
+   ````markdown
+   # Verification
+
+   ## <project-or-module-name>
+
+   ```bash
+   # Add project-specific lint, typecheck, or test commands (e.g. npm test / cargo test)
+   npm test
+   ```
+   ````
+
+2. **`openspec/GLOSSARY.md`** (Domain Terminology Registry)
+   ````markdown
+   # Glossary
+
+   ## core
+
+   - **ExampleTerm** — Definition of example domain term. Aliases: alias1, alias2.
+   ````
+
+---
+
 ## Skills (Agent Workflows)
 
 ```
