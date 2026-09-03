@@ -6,19 +6,48 @@
 
 ## Differences from Official Version
 
-| Area                               | Official                           | This Fork                                     |
-| ---------------------------------- | ---------------------------------- | --------------------------------------------- |
-| **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration** |
-| **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware    |
+| Area                               | Official                           | This Fork                                               |
+| ---------------------------------- | ---------------------------------- | ------------------------------------------------------- |
+| **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration**           |
+| **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware              |
 | **Glossary**                       | ❌ Not supported                    | **`GLOSSARY.md`** — project + change-level domain terms |
-| **Command Prefix**                 | `/openspec-*`                      | `/opsx:*` (shorter, namespace-friendly)       |
-| **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — single-repo simplicity            |
+| **Command Prefix**                 | `/openspec-*`                      | `/opsx:*` (shorter, namespace-friendly)                 |
+| **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — single-repo simplicity                      |
 
 ---
 
 ## Core Improvements
 
-### 1. Openspec-Grill (Integration & Enhancement of grill-me)
+### 1. Openspec-Status
+
+**Quick status overview** — `/opsx-status`
+
+A **concise overview** of all active OpenSpec changes, showing:
+- Each change's stage (ideation/in-progress/ready-for-review)
+- Task progress (e.g. 3/7 tasks)
+- Next action and blockers
+- Single recommended next step
+
+**Example output:**
+```
+## OpenSpec Status
+
+3 active changes:
+
+### add-auth-flow — "OAuth login for the API"
+- Stage: in-progress  •  Progress: 3/7 tasks
+- Next: task 4 "Wire up refresh token rotation"
+
+### fix-db-migration — "Repair flaky migration ordering"
+- Stage: ready-for-review  •  Progress: 7/7 tasks
+- Next: run `/opsx-verify fix-db-migration`
+```
+
+Perfect for your morning "what's in flight?" check.
+
+---
+
+### 2. Openspec-Grill (Integration & Enhancement of grill-me)
 
 #### New Features
 
@@ -37,7 +66,7 @@ After discussion completes, automatically generates:
 
 ---
 
-### 2. VERIFY.md — Declarative Custom Verification
+### 3. VERIFY.md — Declarative Custom Verification
 
 ````markdown
 # Verification
@@ -74,7 +103,7 @@ Result:                Both run, merged in report
 
 ---
 
-### 3. GLOSSARY.md — Domain Terminology Registry
+### 4. GLOSSARY.md — Domain Terminology Registry
 
 Central registry for project-specific terms (jargon, abbreviations, domain vocabulary).
 
@@ -93,6 +122,14 @@ Central registry for project-specific terms (jargon, abbreviations, domain vocab
 - **Archive**: `/opsx-archive` merges the change-level `GLOSSARY.md` into project-level `openspec/GLOSSARY.md` — new terms appended, existing terms overwritten — then deletes the change-level file
 
 Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive.
+
+> **⚠️ Warning: `openspec init` overwrites fork extensions.**
+> The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY, `/opsx:*`). Running it rewrites `commands/` and `skills/` back to the official versions, wiping out GLOSSARY/VERIFY integrations.
+> **If you ever run `openspec init`, restore immediately with:**
+> ```bash
+> git checkout -- commands/ skills/
+> ```
+> (`.opencode/` is gitignored — if you need to recover it too, copy from `commands/`.)
 
 ---
 

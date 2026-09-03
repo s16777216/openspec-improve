@@ -6,20 +6,49 @@
 
 ## 與官方版本的差異
 
-| 領域                    | 官方                               | 本 Fork                              |
-| ----------------------- | ---------------------------------- | ------------------------------------ |
-| **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me    |
-| **自訂驗證**            | ❌ 不支援                           | **`VERIFY.md`** — 宣告式、具範圍感知 |
+| 領域                    | 官方                               | 本 Fork                                    |
+| ----------------------- | ---------------------------------- | ------------------------------------------ |
+| **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me          |
+| **自訂驗證**            | ❌ 不支援                           | **`VERIFY.md`** — 宣告式、具範圍感知       |
 | **專有名詞表**          | ❌ 不支援                           | **`GLOSSARY.md`** — 專案級 + change 級術語 |
-| **指令前綴**            | `/openspec-*`                      | `/opsx:*` (較短、命名空間友善)       |
-| **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性            |
+| **指令前綴**            | `/openspec-*`                      | `/opsx:*` (較短、命名空間友善)             |
+| **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性                  |
 
 
 ---
 
 ## 本 Fork 的核心改進
 
-### 1. Openspec-Grill (與 grill-me 的整合與增強)
+### 1. Openspec-Status
+
+**快速狀態總覽** — `/opsx-status`
+
+提供所有進行中 OpenSpec 提案的**精簡總覽**，包含：
+- 每個提案的階段（ideation / in-progress / ready-for-review）
+- 任務進度（例如 3/7 tasks）
+- 下一步與潛在阻塞點 (blocker)
+- 單一推薦下一步動作
+
+**範例輸出：**
+```
+## OpenSpec Status
+
+3 個進行中的提案：
+
+### add-auth-flow — "OAuth login for the API"
+- 階段: in-progress  •  進度: 3/7 tasks
+- 下一步: task 4 "Wire up refresh token rotation"
+
+### fix-db-migration — "Repair flaky migration ordering"
+- 階段: ready-for-review  •  進度: 7/7 tasks
+- 下一步: 執行 `/opsx-verify fix-db-migration`
+```
+
+非常適合用來上班或回到崗位時，5 秒鐘快速進入狀況。
+
+---
+
+### 2. Openspec-Grill (與 grill-me 的整合與增強)
 
 #### 新增功能
 
@@ -38,7 +67,7 @@
 
 ---
 
-### 2. VERIFY.md — 宣告式自訂驗證
+### 3. VERIFY.md — 宣告式自訂驗證
 
 ````markdown
 # Verification
@@ -75,7 +104,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 ---
 
-### 3. GLOSSARY.md — 領域專有名詞表
+### 4. GLOSSARY.md — 領域專有名詞表
 
 專案特有術語（行話、縮寫、領域詞彙）的集中登錄處。
 
@@ -94,6 +123,14 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 - **封存（archive）**：`/opsx-archive` 將 change 級 `GLOSSARY.md` 合併進專案級 `openspec/GLOSSARY.md` — 新術語追加、既有術語覆蓋 — 然後刪除 change 級檔案
 
 專案級 `openspec/GLOSSARY.md` 是單一來源；change 級檔案是累加性補充。
+
+> **⚠️ 警告：`openspec init` 會覆蓋本 fork 的擴充。**
+> 官方 `openspec init` **不認識**本 fork 的擴充（GLOSSARY、VERIFY、`/opsx:*`）。執行它會把 `commands/` 與 `skills/` 重寫回官方版本，導致 GLOSSARY/VERIFY 整合被清空。
+> **若你曾執行 `openspec init`，請立即還原：**
+> ```bash
+> git checkout -- commands/ skills/
+> ```
+> （`.opencode/` 在 `.gitignore` 內 — 若需要一併還原，從 `commands/` 複製回去。）
 
 ---
 
