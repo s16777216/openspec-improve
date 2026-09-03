@@ -134,6 +134,91 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 ---
 
+## 🚀 安裝與設定 (給 AI Agent 自動安裝)
+
+本 Fork 專為搭配 AI Coding Agent 設計。你只需複製對應工具的**單行指令**給你的 Agent，Agent 就會讀取本頁面並依照指定章節步驟自動完成安裝：
+
+| 工具 | 複製給 Agent 的單行指令 |
+| :--- | :--- |
+| **Antigravity** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#antigravity` |
+| **Codex** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#codex` |
+| **OpenCode** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#opencode` |
+
+---
+
+### <a id="antigravity"></a> Google Antigravity
+
+當 Agent 收到 `#antigravity` 安裝指令時，請依照以下步驟自動完成配置：
+
+1. **環境檢查**：
+   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+2. **初始化專案**：
+   - 在專案根目錄執行 `openspec init --no-animation --tools antigravity` 建立 OpenSpec 基礎結構與配置。
+3. **覆蓋增強版技能與模板**：
+   - 將本 repo 的 `skills/` 複製至專案根目錄 `.agent/skills/`（或 `.agents/skills/`），若已存在則覆蓋。
+   - 將本 repo 的 `commands/` 複製至專案根目錄 `.agent/workflows/`（若已存在則覆蓋，支援 `/opsx-*` 指令）。
+   - *(可選全域級)*：若使用者要求全域安裝，複製至 `~/.gemini/config/skills/` 與 `~/.gemini/config/global_workflows/`。
+   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
+
+---
+
+### <a id="codex"></a> Codex
+
+當 Agent 收到 `#codex` 安裝指令時，請依照以下步驟自動完成配置：
+
+1. **環境檢查**：
+   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+2. **初始化專案**：
+   - 在專案根目錄執行 `openspec init --no-animation --tools codex` 建立 OpenSpec 基礎結構與配置。
+3. **覆蓋增強版技能與模板**：
+   - 將本 repo 的 `skills/` 複製至專案根目錄 `.agents/skills/`，若已存在則覆蓋。
+   - Codex 主要透過 Skills 體系調用（例如 `$openspec-propose`）。
+   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
+
+---
+
+### <a id="opencode"></a> OpenCode
+
+當 Agent 收到 `#opencode` 安裝指令時，請依照以下步驟自動完成配置：
+
+1. **環境檢查**：
+   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+2. **初始化專案**：
+   - 在專案根目錄執行 `openspec init --no-animation --tools opencode` 建立 OpenSpec 基礎結構與配置。
+3. **覆蓋增強版技能與模板**：
+   - 將本 repo 的 `commands/` 複製至專案根目錄 `.opencode/commands/`，若已存在則覆蓋（支援 `/opsx-*` 指令）。
+   - 將本 repo 的 `skills/` 複製至專案根目錄 `.opencode/skills/`，若已存在則覆蓋。
+   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
+
+---
+
+### <a id="templates"></a> 📄 專案初始模板規範 (VERIFY.md 與 GLOSSARY.md)
+
+Agent 進行初始化時，應在專案 `openspec/` 目錄建立以下範本（若尚不存在）：
+
+1. **`openspec/VERIFY.md`**（宣告式自訂驗證）
+   ````markdown
+   # Verification
+
+   ## <專案或模組名稱>
+
+   ```bash
+   # 請依據專案實際語言與工具填入驗證指令（例如 npm test / cargo test 等）
+   npm test
+   ```
+   ````
+
+2. **`openspec/GLOSSARY.md`**（領域專有名詞表）
+   ````markdown
+   # Glossary
+
+   ## core
+
+   - **ExampleTerm** — 範例專有名詞定義。別名：alias1、alias2。
+   ````
+
+---
+
 ## Skills (Agent 工作流程)
 
 ```
