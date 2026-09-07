@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Propose a new change - create the change and generate all artifacts in one step.
@@ -29,7 +29,7 @@ When ready to implement, run /opsx-apply
    Use the **AskUserQuestion tool** (open-ended, no preset options) to ask:
    > "What change do you want to work on? Describe what you want to build or fix."
 
-   From their description, derive a kebab-case name (e.g., "add user authentication" → `add-user-auth`).
+   From their description, derive a kebab-case name (e.g., "add user authentication" ??`add-user-auth`).
 
    **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
 
@@ -85,8 +85,8 @@ When ready to implement, run /opsx-apply
         - Or terms confirmed during artifact creation
       - If any exist and are NOT already in project-level `openspec/GLOSSARY.md`, write them to `openspec/changes/<name>/GLOSSARY.md`:
         - Grouped by capability: `## <capability>`
-        - Format: `- **Term** — Definition. Aliases: alias1、alias2。`
-      - Only record terms confirmed with the user — never fabricate
+        - Format: `- **Term** ??Definition. Aliases: alias1?�alias2?�`
+      - Only record terms confirmed with the user ??never fabricate
       - If no confirmed terms, skip this step entirely
 
 5. **Show final status**
@@ -102,7 +102,7 @@ After completing all artifacts, summarize:
 - Terms recorded to GLOSSARY.md (N terms) or "(no terms recorded)"
 - What's ready: "All artifacts created! Ready for implementation."
 - Prompt: "Run `/opsx-apply` or ask me to implement to start working on the tasks."
-- Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
+- Tip: Mention that custom verification is available via `openspec/VERIFY.md` ??it defines per-repo checks that run during `/opsx-verify`.
 
 **Artifact Creation Guidelines**
 

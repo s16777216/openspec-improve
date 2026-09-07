@@ -11,7 +11,7 @@
 | **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration**           |
 | **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware              |
 | **Glossary**                       | ❌ Not supported                    | **`GLOSSARY.md`** — project + change-level domain terms |
-| **Command Prefix**                 | `/openspec-*`                      | `/opsx:*` (shorter, namespace-friendly)                 |
+| **Command Prefix**                 | `/openspec-*`                      | `/opsx-*` (shorter, namespace-friendly)                 |
 | **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — single-repo simplicity                      |
 
 ---
@@ -124,7 +124,7 @@ Central registry for project-specific terms (jargon, abbreviations, domain vocab
 Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive.
 
 > **⚠️ Warning: `openspec init` overwrites fork extensions.**
-> The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY, `/opsx:*`). Running it rewrites `commands/` and `skills/` back to the official versions, wiping out GLOSSARY/VERIFY integrations.
+> The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY, `/opsx-*`). Running it rewrites `commands/` and `skills/` back to the official versions, wiping out GLOSSARY/VERIFY integrations.
 > **If you ever run `openspec init`, restore immediately with:**
 > ```bash
 > git checkout -- commands/ skills/
@@ -151,6 +151,7 @@ When the Agent receives the `#antigravity` installation instruction, execute the
 
 1. **Environment Check**:
    - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, use `openspec.cmd` instead.
 2. **Initialize Project**:
    - Run `openspec init --no-animation --tools antigravity` in the project root to establish OpenSpec structure and configuration.
 3. **Overwrite Enhanced Skills & Workflows**:
@@ -167,6 +168,7 @@ When the Agent receives the `#codex` installation instruction, execute the follo
 
 1. **Environment Check**:
    - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, use `openspec.cmd` instead.
 2. **Initialize Project**:
    - Run `openspec init --no-animation --tools codex` in the project root to establish OpenSpec structure and configuration.
 3. **Overwrite Enhanced Skills**:
@@ -182,6 +184,7 @@ When the Agent receives the `#opencode` installation instruction, execute the fo
 
 1. **Environment Check**:
    - Run `openspec --version` to verify CLI installation. If missing, run `npm install -g openspec@latest`.
+   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, use `openspec.cmd` instead.
 2. **Initialize Project**:
    - Run `openspec init --no-animation --tools opencode` in the project root to establish OpenSpec structure and configuration.
 3. **Overwrite Enhanced Commands & Skills**:
@@ -239,7 +242,34 @@ When initializing, the Agent should create the following files under `openspec/`
      v
 ```
 
+### Complete Command Reference
+
+| Command | Description |
+| :--- | :--- |
+| `/opsx-status` | Quick overview of all active changes and next steps |
+| `/opsx-explore` | Think through problems before/during work |
+| `/opsx-grill` | Design tree questioning to sharpen decisions |
+| `/opsx-new` | Start a new change, step through artifacts one at a time |
+| `/opsx-continue` | Continue working on an existing change |
+| `/opsx-ff` | Fast-forward: create all artifacts at once |
+| `/opsx-propose` | Create a change and generate all artifacts |
+| `/opsx-update` | Revise existing planning artifacts and keep them consistent; no code edits |
+| `/opsx-apply` | Implement tasks from a change |
+| `/opsx-verify` | Verify implementation matches artifacts |
+| `/opsx-sync` | Sync delta specs from a change to main specs |
+| `/opsx-archive` | Archive a completed change |
+| `/opsx-bulk-archive` | Archive multiple completed changes at once |
+| `/opsx-onboard` | Guided onboarding through a complete workflow cycle |
+
 ---
+
+### Revising an Existing Plan
+
+Use `/opsx-update <change-name>` (or `$openspec-update-change` in Codex) when requirements change, grill/explore yields new decisions, or existing planning artifacts contradict one another. It proposes revisions to existing artifacts for user confirmation; it does not create missing artifacts or edit implementation code.
+
+Fork integration includes confirmed grill/explore decisions and terminology checks against project- and change-level `GLOSSARY.md`. It can propose edits to an existing change-level glossary and `VERIFY.md` when the revised plan affects terms or verification scope. Project-level files remain read-only; verification settings are additive, and checks run through `/opsx-verify`, not update. Missing extension files are reported as deferred setup rather than created automatically.
+
+Use `/opsx-continue` or `/opsx-ff` for missing artifacts, `/opsx-apply` to implement the revised plan, and `/opsx-sync` to merge delta specs into main specs. The terminal command `openspec update` separately refreshes generated skills and commands from the installed CLI.
 
 ## Directory Structure
 
@@ -259,6 +289,45 @@ openspec/
 │   └── auth/spec.md           # main specs
 ├── VERIFY.md                  # project-level
 └── GLOSSARY.md                # project-level (single source of truth)
+```
+
+---
+
+## Compatibility
+
+- **OpenSpec CLI**: Tested against version **1.8.0**. Minimum supported version may differ; check with `openspec --version`.
+- **Platforms**: macOS, Linux, Windows (use `openspec.cmd` on Windows if PowerShell execution policy blocks `.ps1` shims).
+
+---
+
+## Maintenance
+
+### Adding a New Workflow
+
+To add a new workflow command + skill pair:
+
+1. Create `commands/opsx-<action>.md` with the slash command content.
+2. Create `skills/openspec-<action>/SKILL.md` with matching content (adapted for skill format).
+3. Ensure both have consistent steps, guardrails, and output contracts.
+4. Add the command to both README.md and README.zh.md command reference tables.
+5. Run the consistency checks (see below) to verify one-to-one pairing (currently 14 commands and 14 skills).
+
+### Consistency Checks
+
+Run these read-only checks to verify project health:
+
+```bash
+# Verify every command has a matching skill and vice versa
+# (manual check or use a script to diff commands/ vs skills/ directory names)
+
+# Scan for inconsistent /opsx: references
+grep -r '/opsx:' commands/ skills/ README.md README.zh.md
+
+# Verify YAML frontmatter in all skills
+grep -l 'generatedBy' skills/*/SKILL.md
+
+# Check Markdown fence validity
+# (use a markdown linter or manual review)
 ```
 
 ---

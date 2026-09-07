@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Sync delta specs from a change to main specs.
@@ -48,8 +48,8 @@ This is an **agent-driven** operation - you will read delta specs and directly e
    c. **Apply changes intelligently**:
 
       **ADDED Requirements:**
-      - If requirement doesn't exist in main spec → add it
-      - If requirement already exists → update it to match (treat as implicit MODIFIED)
+      - If requirement doesn't exist in main spec ??add it
+      - If requirement already exists ??update it to match (treat as implicit MODIFIED)
 
       **MODIFIED Requirements:**
       - Find the requirement in main spec

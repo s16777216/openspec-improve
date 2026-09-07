@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Archive a completed change in the experimental workflow.
@@ -72,13 +72,13 @@ Archive a completed change in the experimental workflow.
    Check if `openspec/changes/<name>/GLOSSARY.md` exists.
 
    **If it exists:**
-   - If project-level `openspec/GLOSSARY.md` doesn't exist → create it from the change-level content as-is
+   - If project-level `openspec/GLOSSARY.md` doesn't exist ??create it from the change-level content as-is
    - Otherwise, merge each term from the change-level GLOSSARY:
-     - Term not present in project-level → append to the corresponding `## section`
-     - Term already present → overwrite with the change-level definition
-     - Terms only in project-level → keep unchanged
+     - Term not present in project-level ??append to the corresponding `## section`
+     - Term already present ??overwrite with the change-level definition
+     - Terms only in project-level ??keep unchanged
    - After merging, delete `openspec/changes/<name>/GLOSSARY.md`
-   - Note any overwrites in the summary, e.g. "overwrote Principal (was: 登入使用者)"
+   - Note any overwrites in the summary, e.g. "overwrote Principal (was: ?�入使用??"
 
    Create the archive directory if it doesn't exist:
    ```bash
@@ -113,10 +113,45 @@ Archive a completed change in the experimental workflow.
 **Change:** <change-name>
 **Schema:** <schema-name>
 **Archived to:** openspec/changes/archive/YYYY-MM-DD-<name>/
-**Specs:** ✓ Synced to main specs (or "No delta specs" or "Sync skipped")
-**Glossary:** ✓ Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
+**Specs:** ??Synced to main specs (or "No delta specs" or "Sync skipped")
+**Glossary:** ??Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
 
 All artifacts complete. All tasks complete.
+```
+
+**Output On Success With Warnings**
+
+```
+## Archive Complete (with warnings)
+
+**Change:** <change-name>
+**Schema:** <schema-name>
+**Archived to:** openspec/changes/archive/YYYY-MM-DD-<name>/
+**Specs:** Sync skipped (user chose to skip)
+**Glossary:** ??Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
+
+**Warnings:**
+- Archived with 2 incomplete artifacts
+- Archived with 3 incomplete tasks
+- Delta spec sync was skipped (user chose to skip)
+
+Review the archive if this was not intentional.
+```
+
+**Output On Error (Archive Exists)**
+
+```
+## Archive Failed
+
+**Change:** <change-name>
+**Target:** openspec/changes/archive/YYYY-MM-DD-<name>/
+
+Target archive directory already exists.
+
+**Options:**
+1. Rename the existing archive
+2. Delete the existing archive if it's a duplicate
+3. Wait until a different date to archive
 ```
 
 **Guardrails**

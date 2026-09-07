@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Continue working on a change by creating the next artifact.
@@ -72,8 +72,8 @@ Continue working on a change by creating the next artifact.
      - Check the conversation for **confirmed project-specific terms** (from a previous grill/explore "Terms to Record" output or confirmed during this session)
      - If any exist and are NOT already in project-level `openspec/GLOSSARY.md`, write them to `openspec/changes/<name>/GLOSSARY.md`:
        - Grouped by capability: `## <capability>`
-       - Format: `- **Term** — Definition. Aliases: alias1、alias2。`
-     - Only record terms confirmed with the user — never fabricate; skip if none
+       - Format: `- **Term** ??Definition. Aliases: alias1?�alias2?�`
+     - Only record terms confirmed with the user ??never fabricate; skip if none
    - Show what was created and what's now unlocked
    - STOP after creating ONE artifact
 
@@ -103,7 +103,18 @@ The artifact types and their purpose depend on the schema. Use the `instruction`
 
 Common artifact patterns:
 
-**spec-driven schema** (proposal → specs → design → tasks):
+**spec-driven schema** (proposal ??specs ??design ??tasks):
+- **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
+  - The Capabilities section is critical - each capability listed will need a spec file.
+- **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
+- **design.md**: Document technical decisions, architecture, and implementation approach.
+- **tasks.md**: Break down implementation into checkboxed tasks.
+
+For other schemas, follow the `instruction` field from the CLI output.
+
+Common artifact patterns:
+
+**spec-driven schema** (proposal ??specs ??design ??tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - each capability listed will need a spec file.
 - **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).

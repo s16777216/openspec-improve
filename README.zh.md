@@ -11,7 +11,7 @@
 | **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me          |
 | **自訂驗證**            | ❌ 不支援                           | **`VERIFY.md`** — 宣告式、具範圍感知       |
 | **專有名詞表**          | ❌ 不支援                           | **`GLOSSARY.md`** — 專案級 + change 級術語 |
-| **指令前綴**            | `/openspec-*`                      | `/opsx:*` (較短、命名空間友善)             |
+| **指令前綴**            | `/openspec-*`                      | `/opsx-*` (較短、命名空間友善)             |
 | **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性                  |
 
 
@@ -125,7 +125,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 專案級 `openspec/GLOSSARY.md` 是單一來源；change 級檔案是累加性補充。
 
 > **⚠️ 警告：`openspec init` 會覆蓋本 fork 的擴充。**
-> 官方 `openspec init` **不認識**本 fork 的擴充（GLOSSARY、VERIFY、`/opsx:*`）。執行它會把 `commands/` 與 `skills/` 重寫回官方版本，導致 GLOSSARY/VERIFY 整合被清空。
+> 官方 `openspec init` **不認識**本 fork 的擴充（GLOSSARY、VERIFY、`/opsx-*`）。執行它會把 `commands/` 與 `skills/` 重寫回官方版本，導致 GLOSSARY/VERIFY 整合被清空。
 > **若你曾執行 `openspec init`，請立即還原：**
 > ```bash
 > git checkout -- commands/ skills/
@@ -152,6 +152,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 1. **環境檢查**：
    - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
 2. **初始化專案**：
    - 在專案根目錄執行 `openspec init --no-animation --tools antigravity` 建立 OpenSpec 基礎結構與配置。
 3. **覆蓋增強版技能與模板**：
@@ -168,6 +169,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 1. **環境檢查**：
    - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
 2. **初始化專案**：
    - 在專案根目錄執行 `openspec init --no-animation --tools codex` 建立 OpenSpec 基礎結構與配置。
 3. **覆蓋增強版技能與模板**：
@@ -183,6 +185,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 1. **環境檢查**：
    - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
+   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
 2. **初始化專案**：
    - 在專案根目錄執行 `openspec init --no-animation --tools opencode` 建立 OpenSpec 基礎結構與配置。
 3. **覆蓋增強版技能與模板**：
@@ -240,7 +243,34 @@ Agent 進行初始化時，應在專案 `openspec/` 目錄建立以下範本（�
      v
 ```
 
+### 完整指令參考
+
+| 指令 | 說明 |
+| :--- | :--- |
+| `/opsx-status` | 快速總覽所有進行中提案與下一步建議 |
+| `/opsx-explore` | 工作前/中思考問題 |
+| `/opsx-grill` | 設計樹問答，收斂決策 |
+| `/opsx-new` | 建立新提案，逐步產出工件 |
+| `/opsx-continue` | 繼續既有提案的下一個工件 |
+| `/opsx-ff` | 快轉：一次產出所有工件 |
+| `/opsx-propose` | 建立提案並一次產出所有工件 |
+| `/opsx-update` | 修訂既有規劃工件並保持一致，不修改程式碼 |
+| `/opsx-apply` | 根據提案實作任務 |
+| `/opsx-verify` | 驗證實作是否符合工件 |
+| `/opsx-sync` | 將 delta specs 同步至主規格 |
+| `/opsx-archive` | 歸檔已完成的提案 |
+| `/opsx-bulk-archive` | 一次歸檔多個已完成的提案 |
+| `/opsx-onboard` | 引導式入門，完整工作流程週期 |
+
 ---
+
+### 修訂既有規劃
+
+當需求改變、grill/explore 得出新決策，或既有規劃工件彼此矛盾時，使用 `/opsx-update <change-name>`（Codex 使用 `$openspec-update-change`）。它會提出既有工件的修訂，經使用者確認後寫入；不建立缺少的工件，也不修改實作程式碼。
+
+本 fork 的連動包括帶入已確認的 grill/explore 決策，並依專案級與 change 級 `GLOSSARY.md` 檢查用詞。當規劃修訂影響術語或驗證範圍時，可提出既有 change 級術語表與 `VERIFY.md` 的修訂。專案級檔案保持唯讀；驗證設定採累加方式，實際檢查交給 `/opsx-verify`。缺少的擴充檔案會列為待設定項目，不自動建立。
+
+缺少的工件交給 `/opsx-continue` 或 `/opsx-ff`，修訂後的實作交給 `/opsx-apply`，將 delta specs 整合進主規格則使用 `/opsx-sync`。終端機的 `openspec update` 是另一個用途：依已安裝的 CLI 重新產生 skills 與 commands。
 
 ## 目錄結構
 
@@ -260,6 +290,45 @@ openspec/
 │   └── auth/spec.md           # 主規格
 ├── VERIFY.md                  # 專案級
 └── GLOSSARY.md                # 專案級（單一來源）
+```
+
+---
+
+## 相容性
+
+- **OpenSpec CLI**：已針對 **1.8.0** 版本測試。最低支援版本可能不同，請以 `openspec --version` 確認。
+- **平台**：macOS、Linux、Windows（Windows 上若 PowerShell 執行政策阻擋 `.ps1` shim，請改用 `openspec.cmd`）。
+
+---
+
+## 維護指南
+
+### 新增工作流程
+
+新增一組工作流程指令 + skill 的步驟：
+
+1. 建立 `commands/opsx-<action>.md`，寫入 slash command 內容。
+2. 建立 `skills/openspec-<action>/SKILL.md`，寫入匹配的內容（適配 skill 格式）。
+3. 確保兩者的步驟、保護條件和輸出契約一致。
+4. 在 README.md 與 README.zh.md 的指令參考表中加入新指令。
+5. 執行下方一致性檢查，確認一對一配對正確（目前為 14 個 command 與 14 個 skill）。
+
+### 一致性檢查
+
+執行以下唯讀檢查以驗證專案健康狀態：
+
+```bash
+# 確認每個 command 都有對應的 skill，反之亦然
+# （手動檢查或使用腳本比對 commands/ 與 skills/ 目錄名稱）
+
+# 掃描不一致的 /opsx: 引用
+grep -r '/opsx:' commands/ skills/ README.md README.zh.md
+
+# 驗證所有 skill 的 YAML frontmatter
+grep -l 'generatedBy' skills/*/SKILL.md
+
+# 檢查 Markdown fence 合法性
+# （使用 markdown linter 或手動檢查）
 ```
 
 ---

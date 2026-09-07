@@ -6,6 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
+  generatedBy: "1.8.0"
 ---
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
@@ -29,7 +30,7 @@ openspec list --json
 ```
 
 Also check for a glossary:
-- `openspec/GLOSSARY.md` — project-level terms (read it if present; these terms shape the conversation)
+- `openspec/GLOSSARY.md` ??project-level terms (read it if present; these terms shape the conversation)
 
 This tells you:
 - If there are active changes
@@ -69,7 +70,7 @@ If the user mentions a change or you detect one is relevant:
    - "That's a design decision. Capture it in design.md?"
    - "This is a new requirement. Add it to specs?"
    - "This changes scope. Update the proposal?"
-   - "You keep using 'principal' — should we record that term in GLOSSARY.md?"
+   - "You keep using 'principal' ??should we record that term in GLOSSARY.md?"
 
 4. **The user decides** - Offer and move on. Don't pressure. Don't auto-capture.
 
@@ -82,35 +83,35 @@ If the user mentions a change or you detect one is relevant:
 Every decision branches into the decisions that hang off it. Map this visually:
 
 ```
-                    ┌─────────────────┐
-                    │  Main Decision  │
-                    │  "Build X?"     │
-                    └────────┬────────┘
-                             │
-              ┌──────────────┼──────────────┐
-              ▼              ▼              ▼
-        ┌──────────┐   ┌──────────┐   ┌──────────┐
-        │ Sub Q1   │   │ Sub Q2   │   │ Sub Q3   │
-        │ "How?"   │   │ "When?"  │   │ "Who?"   │
-        └──────────┘   └──────────┘   └──────────┘
-              │
-        ┌─────┴─────┐
-        ▼           ▼
-   ┌─────────┐ ┌─────────┐
-   │ Leaf Q1 │ │ Leaf Q2 │
-   └─────────┘ └─────────┘
+                    ?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??
+                    ?? Main Decision  ??
+                    ?? "Build X?"     ??
+                    ?��??�?�?�?�?�?�?�?��??�?�?�?�?�?�?�??
+                             ??
+              ?��??�?�?�?�?�?�?�?�?�?�?�?�?�?��??�?�?�?�?�?�?�?�?�?�?�?�?�??
+              ??             ??             ??
+        ?��??�?�?�?�?�?�?�?�?�??  ?��??�?�?�?�?�?�?�?�?�??  ?��??�?�?�?�?�?�?�?�?�??
+        ??Sub Q1   ??  ??Sub Q2   ??  ??Sub Q3   ??
+        ??"How?"   ??  ??"When?"  ??  ??"Who?"   ??
+        ?��??�?�?�?�?�?�?�?�?�??  ?��??�?�?�?�?�?�?�?�?�??  ?��??�?�?�?�?�?�?�?�?�??
+              ??
+        ?��??�?�?�?�?��??�?�?�?�??
+        ??          ??
+   ?��??�?�?�?�?�?�?�?�???��??�?�?�?�?�?�?�?�??
+   ??Leaf Q1 ????Leaf Q2 ??
+   ?��??�?�?�?�?�?�?�?�???��??�?�?�?�?�?�?�?�??
 ```
 
 ### The Frontier
 
-The **frontier** is every decision whose prerequisites are already settled — the questions you can ask _now_ without guessing at answers you haven't heard yet.
+The **frontier** is every decision whose prerequisites are already settled ??the questions you can ask _now_ without guessing at answers you haven't heard yet.
 
 Ask the **whole frontier in one round**: number each question and give your recommended answer. Then wait for the user's answers before the next round.
 
 ```
 Round 1 Frontier:
-  Q1: [question]  →  recommended: [answer]
-  Q2: [question]  →  recommended: [answer]
+  Q1: [question]  ?? recommended: [answer]
+  Q2: [question]  ?? recommended: [answer]
 
   (Q3 depends on Q1, so it waits)
 ```
@@ -118,8 +119,8 @@ Round 1 Frontier:
 After user answers:
 ```
 Round 2 Frontier (Q1 settled, Q3 unlocked):
-  Q3: [question]  →  recommended: [answer]
-  Q4: [question]  →  recommended: [answer]
+  Q3: [question]  ?? recommended: [answer]
+  Q4: [question]  ?? recommended: [answer]
 ```
 
 ### Finding Facts
@@ -133,21 +134,21 @@ But don't block on it: a running exploration is an unsettled prerequisite. Only 
 Use ASCII diagrams liberally when they help clarify thinking:
 
 ```
-┌─────────────────────────────────────────┐
-│           DECISION LANDSCAPE            │
-├─────────────────────────────────────────┤
-│                                         │
-│   ┌─────────┐       ┌─────────┐        │
-│   │ Option A│◄─────►│ Option B│        │
-│   └────┬────┘       └────┬────┘        │
-│        │                 │              │
-│        ▼                 ▼              │
-│   ┌─────────┐       ┌─────────┐        │
-│   │ Cost: $ │       │ Cost: $$│        │
-│   │ Time: 2w│       │ Time: 1w│        │
-│   └─────────┘       └─────────┘        │
-│                                         │
-└─────────────────────────────────────────┘
+?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??
+??          DECISION LANDSCAPE            ??
+?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??
+??                                        ??
+??  ?��??�?�?�?�?�?�?�?�??      ?��??�?�?�?�?�?�?�?�??       ??
+??  ??Option A?��??�?�?�?�?�?��? Option B??       ??
+??  ?��??�?�?�?��??�?�?�??      ?��??�?�?�?��??�?�?�??       ??
+??       ??                ??             ??
+??       ??                ??             ??
+??  ?��??�?�?�?�?�?�?�?�??      ?��??�?�?�?�?�?�?�?�??       ??
+??  ??Cost: $ ??      ??Cost: $$??       ??
+??  ??Time: 2w??      ??Time: 1w??       ??
+??  ?��??�?�?�?�?�?�?�?�??      ?��??�?�?�?�?�?�?�?�??       ??
+??                                        ??
+?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??
 ```
 
 ---
@@ -157,42 +158,42 @@ Use ASCII diagrams liberally when they help clarify thinking:
 Each question should be formatted like so:
 
 ```
-❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+??**Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
 
-➡️ <your recommended answer>
+?��? <your recommended answer>
 ```
 
 ---
 
 ## Detecting & Handing Off Terms (Glossary)
 
-Throughout the conversation, maintain an internal list of **detected project-specific terms** — jargon, abbreviations, domain-specific vocabulary that you notice the user using.
+Throughout the conversation, maintain an internal list of **detected project-specific terms** ??jargon, abbreviations, domain-specific vocabulary that you notice the user using.
 
 ### Detection Rules
 
-- **Explicit definitions**: User says "we call X...", "X means Y", "X stands for..." → X is a term
-- **Capitalized proper nouns**: Repeated use of capitalized words that aren't common English → potential terms
-- **Abbreviations**: User introduces an abbreviation (e.g., "sess for session") → abbreviation is a term
-- **Domain-specific words**: Words that would confuse an outsider → potential terms
+- **Explicit definitions**: User says "we call X...", "X means Y", "X stands for..." ??X is a term
+- **Capitalized proper nouns**: Repeated use of capitalized words that aren't common English ??potential terms
+- **Abbreviations**: User introduces an abbreviation (e.g., "sess for session") ??abbreviation is a term
+- **Domain-specific words**: Words that would confuse an outsider ??potential terms
 
 ### Handoff to Propose (no file writes)
 
-Grill is a thinking phase — it never writes files. When the frontier is empty (before the final summary):
+Grill is a thinking phase ??it never writes files. When the frontier is empty (before the final summary):
 
 1. **List detected terms**: Present a draft list of all detected terms
 2. **Ask for each term**: Confirm definition + aliases
 3. **User decides**: Only confirmed terms pass through to the summary
-4. **Include in the final summary** as **Terms to Record** — `/opsx-propose` (or `/opsx-continue`) writes them to change-level `GLOSSARY.md`
+4. **Include in the final summary** as **Terms to Record** ??`/opsx-propose` (or `/opsx-continue`) writes them to change-level `GLOSSARY.md`
 
 **Format** (as recorded by propose):
 ```
-- **Term** — Definition. Aliases: alias1、alias2。
+- **Term** ??Definition. Aliases: alias1?�alias2??
 ```
 
 **Guardrails**:
-- Never auto-capture terms — always confirm with user
+- Never auto-capture terms ??always confirm with user
 - Don't ask for terms that are obvious common English
-- Never write to any file — GLOSSARY writing happens at propose/continue time
+- Never write to any file ??GLOSSARY writing happens at propose/continue time
 - If no terms detected, skip this section entirely
 
 ---
@@ -205,7 +206,7 @@ The session is done when the frontier is empty: every branch of the design tree 
 
 When the frontier is empty:
 
-1. **Process detected terms** (if any) — list, confirm with user, then carry confirmed terms into the summary as **Terms to Record** (see ## Detecting & Handing Off Terms). Do NOT write to any file — GLOSSARY.md is written by `/opsx-propose` or `/opsx-continue`.
+1. **Process detected terms** (if any) ??list, confirm with user, then carry confirmed terms into the summary as **Terms to Record** (see ## Detecting & Handing Off Terms). Do NOT write to any file ??GLOSSARY.md is written by `/opsx-propose` or `/opsx-continue`.
 
 2. **Then summarize:**
 
@@ -220,7 +221,7 @@ When the frontier is empty:
 - ...
 
 **Terms to Record** (for /opsx-propose):
-- **Term** — Definition. Aliases: alias1、alias2。
+- **Term** ??Definition. Aliases: alias1?�alias2??
 - ...
 
 **Open Questions**: [if any remain]

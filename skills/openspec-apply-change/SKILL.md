@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Implement tasks from an OpenSpec change.
@@ -45,7 +45,7 @@ Implement tasks from an OpenSpec change.
    - Dynamic instruction based on current state
 
    **Handle states:**
-   - If `state: "blocked"` (missing artifacts): show message, suggest using openspec-continue-change
+   - If `state: "blocked"` (missing artifacts): show message, suggest using `/opsx-continue`
    - If `state: "all_done"`: congratulate, suggest archive
    - Otherwise: proceed to implementation
 
@@ -56,7 +56,7 @@ Implement tasks from an OpenSpec change.
    - **spec-driven**: proposal, specs, design, tasks
    - Other schemas: follow the contextFiles from CLI output
 
-   Also read the glossaries if present — specs may reference terms defined there:
+   Also read the glossaries if present ??specs may reference terms defined there:
    - `openspec/GLOSSARY.md` (project-level terms, if exists)
    - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
 
@@ -74,13 +74,13 @@ Implement tasks from an OpenSpec change.
    - Show which task is being worked on
    - Make the code changes required
    - Keep changes minimal and focused
-   - Mark task complete in the tasks file: `- [ ]` → `- [x]`
+   - Mark task complete in the tasks file: `- [ ]` ??`- [x]`
    - Continue to next task
 
    **Pause if:**
-   - Task is unclear → ask for clarification
-   - Implementation reveals a design issue → suggest updating artifacts
-   - Error or blocker encountered → report and wait for guidance
+   - Task is unclear ??ask for clarification
+   - Implementation reveals a design issue ??suggest updating artifacts
+   - Error or blocker encountered ??report and wait for guidance
    - User interrupts
 
 7. **On completion or pause, show status**
@@ -98,11 +98,11 @@ Implement tasks from an OpenSpec change.
 
 Working on task 3/7: <task description>
 [...implementation happening...]
-✓ Task complete
+??Task complete
 
 Working on task 4/7: <task description>
 [...implementation happening...]
-✓ Task complete
+??Task complete
 ```
 
 **Output On Completion**
@@ -112,7 +112,7 @@ Working on task 4/7: <task description>
 
 **Change:** <change-name>
 **Schema:** <schema-name>
-**Progress:** 7/7 tasks complete ✓
+**Progress:** 7/7 tasks complete ??
 
 ### Completed This Session
 - [x] Task 1

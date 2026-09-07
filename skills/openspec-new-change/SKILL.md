@@ -6,7 +6,7 @@ compatibility: Requires openspec CLI.
 metadata:
   author: openspec
   version: "1.0"
-  generatedBy: "1.3.1"
+  generatedBy: "1.8.0"
 ---
 
 Start a new change using the experimental artifact-driven approach.
@@ -20,7 +20,7 @@ Start a new change using the experimental artifact-driven approach.
    Use the **AskUserQuestion tool** (open-ended, no preset options) to ask:
    > "What change do you want to work on? Describe what you want to build or fix."
 
-   From their description, derive a kebab-case name (e.g., "add user authentication" → `add-user-auth`).
+   From their description, derive a kebab-case name (e.g., "add user authentication" ??`add-user-auth`).
 
    **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
 
@@ -29,8 +29,8 @@ Start a new change using the experimental artifact-driven approach.
    Use the default schema (omit `--schema`) unless the user explicitly requests a different workflow.
 
    **Use a different schema only if the user mentions:**
-   - A specific schema name → use `--schema <name>`
-   - "show workflows" or "what workflows" → run `openspec schemas --json` and let them choose
+   - A specific schema name ??use `--schema <name>`
+   - "show workflows" or "what workflows" ??run `openspec schemas --json` and let them choose
 
    **Otherwise**: Omit `--schema` to use the default.
 
@@ -48,8 +48,7 @@ Start a new change using the experimental artifact-driven approach.
    This shows which artifacts need to be created and which are ready (dependencies satisfied).
 
 5. **Get instructions for the first artifact**
-   The first artifact depends on the schema (e.g., `proposal` for spec-driven).
-   Check the status output to find the first artifact with status "ready".
+   The first artifact depends on the schema. Check the status output to find the first artifact with status "ready".
    ```bash
    openspec instructions <first-artifact-id> --change "<name>"
    ```
@@ -65,7 +64,7 @@ After completing the steps, summarize:
 - Current status (0/N artifacts complete)
 - The template for the first artifact
 - Prompt: "Ready to create the first artifact? Just describe what this change is about and I'll draft it, or ask me to continue."
-- Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
+- Tip: Mention that custom verification is available via `openspec/VERIFY.md` ??it defines per-repo checks that run during `/opsx-verify`.
 
 **Guardrails**
 - Do NOT create any artifacts yet - just show the instructions
