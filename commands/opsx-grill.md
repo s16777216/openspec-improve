@@ -99,7 +99,7 @@ Every decision branches into the decisions that hang off it. Map this visually:
 
 The **frontier** is every decision whose prerequisites are already settled — the questions you can ask _now_ without guessing at answers you haven't heard yet.
 
-Ask the **whole frontier in one round**: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+Resolve the **whole current frontier before advancing** to dependent questions. Present independent frontier questions according to the limits and interaction model of the available question tool. Every question must include your recommended answer.
 
 ```
 Round 1 Frontier:
@@ -115,6 +115,30 @@ Round 2 Frontier (Q1 settled, Q3 unlocked):
   Q3: [question]  →  recommended: [answer]
   Q4: [question]  →  recommended: [answer]
 ```
+
+### Structured Question Tools
+
+Use only a question tool that is actually available in the current environment. Never invent a tool call or assume that a named tool exists.
+
+- **Codex — `request_user_input`**:
+  - Use it for bounded decisions with 2–3 mutually exclusive choices.
+  - Submit 1–3 independent frontier questions per call.
+  - Give each question a concise header and stable `snake_case` ID.
+  - Put the recommended option first and suffix its label with `(Recommended)`.
+  - Use plain text when the answer needs substantial explanation or cannot be represented honestly by a short option list.
+- **OpenCode — `question`**:
+  - Use its question header, text, and options for bounded decisions.
+  - Independent frontier questions may be submitted together when supported.
+  - Put the recommended option first and allow the user to provide a custom answer.
+- **Antigravity — `ask_question`**:
+  - Ask one frontier question at a time.
+  - Preselect or clearly identify the recommended answer.
+  - Recompute the frontier after every answer before asking the next question.
+- **Plain-text fallback**:
+  - Use numbered questions when no structured question tool is available.
+  - Open-ended or long-form questions should remain plain text even when a structured tool exists.
+
+If a structured tool returns no answer, leave that decision unresolved, continue with any other independent frontier questions, and do not open branches that depend on it. Do not repeat a question in plain text after the tool has already collected its answer.
 
 ### Finding Facts
 
@@ -148,7 +172,7 @@ Use ASCII diagrams liberally when they help clarify thinking:
 
 ## Round Format
 
-Each question should be formatted like so:
+Prefer the structured question tool described above. When using the plain-text fallback, format each question like so:
 
 ```
 ❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
