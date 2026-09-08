@@ -9,7 +9,7 @@ metadata:
   generatedBy: "1.8.0"
 ---
 
-Guide the user through their first complete OpenSpec workflow cycle. This is a teaching experience?”you'll do real work in their codebase while explaining each step.
+Guide the user through their first complete OpenSpec workflow cycle. This is a teaching experienceâ€”you'll do real work in their codebase while explaining each step.
 
 ---
 
@@ -38,13 +38,13 @@ Display:
 ```
 ## Welcome to OpenSpec!
 
-I'll walk you through a complete change cycle?”from idea to implementation?”using a real task in your codebase. Along the way, you'll learn the workflow by doing it.
+I'll walk you through a complete change cycleâ€”from idea to implementationâ€”using a real task in your codebase. Along the way, you'll learn the workflow by doing it.
 
 **What we'll do:**
 1. Pick a small, real task in your codebase
 2. Explore the problem briefly
 3. Create a change (the container for our work)
-4. Build the artifacts: proposal ??specs ??design ??tasks
+4. Build the artifacts: proposal â†’ specs â†’ design â†’ tasks
 5. Implement the tasks
 6. Archive the completed change
 
@@ -116,7 +116,7 @@ If the user picks or describes something too large (major feature, multi-day wor
 ```
 That's a valuable task, but it's probably larger than ideal for your first OpenSpec run-through.
 
-For learning the workflow, smaller is better?”it lets you see the full cycle without getting stuck in implementation details.
+For learning the workflow, smaller is betterâ€”it lets you see the full cycle without getting stuck in implementation details.
 
 **Options:**
 1. **Slice it smaller** - What's the smallest useful piece of [their task]? Maybe just [specific slice]?
@@ -126,7 +126,7 @@ For learning the workflow, smaller is better?”it lets you see the full cycle wit
 What would you prefer?
 ```
 
-Let the user override if they insist?”this is a soft guardrail.
+Let the user override if they insistâ€”this is a soft guardrail.
 
 ---
 
@@ -135,7 +135,7 @@ Let the user override if they insist?”this is a soft guardrail.
 Once a task is selected, briefly demonstrate explore mode:
 
 ```
-Before we create a change, let me quickly show you **explore mode**?”it's how you think through problems before committing to a direction.
+Before we create a change, let me quickly show you **explore mode**â€”it's how you think through problems before committing to a direction.
 ```
 
 Spend 1-2 minutes investigating the relevant code:
@@ -146,13 +146,13 @@ Spend 1-2 minutes investigating the relevant code:
 ```
 ## Quick Exploration
 
-[Your brief analysis?”what you found, any considerations]
+[Your brief analysisâ€”what you found, any considerations]
 
-?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-??  [Optional: ASCII diagram if helpful]  ??
-?”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚   [Optional: ASCII diagram if helpful]  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
-Explore mode (`/opsx-explore`) is for this kind of thinking?”investigating before implementing. You can use it anytime you need to think through a problem.
+Explore mode (`/opsx-explore`) is for this kind of thinkingâ€”investigating before implementing. You can use it anytime you need to think through a problem.
 
 Now let's create a change to hold our work.
 ```
@@ -167,7 +167,7 @@ Now let's create a change to hold our work.
 ```
 ## Creating a Change
 
-A "change" in OpenSpec is a container for all the thinking and planning around a piece of work. It lives in `openspec/changes/<name>/` and holds your artifacts?”proposal, specs, design, tasks.
+A "change" in OpenSpec is a container for all the thinking and planning around a piece of work. It lives in `openspec/changes/<name>/` and holds your artifactsâ€”proposal, specs, design, tasks.
 
 Let me create one for our task.
 ```
@@ -184,13 +184,13 @@ Created: `openspec/changes/<name>/`
 The folder structure:
 ```
 openspec/changes/<name>/
-?œâ??€ proposal.md    ??Why we're doing this (empty, we'll fill it)
-?œâ??€ design.md      ??How we'll build it (empty)
-?œâ??€ specs/         ??Detailed requirements (empty)
-?”â??€ tasks.md       ??Implementation checklist (empty)
+â”œâ”€â”€ proposal.md    â† Why we're doing this (empty, we'll fill it)
+â”œâ”€â”€ design.md      â† How we'll build it (empty)
+â”œâ”€â”€ specs/         â† Detailed requirements (empty)
+â””â”€â”€ tasks.md       â† Implementation checklist (empty)
 ```
 
-Now let's fill in the first artifact?”the proposal.
+Now let's fill in the first artifactâ€”the proposal.
 ```
 
 ---
@@ -248,7 +248,7 @@ openspec instructions proposal --change "<name>" --json
 Then write the content to `openspec/changes/<name>/proposal.md`.
 
 ```
-Proposal saved. This is your "why" document?”you can always come back and refine it as understanding evolves.
+Proposal saved. This is your "why" documentâ€”you can always come back and refine it as understanding evolves.
 
 Next up: specs.
 ```
@@ -295,7 +295,7 @@ Here's the spec:
 
 ---
 
-This format?”WHEN/THEN/AND?”makes requirements testable. You can literally read them as test cases.
+This formatâ€”WHEN/THEN/ANDâ€”makes requirements testable. You can literally read them as test cases.
 ```
 
 Save to `openspec/changes/<name>/specs/<capability>/spec.md`.
@@ -308,9 +308,9 @@ Save to `openspec/changes/<name>/specs/<capability>/spec.md`.
 ```
 ## Design
 
-The design captures **how** we'll build it?”technical decisions, tradeoffs, approach.
+The design captures **how** we'll build itâ€”technical decisions, tradeoffs, approach.
 
-For small changes, this might be brief. That's fine?”not every change needs deep design discussion.
+For small changes, this might be brief. That's fineâ€”not every change needs deep design discussion.
 ```
 
 **DO:** Draft design.md:
@@ -353,7 +353,7 @@ Save to `openspec/changes/<name>/design.md`.
 ```
 ## Tasks
 
-Finally, we break the work into implementation tasks?”checkboxes that drive the apply phase.
+Finally, we break the work into implementation tasksâ€”checkboxes that drive the apply phase.
 
 These should be small, clear, and in logical order.
 ```
@@ -399,10 +399,10 @@ Now we implement each task, checking them off as we go. I'll announce each one a
 1. Announce: "Working on task N: [description]"
 2. Implement the change in the codebase
 3. Reference specs/design naturally: "The spec says X, so I'm doing Y"
-4. Mark complete in tasks.md: `- [ ]` ??`- [x]`
-5. Brief status: "??Task N complete"
+4. Mark complete in tasks.md: `- [ ]` â†’ `- [x]`
+5. Brief status: "âœ“ Task N complete"
 
-Keep narration light?”don't over-explain every line of code.
+Keep narration lightâ€”don't over-explain every line of code.
 
 After all tasks:
 
@@ -414,7 +414,7 @@ All tasks done:
 - [x] Task 2
 - [x] ...
 
-The change is implemented! One more step?”let's archive it.
+The change is implemented! One more stepâ€”let's archive it.
 ```
 
 ---
@@ -427,7 +427,7 @@ The change is implemented! One more step?”let's archive it.
 
 When a change is complete, we archive it. This moves it from `openspec/changes/` to `openspec/changes/archive/YYYY-MM-DD-<name>/`.
 
-Archived changes become your project's decision history?”you can always find them later to understand why something was built a certain way.
+Archived changes become your project's decision historyâ€”you can always find them later to understand why something was built a certain way.
 ```
 
 **DO:**
@@ -460,7 +460,7 @@ You just completed a full OpenSpec cycle:
 7. **Apply** - Implemented the work
 8. **Archive** - Preserved the record
 
-This same rhythm works for any size change?”a small fix or a major feature.
+This same rhythm works for any size changeâ€”a small fix or a major feature.
 
 ---
 
@@ -545,10 +545,10 @@ Exit gracefully.
 
 ## Guardrails
 
-- **Follow the EXPLAIN ??DO ??SHOW ??PAUSE pattern** at key transitions (after explore, after proposal draft, after tasks, after archive)
-- **Keep narration light** during implementation?”teach without lecturing
-- **Don't skip phases** even if the change is small?”the goal is teaching the workflow
+- **Follow the EXPLAIN â†’ DO â†’ SHOW â†’ PAUSE pattern** at key transitions (after explore, after proposal draft, after tasks, after archive)
+- **Keep narration light** during implementationâ€”teach without lecturing
+- **Don't skip phases** even if the change is smallâ€”the goal is teaching the workflow
 - **Pause for acknowledgment** at marked points, but don't over-pause
-- **Handle exits gracefully**?”never pressure the user to continue
-- **Use real codebase tasks**?”don't simulate or use fake examples
-- **Adjust scope gently**?”guide toward smaller tasks but respect user choice
+- **Handle exits gracefully**â€”never pressure the user to continue
+- **Use real codebase tasks**â€”don't simulate or use fake examples
+- **Adjust scope gently**â€”guide toward smaller tasks but respect user choice

@@ -127,13 +127,13 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
 
    b. **Merge GLOSSARY (if present)** for each change, in the determined order:
       - Check if `openspec/changes/<name>/GLOSSARY.md` exists
-      - If project-level `openspec/GLOSSARY.md` doesn't exist ??create it from the change-level content as-is
+      - If project-level `openspec/GLOSSARY.md` doesn't exist → create it from the change-level content as-is
       - Otherwise, merge each term from each change-level GLOSSARY (in the archival order):
-        - Term not present in project-level ??append to the corresponding `## section`
-        - Term already present ??overwrite with the change-level definition (later changes win)
-        - Terms only in project-level ??keep unchanged
+        - Term not present in project-level → append to the corresponding `## section`
+        - Term already present → overwrite with the change-level definition (later changes win)
+        - Terms only in project-level → keep unchanged
       - After merging, delete each `openspec/changes/<name>/GLOSSARY.md`
-      - Note any overwrites in the summary (e.g. "overwrote Principal (was: ?�入使用??")
+      - Note any overwrites in the summary (e.g. "overwrote Principal (was: 登入使用者)")
 
    c. **Perform the archive**:
       ```bash

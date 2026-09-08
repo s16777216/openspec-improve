@@ -11,7 +11,7 @@ metadata:
 
 Verify that an implementation matches the change artifacts (specs, tasks, design).
 
-**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after `/opsx-verify` (e.g., `/opsx-verify add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -41,7 +41,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 
    This returns the change directory and `contextFiles` (artifact ID -> array of concrete file paths). Read all available artifacts from `contextFiles`.
 
-   Also read the glossaries if present ??delta specs may reference terms defined there:
+   Also read the glossaries if present — delta specs may reference terms defined there:
    - `openspec/GLOSSARY.md` (project-level terms, if exists)
    - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
 
@@ -113,16 +113,16 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 
 8. **Execute Custom Verification from VERIFY.md (if any)**
 
-   After the built-in three-dimension checks, look for and execute user-defined verification via `VERIFY.md`. This is a **supplement** ??built-in checks always run first, custom verification adds domain-specific validation on top.
+   After the built-in three-dimension checks, look for and execute user-defined verification via `VERIFY.md`. This is a **supplement** — built-in checks always run first, custom verification adds domain-specific validation on top.
 
    **Detection**:
 
    Check for VERIFY.md in this order:
 
-   a. **Project-level** ??`openspec/VERIFY.md`
-   b. **Change-level** ??`openspec/changes/<name>/VERIFY.md`
+   a. **Project-level** — `openspec/VERIFY.md`
+   b. **Change-level** — `openspec/changes/<name>/VERIFY.md`
 
-   Both are read if present. Change-level **appends** to project-level ??it does not replace.
+   Both are read if present. Change-level **appends** to project-level — it does not replace.
 
    **VERIFY.md Format**:
 
@@ -131,7 +131,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
    ```markdown
    # Verification
 
-   ## PIC_?��?管�?系統
+   ## PIC_圖資管理系統
 
    ```bash
    npm run lint
@@ -206,8 +206,8 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
    ```
    ### Custom Verification
 
-   #### PIC_?��?管�?系統
-   [Agent's interpretation ??which commands ran, which passed/failed]
+   #### PIC_圖資管理系統
+   [Agent's interpretation — which commands ran, which passed/failed]
 
    <details>
    <summary>Command Output</summary>
@@ -218,7 +218,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 
    </details>
 
-   #### shared-lib (Skipped ??not in change scope)
+   #### shared-lib (Skipped — not in change scope)
 
    #### web-frontend
    [Only if in scope and present in VERIFY.md]
@@ -262,7 +262,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 - **Completeness**: Focus on objective checklist items (checkboxes, requirements list)
 - **Correctness**: Use keyword search, file path analysis, reasonable inference - don't require perfect certainty
 - **Coherence**: Look for glaring inconsistencies, don't nitpick style
-- **Custom Verification**: Interpret command output holistically ??look for error messages, failure counts, tool-specific output (e.g., eslint, tsc, pytest). When the output is ambiguous, prefer WARNING over CRITICAL. When uncertain whether a line is an error or a warning, check context (exit code, surrounding lines). Skipped sections (not in change scope) should not count against the verification result.
+- **Custom Verification**: Interpret command output holistically — look for error messages, failure counts, tool-specific output (e.g., eslint, tsc, pytest). When the output is ambiguous, prefer WARNING over CRITICAL. When uncertain whether a line is an error or a warning, check context (exit code, surrounding lines). Skipped sections (not in change scope) should not count against the verification result.
 - **False Positives**: When uncertain, prefer SUGGESTION over WARNING, WARNING over CRITICAL
 - **Actionability**: Every issue must have a specific recommendation with file/line references where applicable
 
@@ -271,7 +271,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 - If only tasks.md exists: verify task completion only, skip spec/design checks
 - If tasks + specs exist: verify completeness and correctness, skip design
 - If full artifacts: verify all three dimensions
-- Custom verification via VERIFY.md is always checked regardless of artifact availability ??it may validate things outside the artifact system (lint, typecheck, security scans, etc.)
+- Custom verification via VERIFY.md is always checked regardless of artifact availability — it may validate things outside the artifact system (lint, typecheck, security scans, etc.)
 - If a command fails to execute (syntax error, missing dependency), report it as a WARNING with the error output, not as a verification check failure
 - Always note which built-in checks were skipped and why
 

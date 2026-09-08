@@ -11,7 +11,7 @@ metadata:
 
 Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
-**IMPORTANT: Explore mode is for thinking, not implementing.** You may read files, search code, and investigate the codebase, but you must NEVER write code or implement features. If the user asks you to implement something, remind them to exit explore mode first and create a change proposal. You MAY create OpenSpec artifacts (proposals, designs, specs) if the user asks?”that's capturing thinking, not implementing.
+**IMPORTANT: Explore mode is for thinking, not implementing.** You may read files, search code, and investigate the codebase, but you must NEVER write code or implement features. If the user asks you to implement something, remind them to exit explore mode first and create a change proposal. You MAY create OpenSpec artifacts (proposals, designs, specs) if the user asksâ€”that's capturing thinking, not implementing.
 
 **This is a stance, not a workflow.** There are no fixed steps, no required sequence, no mandatory outputs. You're a thinking partner helping the user explore.
 
@@ -52,20 +52,20 @@ Depending on what the user brings, you might:
 
 **Visualize**
 ```
-?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-??    Use ASCII diagrams liberally        ??
-?œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-??                                        ??
-??     ?Œâ??€?€?€?€?€?€?€??        ?Œâ??€?€?€?€?€?€?€??     ??
-??     ??State  ?‚â??€?€?€?€?€?€?€?¶â? State  ??     ??
-??     ??  A    ??        ??  B    ??     ??
-??     ?”â??€?€?€?€?€?€?€??        ?”â??€?€?€?€?€?€?€??     ??
-??                                        ??
-??  System diagrams, state machines,      ??
-??  data flows, architecture sketches,    ??
-??  dependency graphs, comparison tables  ??
-??                                        ??
-?”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚     Use ASCII diagrams liberally        â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚                                         â”‚
+â”‚      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚      â”‚ State  â”‚â”€â”€â”€â”€â”€â”€â”€â”€â–¶â”‚ State  â”‚      â”‚
+â”‚      â”‚   A    â”‚         â”‚   B    â”‚      â”‚
+â”‚      â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                         â”‚
+â”‚   System diagrams, state machines,      â”‚
+â”‚   data flows, architecture sketches,    â”‚
+â”‚   dependency graphs, comparison tables  â”‚
+â”‚                                         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Surface risks and unknowns**
@@ -87,7 +87,7 @@ openspec list --json
 ```
 
 Also check for a glossary:
-- `openspec/GLOSSARY.md` ??project-level terms (read it if present; these terms shape the conversation)
+- `openspec/GLOSSARY.md` â€” project-level terms (read it if present; these terms shape the conversation)
 
 This tells you:
 - If there are active changes
@@ -134,7 +134,7 @@ If the user mentions a change or you detect one is relevant:
    - "That's a design decision. Capture it in design.md?"
    - "This is a new requirement. Add it to specs?"
    - "This changes scope. Update the proposal?"
-   - "You keep using 'principal' ??should we record that term in GLOSSARY.md?"
+   - "You keep using 'principal' â€” should we record that term in GLOSSARY.md?"
 
 4. **The user decides** - Offer and move on. Don't pressure. Don't auto-capture.
 
@@ -160,17 +160,17 @@ User: I'm thinking about adding real-time collaboration
 You: Real-time collab is a big space. Let me think about this...
 
       COLLABORATION SPECTRUM
-      ?â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â??â?
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
       Awareness          Coordination         Sync
-          ??                  ??                ??
-          ??                  ??                ??
-      ?Œâ??€?€?€?€?€?€?€??        ?Œâ??€?€?€?€?€?€?€??       ?Œâ??€?€?€?€?€?€?€??
-      ?‚Presence??        ?‚Cursors ??       ?? CRDT  ??
-      ?? "3    ??        ??Multi  ??       ?‚Conflict??
-      ?‚online" ??        ??select ??       ?? free  ??
-      ?”â??€?€?€?€?€?€?€??        ?”â??€?€?€?€?€?€?€??       ?”â??€?€?€?€?€?€?€??
-          ??                  ??                ??
+          â”‚                   â”‚                 â”‚
+          â–¼                   â–¼                 â–¼
+      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”
+      â”‚Presenceâ”‚         â”‚Cursors â”‚        â”‚  CRDT  â”‚
+      â”‚  "3    â”‚         â”‚ Multi  â”‚        â”‚Conflictâ”‚
+      â”‚online" â”‚         â”‚ select â”‚        â”‚  free  â”‚
+      â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+          â”‚                   â”‚                 â”‚
        trivial            moderate           complex
 
       Where's your head at?
@@ -182,27 +182,27 @@ User: The auth system is a mess
 
 You: [reads codebase]
 
-     ?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-     ??             CURRENT AUTH FLOW              ??
-     ?”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-                        ??
-          ?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?¼â??€?€?€?€?€?€?€?€?€?€?€?€??
-          ??            ??            ??
-     ?Œâ??€?€?€?€?€?€?€?€?? ?Œâ??€?€?€?€?€?€?€?€?? ?Œâ??€?€?€?€?€?€?€?€??
-     ??Google  ?? ?? GitHub ?? ?? Email  ??
-     ?? OAuth  ?? ?? OAuth  ?? ?? Magic  ??
-     ?”â??€?€?€?¬â??€?€?€?? ?”â??€?€?€?¬â??€?€?€?? ?”â??€?€?€?¬â??€?€?€??
-          ??            ??            ??
-          ?”â??€?€?€?€?€?€?€?€?€?€?€?€?¼â??€?€?€?€?€?€?€?€?€?€?€?€??
-                        ??
-                  ?Œâ??€?€?€?€?€?€?€?€?€?€??
-                  ?? Session  ??
-                  ?”â??€?€?€?€?¬â??€?€?€?€??
-                        ??
-                        ??
-                  ?Œâ??€?€?€?€?€?€?€?€?€?€??
-                  ??  Perms   ??
-                  ?”â??€?€?€?€?€?€?€?€?€?€??
+     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚              CURRENT AUTH FLOW              â”‚
+     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                        â”‚
+          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+          â–¼             â–¼             â–¼
+     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚ Google  â”‚  â”‚  GitHub â”‚  â”‚  Email  â”‚
+     â”‚  OAuth  â”‚  â”‚  OAuth  â”‚  â”‚  Magic  â”‚
+     â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜
+          â”‚             â”‚             â”‚
+          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                        â–¼
+                  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                  â”‚  Session  â”‚
+                  â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+                        â”‚
+                        â–¼
+                  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                  â”‚   Perms   â”‚
+                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
      I see three tangles. Which one's burning?
 ```
@@ -234,19 +234,19 @@ User: A CLI tool that tracks local dev environments
 
 You: That changes everything.
 
-     ?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
-     ??         CLI TOOL DATA STORAGE                  ??
-     ?”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??
+     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚          CLI TOOL DATA STORAGE                  â”‚
+     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
      Key constraints:
-     ??No daemon running
-     ??Must work offline
-     ??Single user
+     â€¢ No daemon running
+     â€¢ Must work offline
+     â€¢ Single user
 
                   SQLite          Postgres
-     Deployment   embedded ??     needs server ??
-     Offline      yes ??          no ??
-     Single file  yes ??          no ??
+     Deployment   embedded âœ“      needs server âœ—
+     Offline      yes âœ“           no âœ—
+     Single file  yes âœ“           no âœ—
 
      SQLite. Not even close.
 

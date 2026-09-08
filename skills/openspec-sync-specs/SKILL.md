@@ -13,7 +13,7 @@ Sync delta specs from a change to main specs.
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
-**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after `/opsx-sync` (e.g., `/opsx-sync add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -48,8 +48,8 @@ This is an **agent-driven** operation - you will read delta specs and directly e
    c. **Apply changes intelligently**:
 
       **ADDED Requirements:**
-      - If requirement doesn't exist in main spec ??add it
-      - If requirement already exists ??update it to match (treat as implicit MODIFIED)
+      - If requirement doesn't exist in main spec → add it
+      - If requirement already exists → update it to match (treat as implicit MODIFIED)
 
       **MODIFIED Requirements:**
       - Find the requirement in main spec

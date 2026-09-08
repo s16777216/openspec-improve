@@ -11,7 +11,7 @@ metadata:
 
 Archive a completed change in the experimental workflow.
 
-**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after `/opsx-archive` (e.g., `/opsx-archive add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -34,7 +34,7 @@ Archive a completed change in the experimental workflow.
 
    **If any artifacts are not `done`:**
    - Display warning listing incomplete artifacts
-   - Use **AskUserQuestion tool** to confirm user wants to proceed
+   - Prompt user for confirmation to continue
    - Proceed if user confirms
 
 3. **Check task completion status**
@@ -45,7 +45,7 @@ Archive a completed change in the experimental workflow.
 
    **If incomplete tasks found:**
    - Display warning showing count of incomplete tasks
-   - Use **AskUserQuestion tool** to confirm user wants to proceed
+   - Prompt user for confirmation to continue
    - Proceed if user confirms
 
    **If no tasks file exists:** Proceed without task-related warning.
@@ -72,13 +72,13 @@ Archive a completed change in the experimental workflow.
    Check if `openspec/changes/<name>/GLOSSARY.md` exists.
 
    **If it exists:**
-   - If project-level `openspec/GLOSSARY.md` doesn't exist ??create it from the change-level content as-is
+   - If project-level `openspec/GLOSSARY.md` doesn't exist → create it from the change-level content as-is
    - Otherwise, merge each term from the change-level GLOSSARY:
-     - Term not present in project-level ??append to the corresponding `## section`
-     - Term already present ??overwrite with the change-level definition
-     - Terms only in project-level ??keep unchanged
+     - Term not present in project-level → append to the corresponding `## section`
+     - Term already present → overwrite with the change-level definition
+     - Terms only in project-level → keep unchanged
    - After merging, delete `openspec/changes/<name>/GLOSSARY.md`
-   - Note any overwrites in the summary, e.g. "overwrote Principal (was: ?�入使用??"
+   - Note any overwrites in the summary, e.g. "overwrote Principal (was: 登入使用者)"
 
    Create the archive directory if it doesn't exist:
    ```bash
@@ -101,8 +101,8 @@ Archive a completed change in the experimental workflow.
    - Change name
    - Schema that was used
    - Archive location
-   - Whether specs were synced (if applicable)
-   - Whether GLOSSARY was merged (if applicable)
+   - Spec sync status (synced / sync skipped / no delta specs)
+   - GLOSSARY merge status (merged / no GLOSSARY)
    - Note about any warnings (incomplete artifacts/tasks)
 
 **Output On Success**
@@ -113,8 +113,8 @@ Archive a completed change in the experimental workflow.
 **Change:** <change-name>
 **Schema:** <schema-name>
 **Archived to:** openspec/changes/archive/YYYY-MM-DD-<name>/
-**Specs:** ??Synced to main specs (or "No delta specs" or "Sync skipped")
-**Glossary:** ??Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
+**Specs:** ✓ Synced to main specs (or "No delta specs" or "Sync skipped")
+**Glossary:** ✓ Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
 
 All artifacts complete. All tasks complete.
 ```
@@ -128,7 +128,7 @@ All artifacts complete. All tasks complete.
 **Schema:** <schema-name>
 **Archived to:** openspec/changes/archive/YYYY-MM-DD-<name>/
 **Specs:** Sync skipped (user chose to skip)
-**Glossary:** ??Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
+**Glossary:** ✓ Merged to openspec/GLOSSARY.md (N terms) (or "No GLOSSARY")
 
 **Warnings:**
 - Archived with 2 incomplete artifacts
@@ -160,5 +160,5 @@ Target archive directory already exists.
 - Don't block archive on warnings - just inform and confirm
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
-- If sync is requested, use openspec-sync-specs approach (agent-driven)
+- If sync is requested, use the Skill tool to invoke `openspec-sync-specs` (agent-driven)
 - If delta specs exist, always run the sync assessment and show the combined summary before prompting

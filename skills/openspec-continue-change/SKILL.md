@@ -11,7 +11,7 @@ metadata:
 
 Continue working on a change by creating the next artifact.
 
-**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
+**Input**: Optionally specify a change name after `/opsx-continue` (e.g., `/opsx-continue add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
 
@@ -45,7 +45,7 @@ Continue working on a change by creating the next artifact.
    **If all artifacts are complete (`isComplete: true`)**:
    - Congratulate the user
    - Show final status including the schema used
-   - Suggest: "All artifacts created! You can now implement this change or archive it."
+   - Suggest: "All artifacts created! You can now implement this change with `/opsx-apply` or archive it with `/opsx-archive`."
    - STOP
 
    ---
@@ -72,8 +72,8 @@ Continue working on a change by creating the next artifact.
      - Check the conversation for **confirmed project-specific terms** (from a previous grill/explore "Terms to Record" output or confirmed during this session)
      - If any exist and are NOT already in project-level `openspec/GLOSSARY.md`, write them to `openspec/changes/<name>/GLOSSARY.md`:
        - Grouped by capability: `## <capability>`
-       - Format: `- **Term** ??Definition. Aliases: alias1?�alias2?�`
-     - Only record terms confirmed with the user ??never fabricate; skip if none
+       - Format: `- **Term** — Definition. Aliases: alias1、alias2。`
+     - Only record terms confirmed with the user — never fabricate; skip if none
    - Show what was created and what's now unlocked
    - STOP after creating ONE artifact
 
@@ -95,7 +95,7 @@ After each invocation, show:
 - Schema workflow being used
 - Current progress (N/M complete)
 - What artifacts are now unlocked
-- Prompt: "Want to continue? Just ask me to continue or tell me what to do next."
+- Prompt: "Run `/opsx-continue` to create the next artifact"
 
 **Artifact Creation Guidelines**
 
@@ -103,7 +103,7 @@ The artifact types and their purpose depend on the schema. Use the `instruction`
 
 Common artifact patterns:
 
-**spec-driven schema** (proposal ??specs ??design ??tasks):
+**spec-driven schema** (proposal → specs → design → tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - each capability listed will need a spec file.
 - **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
@@ -114,7 +114,7 @@ For other schemas, follow the `instruction` field from the CLI output.
 
 Common artifact patterns:
 
-**spec-driven schema** (proposal ??specs ??design ??tasks):
+**spec-driven schema** (proposal → specs → design → tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - each capability listed will need a spec file.
 - **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
