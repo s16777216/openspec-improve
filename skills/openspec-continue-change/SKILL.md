@@ -65,6 +65,7 @@ Continue working on a change by creating the next artifact.
      - `dependencies`: Completed artifacts to read for context
    - **Create the artifact file**:
      - Read any completed dependency files for context
+     - Read the glossaries before you write: project-level `openspec/GLOSSARY.md` and change-level `openspec/changes/<name>/GLOSSARY.md`. Skip a file that does not exist. Use the defined terms with their exact spelling and do NOT use an alias as the main term. Do NOT invent a definition for a new term; use the rule for terms confirmed with the user below.
      - Use `template` as the structure - fill in its sections
      - Apply `context` and `rules` as constraints when writing - but do NOT copy them into the file
      - Write to the output path specified in instructions
@@ -123,7 +124,32 @@ Common artifact patterns:
 
 For other schemas, follow the `instruction` field from the CLI output.
 
+**Writing Style (ASD-STE100)**
+
+Write the prose of every artifact that you create in Simplified Technical English (ASD-STE100). The goal is text that has only one reading.
+
+Language:
+- Write in the language of the user's request and of the existing artifacts. Do NOT translate.
+- English: follow ASD-STE100 directly.
+- Other languages: ASD-STE100 has no official version. Apply the language-neutral rules below and keep the same intent.
+
+Rules:
+- **One idea per sentence.** Keep requirement and description sentences short (English: 25 words or fewer). Keep task and procedure sentences shorter (English: 20 words or fewer). Keep paragraphs to 6 sentences or fewer.
+- **Use the active voice.** Name the actor: "The API returns an error", not "An error is returned". Write tasks as commands: "Add the field", not "The field should be added".
+- **One word, one meaning.** Use one term for one concept. Do NOT use synonyms for variety. Use the exact spelling of the glossary terms that you read (project-level and change-level `GLOSSARY.md`).
+- **Use plain words.** Avoid idioms, phrasal verbs, and words with many meanings. Keep articles (English: "the", "a").
+- **State obligation clearly.** Use `MUST` for a mandatory requirement and `MUST NOT` for a prohibition. Do NOT use "should", "could", "might", or "may" in a requirement. Keep the `SHALL`/`MUST` keyword that OpenSpec requires.
+- **Be measurable.** Replace vague words ("fast", "many", "soon") with a number and a unit, or with a condition that a test can check.
+- **Limit noun strings.** Do NOT stack more than 3 nouns in a row. Rewrite with a verb or a preposition.
+- **Keep the same sentence form for the same kind of statement.** Write every scenario with the same `WHEN`/`THEN` pattern.
+
+Scope:
+- Technical names (API names, commands, file paths, identifiers, error codes) stay as they are. Write them in code format and spell them the same way each time.
+- The template structure, headings, and the artifact rules from `openspec instructions` have priority over these style rules. Apply the style rules to the prose only.
+- Do NOT write "ASD-STE100" or "STE" in the artifact. Do NOT claim the text is certified or compliant.
+
 **Guardrails**
+- Write the artifact prose in the style defined by **Writing Style (ASD-STE100)**
 - Create ONE artifact per invocation
 - Always read dependency artifacts before creating a new one
 - Never skip artifacts or create out of order
