@@ -11,7 +11,6 @@
 | **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me          |
 | **自訂驗證**            | ❌ 不支援                           | **`VERIFY.md`** — 宣告式、具範圍感知       |
 | **專有名詞表**          | ❌ 不支援                           | **`GLOSSARY.md`** — 專案級 + change 級術語 |
-| **指令前綴**            | `/openspec-*`                      | `/opsx-*` (較短、命名空間友善)             |
 | **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性                  |
 
 
@@ -125,73 +124,40 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 專案級 `openspec/GLOSSARY.md` 是單一來源；change 級檔案是累加性補充。
 
 > **⚠️ 警告：`openspec init` 會覆蓋本 fork 的擴充。**
-> 官方 `openspec init` **不認識**本 fork 的擴充（GLOSSARY、VERIFY、`/opsx-*`）。執行它會把 `commands/` 與 `skills/` 重寫回官方版本，導致 GLOSSARY/VERIFY 整合被清空。
+> 官方 `openspec init` **不認識**本 fork 的擴充（GLOSSARY、VERIFY）。執行它會把 `skills/` 重寫回官方版本，導致 GLOSSARY/VERIFY 整合被清空。
 > **若你曾執行 `openspec init`，請立即還原：**
 > ```bash
-> git checkout -- commands/ skills/
+> git checkout -- skills/
 > ```
-> （`.opencode/` 在 `.gitignore` 內 — 若需要一併還原，從 `commands/` 複製回去。）
 
 ---
 
-## 🚀 安裝與設定 (給 AI Agent 自動安裝)
+## 🚀 安裝與設定
 
-本 Fork 專為搭配 AI Coding Agent 設計。你只需複製對應工具的**單行指令**給你的 Agent，Agent 就會讀取本頁面並依照指定章節步驟自動完成安裝：
+使用 [`skills`](https://github.com/vercel-labs/skills) CLI 安裝。它會把 `skills/` 底下的每個 skill 複製到各 agent 自己的 skills 目錄。
 
-| 工具 | 複製給 Agent 的單行指令 |
+1. **初始化 OpenSpec**（若專案已有 `openspec/` 可略過）：
+   ```bash
+   openspec --version   # 未安裝？ npm install -g openspec@latest
+   openspec init --no-animation --tools claude,codex,antigravity,opencode
+   ```
+   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
+2. **安裝增強版 skills**（要在 `openspec init` *之後*執行，才會覆蓋官方版本）：
+   ```bash
+   npx skills add s16777216/openspec-improve -a claude-code -a codex -a antigravity -a opencode
+   ```
+   - 加上 `-g` 可改為全域安裝；省略 `-a` 則會互動式選擇 agent。
+3. **建立初始模板**：若 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md` 不存在，依據下方[初始模板規範](#templates)建立。
+
+### 叫用方式
+
+每個工作流程都是名為 `openspec-*` 的 skill。本文件使用的 `/opsx-*` 只是簡寫，實際名稱請見[指令參考](#command-reference)的 **Skill** 欄。
+
+| 工具 | 叫用方式 |
 | :--- | :--- |
-| **Antigravity** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#antigravity` |
-| **Codex** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#codex` |
-| **OpenCode** | `Fetch and follow instructions from https://github.com/s16777216/openspec-improve#opencode` |
-
----
-
-### <a id="antigravity"></a> Google Antigravity
-
-當 Agent 收到 `#antigravity` 安裝指令時，請依照以下步驟自動完成配置：
-
-1. **環境檢查**：
-   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
-   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
-2. **初始化專案**：
-   - 在專案根目錄執行 `openspec init --no-animation --tools antigravity` 建立 OpenSpec 基礎結構與配置。
-3. **覆蓋增強版技能與模板**：
-   - 將本 repo 的 `skills/` 複製至專案根目錄 `.agent/skills/`（或 `.agents/skills/`），若已存在則覆蓋。
-   - 將本 repo 的 `commands/` 複製至專案根目錄 `.agent/workflows/`（若已存在則覆蓋，支援 `/opsx-*` 指令）。
-   - *(可選全域級)*：若使用者要求全域安裝，複製至 `~/.gemini/config/skills/` 與 `~/.gemini/config/global_workflows/`。
-   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
-
----
-
-### <a id="codex"></a> Codex
-
-當 Agent 收到 `#codex` 安裝指令時，請依照以下步驟自動完成配置：
-
-1. **環境檢查**：
-   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
-   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
-2. **初始化專案**：
-   - 在專案根目錄執行 `openspec init --no-animation --tools codex` 建立 OpenSpec 基礎結構與配置。
-3. **覆蓋增強版技能與模板**：
-   - 將本 repo 的 `skills/` 複製至專案根目錄 `.agents/skills/`，若已存在則覆蓋。
-   - Codex 主要透過 Skills 體系調用（例如 `$openspec-propose`）。
-   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
-
----
-
-### <a id="opencode"></a> OpenCode
-
-當 Agent 收到 `#opencode` 安裝指令時，請依照以下步驟自動完成配置：
-
-1. **環境檢查**：
-   - 執行 `openspec --version` 確認本機已安裝 CLI。若未安裝，執行 `npm install -g openspec@latest`。
-   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，請改用 `openspec.cmd`。
-2. **初始化專案**：
-   - 在專案根目錄執行 `openspec init --no-animation --tools opencode` 建立 OpenSpec 基礎結構與配置。
-3. **覆蓋增強版技能與模板**：
-   - 將本 repo 的 `commands/` 複製至專案根目錄 `.opencode/commands/`，若已存在則覆蓋（支援 `/opsx-*` 指令）。
-   - 將本 repo 的 `skills/` 複製至專案根目錄 `.opencode/skills/`，若已存在則覆蓋。
-   - 若專案內尚無 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md`，依據下方[初始模板規範](#templates)自動建立。
+| **Claude Code** | `/openspec-propose` |
+| **Codex** | `$openspec-propose` |
+| **Antigravity / OpenCode** | 直接指名 skill，或讓 agent 依描述自動選用 |
 
 ---
 
@@ -243,24 +209,24 @@ Agent 進行初始化時，應在專案 `openspec/` 目錄建立以下範本（�
      v
 ```
 
-### 完整指令參考
+### <a id="command-reference"></a> 完整指令參考
 
-| 指令 | 說明 |
-| :--- | :--- |
-| `/opsx-status` | 快速總覽所有進行中提案與下一步建議 |
-| `/opsx-explore` | 工作前/中思考問題 |
-| `/opsx-grill` | 設計樹問答，收斂決策 |
-| `/opsx-new` | 建立新提案，逐步產出工件 |
-| `/opsx-continue` | 繼續既有提案的下一個工件 |
-| `/opsx-ff` | 快轉：一次產出所有工件 |
-| `/opsx-propose` | 建立提案並一次產出所有工件 |
-| `/opsx-update` | 修訂既有規劃工件並保持一致，不修改程式碼 |
-| `/opsx-apply` | 根據提案實作任務 |
-| `/opsx-verify` | 驗證實作是否符合工件 |
-| `/opsx-sync` | 將 delta specs 同步至主規格 |
-| `/opsx-archive` | 歸檔已完成的提案 |
-| `/opsx-bulk-archive` | 一次歸檔多個已完成的提案 |
-| `/opsx-onboard` | 引導式入門，完整工作流程週期 |
+| 指令 | Skill | 說明 |
+| :--- | :--- | :--- |
+| `/opsx-status` | `openspec-status` | 快速總覽所有進行中提案與下一步建議 |
+| `/opsx-explore` | `openspec-explore` | 工作前/中思考問題 |
+| `/opsx-grill` | `openspec-grill` | 設計樹問答，收斂決策 |
+| `/opsx-new` | `openspec-new-change` | 建立新提案，逐步產出工件 |
+| `/opsx-continue` | `openspec-continue-change` | 繼續既有提案的下一個工件 |
+| `/opsx-ff` | `openspec-ff-change` | 快轉：一次產出所有工件 |
+| `/opsx-propose` | `openspec-propose` | 建立提案並一次產出所有工件 |
+| `/opsx-update` | `openspec-update-change` | 修訂既有規劃工件並保持一致，不修改程式碼 |
+| `/opsx-apply` | `openspec-apply-change` | 根據提案實作任務 |
+| `/opsx-verify` | `openspec-verify-change` | 驗證實作是否符合工件 |
+| `/opsx-sync` | `openspec-sync-specs` | 將 delta specs 同步至主規格 |
+| `/opsx-archive` | `openspec-archive-change` | 歸檔已完成的提案 |
+| `/opsx-bulk-archive` | `openspec-bulk-archive-change` | 一次歸檔多個已完成的提案 |
+| `/opsx-onboard` | `openspec-onboard` | 引導式入門，完整工作流程週期 |
 
 ---
 
@@ -270,7 +236,7 @@ Agent 進行初始化時，應在專案 `openspec/` 目錄建立以下範本（�
 
 本 fork 的連動包括帶入已確認的 grill/explore 決策，並依專案級與 change 級 `GLOSSARY.md` 檢查用詞。當規劃修訂影響術語或驗證範圍時，可提出既有 change 級術語表與 `VERIFY.md` 的修訂。專案級檔案保持唯讀；驗證設定採累加方式，實際檢查交給 `/opsx-verify`。缺少的擴充檔案會列為待設定項目，不自動建立。
 
-缺少的工件交給 `/opsx-continue` 或 `/opsx-ff`，修訂後的實作交給 `/opsx-apply`，將 delta specs 整合進主規格則使用 `/opsx-sync`。終端機的 `openspec update` 是另一個用途：依已安裝的 CLI 重新產生 skills 與 commands。
+缺少的工件交給 `/opsx-continue` 或 `/opsx-ff`，修訂後的實作交給 `/opsx-apply`，將 delta specs 整合進主規格則使用 `/opsx-sync`。終端機的 `openspec update` 是另一個用途：依已安裝的 CLI 重新產生 skills。
 
 ## 目錄結構
 
@@ -305,24 +271,20 @@ openspec/
 
 ### 新增工作流程
 
-新增一組工作流程指令 + skill 的步驟：
+新增一個工作流程 skill 的步驟：
 
-1. 建立 `commands/opsx-<action>.md`，寫入 slash command 內容。
-2. 建立 `skills/openspec-<action>/SKILL.md`，寫入匹配的內容（適配 skill 格式）。
-3. 確保兩者的步驟、保護條件和輸出契約一致。
-4. 在 README.md 與 README.zh.md 的指令參考表中加入新指令。
-5. 執行下方一致性檢查，確認一對一配對正確（目前為 14 個 command 與 14 個 skill）。
+1. 建立 `skills/openspec-<action>/SKILL.md`，寫入工作流程內容。
+2. 確保步驟、保護條件和輸出契約與其他 skill 一致。
+3. 在 README.md 與 README.zh.md 的參考表中加入新 skill。
+4. 執行下方一致性檢查（目前為 14 個 skill）。
 
 ### 一致性檢查
 
 執行以下唯讀檢查以驗證專案健康狀態：
 
 ```bash
-# 確認每個 command 都有對應的 skill，反之亦然
-# （手動檢查或使用腳本比對 commands/ 與 skills/ 目錄名稱）
-
 # 掃描不一致的 /opsx: 引用
-grep -r '/opsx:' commands/ skills/ README.md README.zh.md
+grep -r '/opsx:' skills/ README.md README.zh.md
 
 # 驗證所有 skill 的 YAML frontmatter
 grep -l 'generatedBy' skills/*/SKILL.md
