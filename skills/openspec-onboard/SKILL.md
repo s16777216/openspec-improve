@@ -29,6 +29,11 @@ openspec --version 2>&1 || echo "CLI_NOT_INSTALLED"
 
 Stop here if not installed.
 
+**Check the project setup:**
+
+- If the `openspec/` directory does not exist, the walkthrough cannot work. Say: "OpenSpec is not set up in this project. Run `/opsx-setup` first, then come back to `/opsx-onboard`." Stop here.
+- If `openspec/VERIFY.md` or `openspec/GLOSSARY.md` is missing, show one line: "`<missing file>` is missing. Run `/opsx-setup` to create it - you can do this later." Then continue the walkthrough. Do NOT create the files here.
+
 ---
 
 ## Phase 1: Welcome

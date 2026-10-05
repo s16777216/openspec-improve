@@ -33,6 +33,8 @@ Also check project-level context files if present:
 - `openspec/GLOSSARY.md` — project terms
 - `openspec/VERIFY.md` — project verification config
 
+If either file is missing, remember it for the **Setup hint** (see Guardrails). A missing file is NOT an error.
+
 ### 2. No changes → report that and stop
 
 If there are zero active changes, say so plainly and stop. Example:
@@ -113,6 +115,7 @@ If nothing is clearly highest-leverage, say so honestly instead of forcing a pic
 
 ## Guardrails
 
+- **Setup hint** — if `openspec/VERIFY.md` or `openspec/GLOSSARY.md` is missing, end the report (also the "no active changes" report) with one line: "`<missing file>` is missing. Run `/opsx-setup` to create it." Name only the missing files. Do NOT create them here. Skip the line when both files exist.
 - **Report only** — never apply, verify, archive, or create/update artifacts yourself. You surface and recommend; the user decides.
 - **Concise** — this is the "get up to speed in 5 seconds" command. No walls of text per change.
 - **Don't guess** — if `tasks.md` is missing or unclear, say "no task data" rather than invent progress.

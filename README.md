@@ -123,11 +123,8 @@ Central registry for project-specific terms (jargon, abbreviations, domain vocab
 Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive.
 
 > **⚠️ Warning: `openspec init` overwrites fork extensions.**
-> The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY). Running it rewrites `skills/` back to the official versions, wiping out GLOSSARY/VERIFY integrations.
-> **If you ever run `openspec init`, restore immediately with:**
-> ```bash
-> git checkout -- skills/
-> ```
+> The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY). Running it with a tool selection rewrites the skills back to the official versions, wiping out GLOSSARY/VERIFY integrations. `/opsx-setup` avoids this by using `--tools none`.
+> **If you ever run `openspec init` with a tool selection, restore the skills immediately by running `npx skills add s16777216/openspec-improve` again.**
 
 ---
 
@@ -148,18 +145,18 @@ Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level
 
 Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copies every skill under `skills/` into each agent's own skills directory.
 
-1. **Initialize OpenSpec** (skip if the project already has `openspec/`):
+1. **Install the enhanced skills**:
    ```bash
-   openspec --version   # missing? npm install -g openspec@latest
-   openspec init --no-animation --tools claude,codex,antigravity,opencode
+   npx skills add s16777216/openspec-improve
    ```
-   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, use `openspec.cmd` instead.
-2. **Install the enhanced skills** (run *after* `openspec init`, so they overwrite the official versions):
-   ```bash
-   npx skills add s16777216/openspec-improve -a claude-code -a codex -a antigravity -a opencode
-   ```
-   - Add `-g` to install globally instead of per-project; drop the `-a` flags to pick agents interactively.
-3. **Create starter templates**: if `openspec/VERIFY.md` and `openspec/GLOSSARY.md` do not exist, create them following the [Starter Template Specifications](#templates) below.
+   - Add `-g` to install globally instead of per-project; add `-a <agent>` (for example `-a claude-code -a codex`) to skip the interactive agent selection.
+2. **Ask your agent to run the setup skill**: `/opsx-setup` (Codex: `$openspec-setup`). It is safe to run again at any time. It:
+   - checks the OpenSpec CLI and offers to install it (`npm install -g openspec@latest`);
+   - runs `openspec init --no-animation --tools none` if `openspec/` does not exist;
+   - creates `openspec/VERIFY.md` and `openspec/GLOSSARY.md` from the [Starter Template Specifications](#templates) if they are missing.
+
+   It asks for confirmation before each step and never overwrites an existing file. `/opsx-status`, `/opsx-new`, `/opsx-propose`, and `/opsx-onboard` also suggest `/opsx-setup` when one of these files is missing.
+   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, the agent uses `openspec.cmd` instead.
 
 ### Invoking skills
 
@@ -175,7 +172,7 @@ Each workflow is a skill named `openspec-*`. The `/opsx-*` names used in this do
 
 ### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)
 
-When initializing, the Agent should create the following files under `openspec/` if they do not exist:
+`/opsx-setup` creates the following files under `openspec/` if they do not exist (the templates are embedded in `skills/openspec-setup/SKILL.md`; keep both in sync):
 
 1. **`openspec/VERIFY.md`** (Declarative Custom Verification)
    ````markdown
@@ -225,6 +222,7 @@ When initializing, the Agent should create the following files under `openspec/`
 
 | Command | Skill | Description |
 | :--- | :--- | :--- |
+| `/opsx-setup` | `openspec-setup` | Set up OpenSpec in a project: CLI check, `openspec init`, starter `VERIFY.md` and `GLOSSARY.md` |
 | `/opsx-status` | `openspec-status` | Quick overview of all active changes and next steps |
 | `/opsx-explore` | `openspec-explore` | Think through problems before/during work |
 | `/opsx-grill` | `openspec-grill` | Design tree questioning to sharpen decisions |
@@ -288,7 +286,7 @@ To add a new workflow skill:
 1. Create `skills/openspec-<action>/SKILL.md` with the workflow content.
 2. Ensure steps, guardrails, and output contracts are consistent with the other skills.
 3. Add the skill to the reference tables in both README.md and README.zh.md.
-4. Run the consistency checks (see below) (currently 14 skills).
+4. Run the consistency checks (see below) (currently 15 skills).
 
 ### Consistency Checks
 

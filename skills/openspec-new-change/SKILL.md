@@ -65,6 +65,7 @@ After completing the steps, summarize:
 - The template for the first artifact
 - Prompt: "Ready to create the first artifact? Run `/opsx-continue` or just describe what this change is about and I'll draft it."
 - Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
+- Setup hint (only if `openspec/VERIFY.md` or `openspec/GLOSSARY.md` is missing): add one line - "`openspec/VERIFY.md` / `openspec/GLOSSARY.md` is missing. Run `/opsx-setup` to create it." Name only the missing file or files. Do NOT create them here.
 
 **Guardrails**
 - Do NOT create any artifacts yet - just show the instructions

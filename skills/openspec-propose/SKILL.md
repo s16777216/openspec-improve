@@ -105,6 +105,7 @@ After completing all artifacts, summarize:
 - Terms recorded to GLOSSARY.md (N terms) or "(no terms recorded)"
 - Prompt: "Run `/opsx-apply` to start implementing."
 - Tip: Mention that custom verification is available via `openspec/VERIFY.md` — it defines per-repo checks that run during `/opsx-verify`.
+- Setup hint (only if `openspec/VERIFY.md` or `openspec/GLOSSARY.md` is missing): add one line - "`openspec/VERIFY.md` / `openspec/GLOSSARY.md` is missing. Run `/opsx-setup` to create it." Name only the missing file or files. Do NOT create them here.
 
 **Artifact Creation Guidelines**
 
