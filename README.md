@@ -131,6 +131,19 @@ Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level
 
 ---
 
+### 5. ASD-STE100 Writing Style
+
+`/opsx-propose`, `/opsx-continue`, `/opsx-ff`, and `/opsx-update` write artifact prose in [Simplified Technical English (ASD-STE100)](https://www.asd-ste100.org/) style, so that each sentence has only one reading.
+
+- Short sentences, active voice, commands for tasks
+- One word, one meaning — terms follow project- and change-level `GLOSSARY.md`
+- `MUST` / `MUST NOT` for obligations; measurable values instead of vague words
+- Technical names, templates, and OpenSpec structure stay unchanged
+
+**Languages:** the artifact keeps the language of the request. English follows ASD-STE100 directly. For other languages the language-neutral rules apply, which is not formal ASD-STE100. The rules are prompt instructions only; nothing checks compliance automatically.
+
+---
+
 ## 🚀 Installation & Setup
 
 Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copies every skill under `skills/` into each agent's own skills directory.

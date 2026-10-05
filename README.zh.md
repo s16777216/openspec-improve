@@ -132,6 +132,19 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 
 ---
 
+### 5. ASD-STE100 寫作風格
+
+`/opsx-propose`、`/opsx-continue`、`/opsx-ff`、`/opsx-update` 以 [Simplified Technical English (ASD-STE100)](https://www.asd-ste100.org/) 風格撰寫 artifact 內文，讓每個句子只有一種解讀。
+
+- 短句、主動語態、任務用命令句
+- 一詞一義 — 術語依專案級與 change 級 `GLOSSARY.md`
+- 義務用 `MUST` / `MUST NOT`；用可量測的數值取代模糊用詞
+- 技術名稱、模板與 OpenSpec 結構維持不變
+
+**語言：** artifact 沿用請求的語言。英文直接遵循 ASD-STE100；其他語言套用不依賴語言的規則，並非正式的 ASD-STE100。這些規則只是提示詞指示，沒有自動檢查合規性。
+
+---
+
 ## 🚀 安裝與設定
 
 使用 [`skills`](https://github.com/vercel-labs/skills) CLI 安裝。它會把 `skills/` 底下的每個 skill 複製到各 agent 自己的 skills 目錄。
