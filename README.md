@@ -158,16 +158,6 @@ Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copie
    It asks for confirmation before each step and never overwrites an existing file. `/opsx-status`, `/opsx-new`, `/opsx-propose`, and `/opsx-onboard` also suggest `/opsx-setup` when one of these files is missing.
    - **Windows users**: If PowerShell blocks `openspec` due to execution policy, the agent uses `openspec.cmd` instead.
 
-### Invoking skills
-
-Each workflow is a skill named `openspec-*`. The `/opsx-*` names used in this document are shorthand; see the **Skill** column in the [command reference](#command-reference) for the actual names.
-
-| Tool | Invocation |
-| :--- | :--- |
-| **Claude Code** | `/openspec-propose` |
-| **Codex** | `$openspec-propose` |
-| **Antigravity / OpenCode** | Mention the skill by name, or let the agent pick it up from its description |
-
 ---
 
 ### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)

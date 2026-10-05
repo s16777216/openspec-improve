@@ -163,16 +163,6 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
    每一步都會先徵求確認，且絕不覆蓋既有檔案。當缺少上述檔案時，`/opsx-status`、`/opsx-new`、`/opsx-propose`、`/opsx-onboard` 也會建議執行 `/opsx-setup`。
    - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，agent 會改用 `openspec.cmd`。
 
-### 叫用方式
-
-每個工作流程都是名為 `openspec-*` 的 skill。本文件使用的 `/opsx-*` 只是簡寫，實際名稱請見[指令參考](#command-reference)的 **Skill** 欄。
-
-| 工具                       | 叫用方式                                  |
-| :------------------------- | :---------------------------------------- |
-| **Claude Code**            | `/openspec-propose`                       |
-| **Codex**                  | `$openspec-propose`                       |
-| **Antigravity / OpenCode** | 直接指名 skill，或讓 agent 依描述自動選用 |
-
 ---
 
 ### <a id="templates"></a> 📄 專案初始模板規範 (VERIFY.md 與 GLOSSARY.md)
