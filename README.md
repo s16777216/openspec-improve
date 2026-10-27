@@ -151,7 +151,7 @@ Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copie
    ```
    - Add `-g` to install globally instead of per-project; add `-a <agent>` (for example `-a claude-code -a codex`) to skip the interactive agent selection.
 2. **Ask your agent to run the setup skill**: `openspec-setup` (Codex: `$openspec-setup`). It is safe to run again at any time. It:
-   - checks the OpenSpec CLI and offers to install it (`npm install -g openspec@latest`);
+   - checks the OpenSpec CLI and offers to install it (`npm install -g @fission-ai/openspec@latest`);
    - runs `openspec init --no-animation --tools none` if `openspec/` does not exist;
    - creates `openspec/VERIFY.md` and `openspec/GLOSSARY.md` from the [Starter Template Specifications](#templates) if they are missing.
 

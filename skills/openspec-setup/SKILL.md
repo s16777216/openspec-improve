@@ -22,7 +22,7 @@ Set up OpenSpec in the current project. This workflow is **idempotent**: run it 
    ```
    - If the command fails, tell the user that the CLI is not installed. Ask for confirmation, then run:
      ```bash
-     npm install -g openspec@latest
+     npm install -g @fission-ai/openspec@latest
      ```
    - If the user declines, STOP and explain that the other workflows need the CLI.
 

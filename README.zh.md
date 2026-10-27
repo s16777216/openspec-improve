@@ -156,7 +156,7 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
    ```
    - 加上 `-g` 可改為全域安裝；加上 `-a <agent>`（例如 `-a claude-code -a codex`）可略過互動式選擇 agent。
 2. **請 agent 執行 setup skill**：`openspec-setup`（Codex 使用 `$openspec-setup`）。可隨時重複執行，它會：
-   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g openspec@latest`）；
+   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g @fission-ai/openspec@latest`）；
    - 若 `openspec/` 不存在，執行 `openspec init --no-animation --tools none`；
    - 若 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md` 不存在，依據[初始模板規範](#templates)建立。
 
