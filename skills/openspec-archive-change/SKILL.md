@@ -52,10 +52,10 @@ Archive a completed change in the experimental workflow.
 
 4. **Assess delta spec sync state**
 
-   Check for delta specs at `openspec/changes/<name>/specs/`. If none exist, proceed without sync prompt.
+   Recursively find delta `spec.md` files under `openspec/changes/<name>/specs/`. If none exist, proceed without sync prompt. Use each file's full directory path relative to `specs/` as its capability ID.
 
    **If delta specs exist:**
-   - Compare each delta spec with its corresponding main spec at `openspec/specs/<capability>/spec.md`
+   - Compare each delta spec with its corresponding main spec at `openspec/specs/<capability-id>/spec.md`; preserve nested domain segments in `<capability-id>`.
    - Determine what changes would be applied (adds, modifications, removals, renames)
    - Show a combined summary before prompting
 

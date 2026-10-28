@@ -106,8 +106,8 @@ Common artifact patterns:
 
 **spec-driven schema** (proposal → specs → design → tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
-  - The Capabilities section is critical - each capability listed will need a spec file.
-- **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
+  - The Capabilities section is critical - list each capability by its full path relative to `specs/`, such as `identity/authentication`. Reuse an existing main spec's ID for changes to that capability. Each listed capability needs a spec file.
+- **specs/<capability-id>/spec.md**: Create one delta spec per capability ID listed in the proposal. Preserve all domain path segments; do not use the change name or a repo name as the capability ID. A legacy flat ID remains valid.
 - **design.md**: Document technical decisions, architecture, and implementation approach.
 - **tasks.md**: Break down implementation into checkboxed tasks.
 
@@ -117,8 +117,8 @@ Common artifact patterns:
 
 **spec-driven schema** (proposal → specs → design → tasks):
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
-  - The Capabilities section is critical - each capability listed will need a spec file.
-- **specs/<capability>/spec.md**: Create one spec per capability listed in the proposal's Capabilities section (use the capability name, not the change name).
+  - The Capabilities section is critical - list each capability by its full path relative to `specs/`, such as `identity/authentication`. Reuse an existing main spec's ID for changes to that capability. Each listed capability needs a spec file.
+- **specs/<capability-id>/spec.md**: Create one delta spec per capability ID listed in the proposal. Preserve all domain path segments; do not use the change name or a repo name as the capability ID. A legacy flat ID remains valid.
 - **design.md**: Document technical decisions, architecture, and implementation approach.
 - **tasks.md**: Break down implementation into checkboxed tasks.
 

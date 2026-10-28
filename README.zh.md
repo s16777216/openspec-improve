@@ -255,22 +255,26 @@ openspec/
 │       ├── .openspec.yaml
 │       ├── proposal.md
 │       ├── specs/
-│       │   └── auth/spec.md
+│       │   └── identity/authentication/spec.md
 │       ├── design.md
 │       ├── tasks.md
 │       ├── VERIFY.md          # change 級（累加）
 │       └── GLOSSARY.md        # change 級術語（封存時合併）
 ├── specs/
-│   └── auth/spec.md           # 主規格
+│   └── identity/authentication/spec.md  # 主規格
 ├── VERIFY.md                  # 專案級
 └── GLOSSARY.md                # 專案級（單一來源）
 ```
+
+`specs/` 以下的相對路徑就是能力 ID。新增規格依業務領域與能力分層，例如 `identity/authentication`。提案的 delta spec 使用**相同的相對路徑**，且只建立本次變更涉及的能力。既有 `auth` 等單層能力 ID 仍可使用；修改既有規格時沿用其 ID。需求與情境寫在能力的 `spec.md` 內，不為每項需求另建資料夾。
+
+規格描述跨 repo 的行為，不在行為規格 `spec.md` 中標示單一程式碼 repo。提案涉及的 repo 與實作位置記錄在 `design.md`；各 repo 的驗證指令放在 `VERIFY.md`。
 
 ---
 
 ## 相容性
 
-- **OpenSpec CLI**：已針對 **1.8.0** 版本測試。最低支援版本可能不同，請以 `openspec --version` 確認。
+- **OpenSpec CLI**：既有單層流程已針對 **1.8.0** 測試；巢狀規格的搜尋與對應已用 **1.13.0** 確認。採用新結構前，請使用該版本或確認已安裝的 CLI 支援巢狀規格。
 - **平台**：macOS、Linux、Windows（Windows 上若 PowerShell 執行政策阻擋 `.ps1` shim，請改用 `openspec.cmd`）。
 
 ---

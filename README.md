@@ -249,22 +249,26 @@ openspec/
 │       ├── .openspec.yaml
 │       ├── proposal.md
 │       ├── specs/
-│       │   └── auth/spec.md
+│       │   └── identity/authentication/spec.md
 │       ├── design.md
 │       ├── tasks.md
 │       ├── VERIFY.md          # change-level (additive)
 │       └── GLOSSARY.md        # change-level terms (merged at archive)
 ├── specs/
-│   └── auth/spec.md           # main specs
+│   └── identity/authentication/spec.md  # main spec
 ├── VERIFY.md                  # project-level
 └── GLOSSARY.md                # project-level (single source of truth)
 ```
+
+The path below `specs/` is the capability ID. Organize new specs by business domain and capability (for example, `identity/authentication`). A proposal uses the **same relative path** for its delta spec and creates files only for capabilities it changes. An existing flat ID such as `auth` remains valid; reuse that ID when modifying its spec. Keep requirements and scenarios inside the capability's `spec.md`, rather than making a directory per requirement.
+
+Specs describe behavior across repositories. Do not label a behavioral `spec.md` as belonging to one code repository. Record the repositories and implementation locations for a change in its `design.md`; place repository-specific checks in `VERIFY.md`.
 
 ---
 
 ## Compatibility
 
-- **OpenSpec CLI**: Tested against version **1.8.0**. Minimum supported version may differ; check with `openspec --version`.
+- **OpenSpec CLI**: The existing flat workflow was tested against **1.8.0**. Nested spec discovery and matching were checked with **1.13.0**; use that version or verify your installed CLI supports nested specs before adopting the new layout.
 - **Platforms**: macOS, Linux, Windows (use `openspec.cmd` on Windows if PowerShell execution policy blocks `.ps1` shims).
 
 ---

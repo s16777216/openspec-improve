@@ -229,10 +229,10 @@ Here's a draft proposal:
 ## Capabilities
 
 ### New Capabilities
-- `<capability-name>`: [brief description]
+- `<domain>/<capability>`: [brief description; use the full path relative to specs/]
 
 ### Modified Capabilities
-<!-- If modifying existing behavior -->
+<!-- If modifying existing behavior, use the existing capability's full relative path -->
 
 ## Impact
 
@@ -271,12 +271,12 @@ Specs define **what** we're building in precise, testable terms. They use a requ
 For a small task like this, we might only need one spec file.
 ```
 
-**DO:** Create the spec file:
+**DO:** Choose a capability ID from the proposal. Use the full domain/capability path, such as `identity/authentication`; for a modified capability, reuse its main spec ID. Existing flat IDs remain valid. Create the spec file:
 ```bash
 # Unix/macOS
-mkdir -p openspec/changes/<name>/specs/<capability-name>
+mkdir -p openspec/changes/<name>/specs/<capability-id>
 # Windows (PowerShell)
-# New-Item -ItemType Directory -Force -Path "openspec/changes/<name>/specs/<capability-name>"
+# New-Item -ItemType Directory -Force -Path "openspec/changes/<name>/specs/<capability-id>"
 ```
 
 Draft the spec content:
@@ -303,7 +303,7 @@ Here's the spec:
 This format—WHEN/THEN/AND—makes requirements testable. You can literally read them as test cases.
 ```
 
-Save to `openspec/changes/<name>/specs/<capability>/spec.md`.
+Save to `openspec/changes/<name>/specs/<capability-id>/spec.md`. Use the same capability ID under `openspec/specs/` when syncing. If multiple repos implement the capability, record their implementation mapping in `design.md`, not in the behavioral spec.
 
 ---
 

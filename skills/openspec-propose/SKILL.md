@@ -69,6 +69,7 @@ When ready to implement, run openspec-apply-change
         - `dependencies`: Completed artifacts to read for context
       - Read any completed dependency files for context
       - Create the artifact file using `template` as the structure
+      - For the default spec-driven schema, list capabilities in the proposal by full relative ID (for example, `identity/authentication`). Reuse an existing main spec ID when changing that capability. Create each delta spec at `openspec/changes/<name>/specs/<capability-id>/spec.md`, preserving every domain segment. Flat existing IDs remain valid. Put implementation repo mapping in `design.md`, not in behavioral `spec.md`.
       - Apply `context` and `rules` as constraints - but do NOT copy them into the file
       - Show brief progress: "Created <artifact-id>"
 

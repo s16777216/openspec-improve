@@ -27,7 +27,7 @@ This is an **agent-driven** operation - you will read delta specs and directly e
 
 2. **Find delta specs**
 
-   Look for delta spec files in `openspec/changes/<name>/specs/*/spec.md`.
+   Recursively find `spec.md` files under `openspec/changes/<name>/specs/`. Include both `specs/<capability>/spec.md` and `specs/<domain>/<capability>/spec.md` (and deeper domain paths). Ignore a `spec.md` directly in the `specs/` root. The capability ID is the full relative directory path, such as `identity/authentication`, not just `authentication`.
 
    Each delta spec file contains sections like:
    - `## ADDED Requirements` - New requirements to add
@@ -39,11 +39,11 @@ This is an **agent-driven** operation - you will read delta specs and directly e
 
 3. **For each delta spec, apply changes to main specs**
 
-   For each capability with a delta spec at `openspec/changes/<name>/specs/<capability>/spec.md`:
+   For each capability ID `<capability-id>` with a delta spec at `openspec/changes/<name>/specs/<capability-id>/spec.md`:
 
    a. **Read the delta spec** to understand the intended changes
 
-   b. **Read the main spec** at `openspec/specs/<capability>/spec.md` (may not exist yet)
+   b. **Read the main spec** at `openspec/specs/<capability-id>/spec.md` (may not exist yet). Preserve the full relative path; never match by the last path segment alone.
 
    c. **Apply changes intelligently**:
 
@@ -66,7 +66,7 @@ This is an **agent-driven** operation - you will read delta specs and directly e
       - Find the FROM requirement, rename to TO
 
    d. **Create new main spec** if capability doesn't exist yet:
-      - Create `openspec/specs/<capability>/spec.md`
+      - Create `openspec/specs/<capability-id>/spec.md` (including parent directories)
       - Add Purpose section (can be brief, mark as TBD)
       - Add Requirements section with the ADDED requirements
 
