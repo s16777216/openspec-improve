@@ -27,7 +27,7 @@
    ```
 
 2. **請 agent 執行 setup skill**：`openspec-setup`。可重複執行，它會：
-   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g openspec@latest`）；
+   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g @fission-ai/openspec@latest`）；
    - 若 `openspec/` 不存在，執行 `openspec init --no-animation --tools none`；
    - 若 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md` 不存在，依據[初始模板規範](#templates)建立。
 
