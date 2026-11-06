@@ -44,20 +44,22 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
       - Count `- [ ]` (incomplete) vs `- [x]` (complete)
       - If no tasks file exists, note as "No tasks"
 
-   c. **Delta specs** - Check `openspec/changes/<name>/specs/` directory
-      - List which capability specs exist
+   c. **Delta specs** - Recursively find `spec.md` under `openspec/changes/<name>/specs/`
+      - List each capability by its full directory path relative to `specs/` (for example, `identity/authentication`)
       - For each, extract requirement names (lines matching `### Requirement: <name>`)
+
+   d. **Local implementation specs** - Check the affected repos/modules' `SPEC.md` files and pending sync notes in the change artifacts. Include needed local refreshes in the batch sync plan, even when main specs are already current or there are no delta specs. Keep local files with their code, outside the change archive.
 
 4. **Detect spec conflicts**
 
-   Build a map of `capability -> [changes that touch it]`:
+   Build a map of `full relative capability ID -> [changes that touch it]`. Never group by the final directory name alone:
 
    ```
-   auth -> [change-a, change-b]  <- CONFLICT (2+ changes)
-   api  -> [change-c]            <- OK (only 1 change)
+   identity/authentication -> [change-a, change-b]  <- CONFLICT (2+ changes)
+   billing/authentication  -> [change-c]            <- OK (different capability)
    ```
 
-   A conflict exists when 2+ selected changes have delta specs for the same capability.
+   A conflict exists when 2+ selected changes have delta specs for the same full capability ID.
 
 5. **Resolve conflicts agentically**
 
@@ -88,14 +90,14 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
    |---------------------|-----------|-------|---------|-----------|--------|
    | schema-management   | Done      | 5/5   | 2 delta | None      | Ready  |
    | project-config      | Done      | 3/3   | 1 delta | None      | Ready  |
-   | add-oauth           | Done      | 4/4   | 1 delta | auth (!)  | Ready* |
+   | add-oauth           | Done      | 4/4   | 1 delta | identity/authentication (!) | Ready* |
    | add-verify-skill    | 1 left    | 2/5   | None    | None      | Warn   |
    ```
 
    For conflicts, show the resolution:
    ```
    * Conflict resolution:
-     - auth spec: Will apply add-oauth then add-jwt (both implemented, chronological order)
+     - identity/authentication spec: Will apply add-oauth then add-jwt (both implemented, chronological order)
    ```
 
    For incomplete changes, show warnings:
@@ -120,10 +122,10 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
 
    Process changes in the determined order (respecting conflict resolution):
 
-   a. **Sync specs** if delta specs exist:
-      - Use the openspec-sync-specs approach (agent-driven intelligent merge)
+   a. **Sync specs** if delta specs or local documentation updates exist:
+      - Use `openspec-sync-specs` for both main specs and local `SPEC.md` refreshes from actual code
       - For conflicts, apply in resolved order
-      - Track if sync was done
+      - Track main and local sync status separately. If local updates remain pending, resolve them before normal archival; archive with outstanding updates only when explicitly confirmed with those warnings.
 
    b. **Merge GLOSSARY (if present)** for each change, in the determined order:
       - Check if `openspec/changes/<name>/GLOSSARY.md` exists
@@ -164,7 +166,7 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
 
    Spec sync summary:
    - 4 delta specs synced to main specs
-   - 1 conflict resolved (auth: applied both in chronological order)
+   - 1 conflict resolved (identity/authentication: applied both in chronological order)
 
    Glossary merge summary:
    - 2 change GLOSSARYs merged into openspec/GLOSSARY.md
@@ -181,7 +183,7 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
 
 Example 1: Only one implemented
 ```
-Conflict: specs/auth/spec.md touched by [add-oauth, add-jwt]
+Conflict: specs/identity/authentication/spec.md touched by [add-oauth, add-jwt]
 
 Checking add-oauth:
 - Delta adds "OAuth Provider Integration" requirement
@@ -196,7 +198,7 @@ Resolution: Only add-oauth is implemented. Will sync add-oauth specs only.
 
 Example 2: Both implemented
 ```
-Conflict: specs/api/spec.md touched by [add-rest-api, add-graphql]
+Conflict: specs/api/endpoints/spec.md touched by [add-rest-api, add-graphql]
 
 Checking add-rest-api (created 2026-01-10):
 - Delta adds "REST Endpoints" requirement
@@ -255,9 +257,9 @@ No active changes found. Create a new change to get started.
 - Always prompt for selection, never auto-select
 - Detect spec conflicts early and resolve by checking codebase
 - When both changes are implemented, apply specs in chronological order
-- Skip spec sync only when implementation is missing (warn user)
+- For conflicting unimplemented changes, preserve the main-spec conflict decision above; record local documentation as pending rather than describing planned code as implemented
 - Show clear per-change status before confirming
-- Use single confirmation for entire batch
+- Use one confirmation for the batch; seek further confirmation only for newly discovered outstanding updates not covered by that choice
 - Track and report all outcomes (success/skip/fail)
 - Preserve .openspec.yaml when moving to archive
 - Archive directory target uses current date: YYYY-MM-DD-<name>

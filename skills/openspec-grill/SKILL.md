@@ -59,12 +59,14 @@ If the user mentions a change or you detect one is relevant:
     | Insight Type               | Where to Capture               |
     |----------------------------|--------------------------------|
     | Design decision made       | `design.md`                  |
-    | New requirement discovered | `specs/<capability>/spec.md` |
-    | Requirement changed        | `specs/<capability>/spec.md` |
+    | New requirement discovered | `specs/<capability-id>/spec.md` |
+    | Requirement changed        | `specs/<capability-id>/spec.md` |
     | Scope changed              | `proposal.md`                |
     | New work identified        | `tasks.md`                   |
     | New term introduced        | `openspec/changes/<name>/GLOSSARY.md` |
     | Assumption invalidated     | Relevant artifact              |
+
+   Here `<capability-id>` is the complete directory path relative to `specs/` (for example, `identity/authentication`). Keep the same ID in the proposal delta spec and the main spec.
 
    Example offers:
    - "That's a design decision. Capture it in design.md?"

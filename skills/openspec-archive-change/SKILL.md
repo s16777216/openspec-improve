@@ -52,18 +52,20 @@ Archive a completed change in the experimental workflow.
 
 4. **Assess delta spec sync state**
 
-   Check for delta specs at `openspec/changes/<name>/specs/`. If none exist, proceed without sync prompt.
+   Assess both main spec integration and affected repos/modules' local `SPEC.md` updates, including pending sync notes in the change's artifacts. Local files remain with their code and are refreshed by `openspec-sync-specs`.
+
+   Recursively find delta `spec.md` files under `openspec/changes/<name>/specs/`. Use each file's full directory path relative to `specs/` as its capability ID. Proceed without a sync prompt only when there are no delta specs and no local updates needed.
 
    **If delta specs exist:**
-   - Compare each delta spec with its corresponding main spec at `openspec/specs/<capability>/spec.md`
+   - Compare each delta spec with its corresponding main spec at `openspec/specs/<capability-id>/spec.md`; preserve nested domain segments in `<capability-id>`.
    - Determine what changes would be applied (adds, modifications, removals, renames)
    - Show a combined summary before prompting
 
    **Prompt options:**
-   - If changes needed: "Sync now (recommended)", "Archive without syncing"
-   - If already synced: "Archive now", "Sync anyway", "Cancel"
+   - If either main specs or local `SPEC.md` needs updates: "Sync now (recommended)", "Archive without syncing"
+   - If both are current: "Archive now", "Sync anyway", "Cancel"
 
-   If user chooses sync, use Task tool (subagent_type: "general-purpose", prompt: "Use Skill tool to invoke openspec-sync-specs for change '<name>'. Delta spec analysis: <include the analyzed delta spec summary>"). Proceed to archive regardless of choice.
+   If the user chooses sync, invoke `openspec-sync-specs` for this change, including local refresh even when main specs are already current. Recheck pending entries afterward. Resolve them before normal archival; if any remain, explain the reasons and proceed only if the user explicitly chooses archive with those warnings. Include outstanding local updates when the user chooses to skip sync.
 
 5. **Perform the archive**
 
@@ -102,6 +104,7 @@ Archive a completed change in the experimental workflow.
    - Schema that was used
    - Archive location
    - Spec sync status (synced / sync skipped / no delta specs)
+   - Local `SPEC.md` status and any unresolved pending paths
    - GLOSSARY merge status (merged / no GLOSSARY)
    - Note about any warnings (incomplete artifacts/tasks)
 
@@ -161,4 +164,4 @@ Target archive directory already exists.
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
 - If sync is requested, use the Skill tool to invoke `openspec-sync-specs` (agent-driven)
-- If delta specs exist, always run the sync assessment and show the combined summary before prompting
+- Assess main specs and local `SPEC.md` together before prompting; already-synced main specs do not imply local documentation is current

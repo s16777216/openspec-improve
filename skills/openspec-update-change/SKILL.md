@@ -52,6 +52,7 @@ Revise a change's existing planning artifacts and keep them coherent. Never edit
 
    **Fork context and additional editable files:**
    - Read project-level `openspec/GLOSSARY.md` and `openspec/VERIFY.md` if present. These are read-only context in this workflow.
+   - Read existing `SPEC.md` files at affected repo/module roots as read-only implementation context. If the revised plan changes their long-lived mappings, note which files `openspec-sync-specs` must refresh after implementation; do not edit local `SPEC.md` in this planning workflow.
    - Read `GLOSSARY.md` and `VERIFY.md` directly under the selected `changeRoot` if present. These two existing change-level files are explicit additions to the editable set, even when the schema does not list them. Do not create them or treat them as schema artifact ids.
    - Use the CLI-reported change root, not a guessed path. Missing extension files are valid; report a missing file only when the requested revision needs it.
 

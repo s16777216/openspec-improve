@@ -65,7 +65,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
      - Recommendation: "Complete task: <description>" or "Mark as done if already implemented"
 
    **Spec Coverage**:
-   - If delta specs exist in `openspec/changes/<name>/specs/`:
+   - Recursively find delta `spec.md` files under `openspec/changes/<name>/specs/`; identify each by its full path relative to `specs/`:
      - Extract all requirements (marked with "### Requirement:")
      - For each requirement:
        - Search codebase for keywords related to the requirement
@@ -110,6 +110,11 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
    - If significant deviations found:
      - Add SUGGESTION: "Code pattern deviation: <details>"
      - Recommendation: "Consider following project pattern: <example>"
+
+   **Local Implementation Specs**:
+   - For each affected repo/module, read its `SPEC.md` at the chosen ownership root. Check that it names the full capability ID, links to the matching central spec (or gives a stable path when that spec is in another repo), and accurately describes responsibility, entry points, and interfaces.
+   - Read the change's pending local sync notes. Before sync, report expected local documentation updates as pending integration, not failed implementation. Recommend `openspec-sync-specs` for these paths. If a path claimed as synced is missing, broken, or stale, report a WARNING. Check unresolved pending entries before recommending archive.
+   - Use central specs and delta specs for requirement/scenario checks; local `SPEC.md` describes actual code and must not claim unimplemented behavior.
 
 8. **Execute Custom Verification from VERIFY.md (if any)**
 
@@ -253,6 +258,7 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
       - Each with specific recommendation
 
    **Final Assessment**:
+   - If local documentation is pending integration: state that separately from implementation findings and recommend `openspec-sync-specs` (after completing any unimplemented portions) before archive. Do not report ready for archive while these entries remain unresolved.
    - If CRITICAL issues: "X critical issue(s) found. Fix before archiving."
    - If only warnings: "No critical issues. Y warning(s) to consider. Ready for archive (with noted improvements)."
    - If all clear: "All checks passed. Ready for archive."

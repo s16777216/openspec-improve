@@ -229,10 +229,10 @@ Here's a draft proposal:
 ## Capabilities
 
 ### New Capabilities
-- `<capability-name>`: [brief description]
+- `<domain>/<capability>`: [brief description; use the full path relative to specs/]
 
 ### Modified Capabilities
-<!-- If modifying existing behavior -->
+<!-- If modifying existing behavior, use the existing capability's full relative path -->
 
 ## Impact
 
@@ -271,12 +271,12 @@ Specs define **what** we're building in precise, testable terms. They use a requ
 For a small task like this, we might only need one spec file.
 ```
 
-**DO:** Create the spec file:
+**DO:** Choose a capability ID from the proposal. Use the full domain/capability path, such as `identity/authentication`; for a modified capability, reuse its main spec ID. Existing flat IDs remain valid. Create the spec file:
 ```bash
 # Unix/macOS
-mkdir -p openspec/changes/<name>/specs/<capability-name>
+mkdir -p openspec/changes/<name>/specs/<capability-id>
 # Windows (PowerShell)
-# New-Item -ItemType Directory -Force -Path "openspec/changes/<name>/specs/<capability-name>"
+# New-Item -ItemType Directory -Force -Path "openspec/changes/<name>/specs/<capability-id>"
 ```
 
 Draft the spec content:
@@ -303,7 +303,7 @@ Here's the spec:
 This format—WHEN/THEN/AND—makes requirements testable. You can literally read them as test cases.
 ```
 
-Save to `openspec/changes/<name>/specs/<capability>/spec.md`.
+Save to `openspec/changes/<name>/specs/<capability-id>/spec.md`. Use the same capability ID under `openspec/specs/` when syncing. If multiple repos implement the capability, record their implementation mapping and affected local `SPEC.md` files in `design.md`, not in the behavioral spec. Read existing local `SPEC.md` files as design context; refresh them together with main specs through `openspec-sync-specs`.
 
 ---
 
@@ -404,8 +404,9 @@ Now we implement each task, checking them off as we go. I'll announce each one a
 1. Announce: "Working on task N: [description]"
 2. Implement the change in the codebase
 3. Reference specs/design naturally: "The spec says X, so I'm doing Y"
-4. Mark complete in tasks.md: `- [ ]` → `- [x]`
-5. Brief status: "✓ Task N complete"
+4. Record affected local `SPEC.md` paths and capability IDs as pending sync notes in design.md. `openspec-sync-specs` will create or refresh those files from actual code alongside main spec integration.
+5. Mark complete in tasks.md: `- [ ]` → `- [x]`
+6. Brief status: "✓ Task N complete"
 
 Keep narration light—don't over-explain every line of code.
 
