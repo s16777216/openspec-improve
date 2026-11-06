@@ -9,13 +9,14 @@
 | Area                               | Official                           | This Fork                                               |
 | ---------------------------------- | ---------------------------------- | ------------------------------------------------------- |
 | **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration**           |
-| **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware              |
-| **Glossary**                       | ❌ Not supported                    | **`GLOSSARY.md`** — project + change-level domain terms |
-| **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — no store registration required              |
+| **Custom Verification**            | Not supported                      | **`VERIFY.md`** — declarative, scope-aware              |
+| **Glossary**                       | Not supported                      | **`GLOSSARY.md`** — project + change-level domain terms |
+| **Nested Specs & Local `SPEC.md`** | Flat spec IDs only                 | **Nested capability specs + local `SPEC.md`** synced via `openspec-sync-specs` |
+| **Store/Registry Support**         | Full (`--store`, `openspec store`) | Removed — no store registration required                |
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copies every skill under `skills/` into each agent's own skills directory.
 
@@ -36,30 +37,9 @@ The repo root also carries a spec-compliant `plugin.json`, so clients that follo
 
 ---
 
-### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)
+### <a id="templates"></a> Starter Template Specifications (VERIFY.md & GLOSSARY.md)
 
-`openspec-setup` creates the following files under `openspec/` if they do not exist (the templates are embedded in `skills/openspec-setup/SKILL.md`; keep both in sync):
-
-1. **`openspec/VERIFY.md`** (Declarative Custom Verification)
-   ````markdown
-   # Verification
-
-   ## <project-or-module-name>
-
-   ```bash
-   # Add project-specific lint, typecheck, or test commands (e.g. npm test / cargo test)
-   npm test
-   ```
-   ````
-
-2. **`openspec/GLOSSARY.md`** (Domain Terminology Registry)
-   ````markdown
-   # Glossary
-
-   ## core
-
-   - **ExampleTerm** — Definition of example domain term. Aliases: alias1, alias2.
-   ````
+`openspec-setup` creates `openspec/VERIFY.md` and `openspec/GLOSSARY.md` under `openspec/` if they do not exist. The starter templates and creation rules are defined in [`skills/openspec-setup/SKILL.md`](skills/openspec-setup/SKILL.md) — that file is the source of truth.
 
 ---
 
@@ -107,70 +87,25 @@ Perfect for your morning "what's in flight?" check.
 #### Output Results
 
 After discussion completes, automatically generates:
-- ✅ `design.md` — structured design decisions
-- ✅ `tasks.md` — executable task list
-- ✅ `specs/` — spec file updates (if needed)
+- `design.md` — structured design decisions
+- `tasks.md` — executable task list
+- `specs/` — spec file updates (if needed)
 
 ---
 
 ### 3. VERIFY.md — Declarative Custom Verification
 
-````markdown
-# Verification
-
-## my-repo
-
-```bash
-npm run lint
-npm run typecheck
-npm test
-```
-
-## shared-lib
-
-```bash
-cargo build
-cargo test
-```
-````
-
-**How it works:**
-- Agent reads `VERIFY.md` (project-level + change-level, **additive**)
-- Cross-references change's affected files to determine **which repo sections are in scope**
-- Executes only in-scope sections
-- Skipped sections noted in report: `"Skipped shared-lib (not in change scope)"`
-
-### Additive Change-Level Config
-
-```
-Project VERIFY.md:     lint + typecheck + test for all repos
-Change VERIFY.md:      + security-scan for auth repo only
-Result:                Both run, merged in report
-```
+Per-repo, scope-aware shell commands that run as a supplement to the built-in completeness/correctness/coherence checks. Project-level and change-level files are additive — both run, merged in the report. Format, detection order, and scope-matching rules are defined in [`skills/openspec-verify-change/SKILL.md`](skills/openspec-verify-change/SKILL.md) (step 8) — that file is the source of truth.
 
 ---
 
 ### 4. GLOSSARY.md — Domain Terminology Registry
 
-Central registry for project-specific terms (jargon, abbreviations, domain vocabulary).
-
-**Format** — `term + definition + aliases` in a pure list (no manual ADDED/MODIFIED flags; the diff happens at archive time):
-
-```markdown
-# Glossary
-
-## auth
-
-- **Principal** — Authenticated request principal. Aliases: user、account。
-```
-
-**How it works:**
+Central registry for project-specific terms (jargon, abbreviations, domain vocabulary), as a `term + definition + aliases` list. Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive:
 - **Create (grill)**: `openspec-grill` detects project-specific terms during the conversation, confirms definitions + aliases with the user, then writes them to `openspec/changes/<name>/GLOSSARY.md`
-- **Archive**: `openspec-archive-change` merges the change-level `GLOSSARY.md` into project-level `openspec/GLOSSARY.md` — new terms appended, existing terms overwritten — then deletes the change-level file
+- **Archive**: `openspec-archive-change` merges the change-level `GLOSSARY.md` into project-level `openspec/GLOSSARY.md` — new terms appended, existing terms overwritten — then deletes the change-level file. Merge rules are defined in [`skills/openspec-archive-change/SKILL.md`](skills/openspec-archive-change/SKILL.md) (step 5) — that file is the source of truth.
 
-Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level files are additive.
-
-> **⚠️ Warning: `openspec init` overwrites fork extensions.**
+> **Warning: `openspec init` overwrites fork extensions.**
 > The official `openspec init` does **not** understand this fork's extensions (GLOSSARY, VERIFY). Running it with a tool selection rewrites the skills back to the official versions, wiping out GLOSSARY/VERIFY integrations. `openspec-setup` avoids this by using `--tools none`.
 > **If you ever run `openspec init` with a tool selection, restore the skills immediately by running `npx skills add s16777216/openspec-improve` again.**
 
@@ -191,23 +126,12 @@ Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level
 
 ## Skills (Agent Workflows)
 
-```
-     |
-    ●-- explore / grill : requirements discussion, design tree Q&A
-     |
-     |
-    ●-- propose : generate proposal from discussion
-     |
-     |
-    ●-- apply : implement based on proposal
-     |
-     |
-    ●-- verify : generate verification report from proposal & implementation
-     |
-     |
-    ●-- archive : archive the proposal
-     |
-     v
+```mermaid
+flowchart LR
+    A["explore / grill<br/>requirements discussion, design tree Q&A"] --> B["propose<br/>generate proposal from discussion"]
+    B --> C["apply<br/>implement based on proposal"]
+    C --> D["verify<br/>generate verification report from proposal & implementation"]
+    D --> E["archive<br/>archive the proposal"]
 ```
 
 ### <a id="command-reference"></a> Complete Command Reference
@@ -300,34 +224,12 @@ Keep requirement and scenario text in the central spec, so a change has one beha
 
 ---
 
-## Maintenance
+## Contributing
 
-### Adding a New Workflow
-
-To add a new workflow skill:
-
-1. Create `skills/openspec-<action>/SKILL.md` with the workflow content.
-2. Ensure steps, guardrails, and output contracts are consistent with the other skills.
-3. Add the skill to the reference tables in both README.md and README.zh.md.
-4. Run the consistency checks (see below) (currently 15 skills).
-
-### Consistency Checks
-
-Run these read-only checks to verify project health:
-
-```bash
-# Scan for leftover /opsx-style aliases (all commands use the real skill name now)
-grep -ri 'opsx' skills/ README.md README.zh.md
-
-# Verify YAML frontmatter in all skills
-grep -l 'generatedBy' skills/*/SKILL.md
-
-# Check Markdown fence validity
-# (use a markdown linter or manual review)
-```
+Want to add a new workflow skill or run the project's consistency checks? See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## License
 
-MIT
+[MIT](LICENSE)
