@@ -15,6 +15,54 @@
 
 ---
 
+## 🚀 Installation & Setup
+
+Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copies every skill under `skills/` into each agent's own skills directory.
+
+1. **Install the enhanced skills**:
+   ```bash
+   npx skills add s16777216/openspec-improve
+   ```
+   - Add `-g` to install globally instead of per-project; add `-a <agent>` (for example `-a claude-code -a codex`) to skip the interactive agent selection.
+2. **Ask your agent to run the setup skill**: `openspec-setup` (Codex: `$openspec-setup`). It is safe to run again at any time. It:
+   - checks the OpenSpec CLI and offers to install it (`npm install -g openspec@latest`);
+   - runs `openspec init --no-animation --tools none` if `openspec/` does not exist;
+   - creates `openspec/VERIFY.md` and `openspec/GLOSSARY.md` from the [Starter Template Specifications](#templates) if they are missing.
+
+   It asks for confirmation before each step and never overwrites an existing file. `openspec-status`, `openspec-new-change`, `openspec-propose`, and `openspec-onboard` also suggest `openspec-setup` when one of these files is missing.
+   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, the agent uses `openspec.cmd` instead.
+
+The repo root also carries a spec-compliant `plugin.json`, so clients that follow the [Agent Plugins spec](https://agent-plugins.org/) can load it directly from this repository. `npx skills add` above remains the primary, recommended way to install into Claude Code or Codex.
+
+---
+
+### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)
+
+`openspec-setup` creates the following files under `openspec/` if they do not exist (the templates are embedded in `skills/openspec-setup/SKILL.md`; keep both in sync):
+
+1. **`openspec/VERIFY.md`** (Declarative Custom Verification)
+   ````markdown
+   # Verification
+
+   ## <project-or-module-name>
+
+   ```bash
+   # Add project-specific lint, typecheck, or test commands (e.g. npm test / cargo test)
+   npm test
+   ```
+   ````
+
+2. **`openspec/GLOSSARY.md`** (Domain Terminology Registry)
+   ````markdown
+   # Glossary
+
+   ## core
+
+   - **ExampleTerm** — Definition of example domain term. Aliases: alias1, alias2.
+   ````
+
+---
+
 ## Core Improvements
 
 ### 1. Openspec-Status
@@ -138,54 +186,6 @@ Project-level `openspec/GLOSSARY.md` is the single source of truth; change-level
 - Technical names, templates, and OpenSpec structure stay unchanged
 
 **Languages:** the artifact keeps the language of the request. English follows ASD-STE100 directly. For other languages the language-neutral rules apply, which is not formal ASD-STE100. The rules are prompt instructions only; nothing checks compliance automatically.
-
----
-
-## 🚀 Installation & Setup
-
-Install with the [`skills`](https://github.com/vercel-labs/skills) CLI. It copies every skill under `skills/` into each agent's own skills directory.
-
-1. **Install the enhanced skills**:
-   ```bash
-   npx skills add s16777216/openspec-improve
-   ```
-   - Add `-g` to install globally instead of per-project; add `-a <agent>` (for example `-a claude-code -a codex`) to skip the interactive agent selection.
-2. **Ask your agent to run the setup skill**: `openspec-setup` (Codex: `$openspec-setup`). It is safe to run again at any time. It:
-   - checks the OpenSpec CLI and offers to install it (`npm install -g openspec@latest`);
-   - runs `openspec init --no-animation --tools none` if `openspec/` does not exist;
-   - creates `openspec/VERIFY.md` and `openspec/GLOSSARY.md` from the [Starter Template Specifications](#templates) if they are missing.
-
-   It asks for confirmation before each step and never overwrites an existing file. `openspec-status`, `openspec-new-change`, `openspec-propose`, and `openspec-onboard` also suggest `openspec-setup` when one of these files is missing.
-   - **Windows users**: If PowerShell blocks `openspec` due to execution policy, the agent uses `openspec.cmd` instead.
-
-The repo root also carries a spec-compliant `plugin.json`, so clients that follow the [Agent Plugins spec](https://agent-plugins.org/) can load it directly from this repository. `npx skills add` above remains the primary, recommended way to install into Claude Code or Codex.
-
----
-
-### <a id="templates"></a> 📄 Starter Template Specifications (VERIFY.md & GLOSSARY.md)
-
-`openspec-setup` creates the following files under `openspec/` if they do not exist (the templates are embedded in `skills/openspec-setup/SKILL.md`; keep both in sync):
-
-1. **`openspec/VERIFY.md`** (Declarative Custom Verification)
-   ````markdown
-   # Verification
-
-   ## <project-or-module-name>
-
-   ```bash
-   # Add project-specific lint, typecheck, or test commands (e.g. npm test / cargo test)
-   npm test
-   ```
-   ````
-
-2. **`openspec/GLOSSARY.md`** (Domain Terminology Registry)
-   ````markdown
-   # Glossary
-
-   ## core
-
-   - **ExampleTerm** — Definition of example domain term. Aliases: alias1, alias2.
-   ````
 
 ---
 

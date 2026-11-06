@@ -15,6 +15,55 @@
 
 ---
 
+## 🚀 安裝與設定
+
+使用 [`skills`](https://github.com/vercel-labs/skills) CLI 安裝。
+
+1. **安裝增強版 skills**：
+   ```bash
+   npx skills add s16777216/openspec-improve
+   ```
+   - 加上 `-g` 可改為全域安裝；加上 `-a <agent>`（例如 `-a claude-code -a codex`）可略過互動式選擇 agent。
+2. **請 agent 執行 setup skill**：`openspec-setup`（Codex 使用 `$openspec-setup`）。可隨時重複執行，它會：
+   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g openspec@latest`）；
+   - 若 `openspec/` 不存在，執行 `openspec init --no-animation --tools none`；
+   - 若 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md` 不存在，依據[初始模板規範](#templates)建立。
+
+   每一步都會先徵求確認，且絕不覆蓋既有檔案。當缺少上述檔案時，`openspec-status`、`openspec-new-change`、`openspec-propose`、`openspec-onboard` 也會建議執行 `openspec-setup`。
+   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，agent 會改用 `openspec.cmd`。
+
+repo 根目錄也內含一份符合規範的 `plugin.json`，讓遵循 [Agent Plugins 規範](https://agent-plugins.org/) 的 client 可以直接從此 repo 載入。上面的 `npx skills add` 仍是安裝到 Claude Code 或 Codex 的主要、推薦方式。
+
+---
+
+### <a id="templates"></a> 📄 專案初始模板規範 (VERIFY.md 與 GLOSSARY.md)
+
+`openspec-setup` 會在專案 `openspec/` 目錄建立以下範本（若尚不存在）。範本內容內嵌於 `skills/openspec-setup/SKILL.md`，請保持兩處同步：
+
+1. **`openspec/VERIFY.md`**（宣告式自訂驗證）
+
+   ````markdown
+   # Verification
+
+   ## <專案或模組名稱>
+
+   ```bash
+   # 請依據專案實際語言與工具填入驗證指令（例如 npm test / cargo test 等）
+   npm test
+   ```
+   ````
+
+2. **`openspec/GLOSSARY.md`**（領域專有名詞表）
+   ```markdown
+   # Glossary
+
+   ## core
+
+   - **ExampleTerm** — 範例專有名詞定義。別名：alias1、alias2。
+   ```
+
+---
+
 ## 本 Fork 的核心改進
 
 ### 1. Openspec-Status
@@ -143,55 +192,6 @@ Change VERIFY.md：   針對 auth repo 額外加 security-scan
 - 技術名稱、模板與 OpenSpec 結構維持不變
 
 **語言：** artifact 沿用請求的語言。英文直接遵循 ASD-STE100；其他語言套用不依賴語言的規則，並非正式的 ASD-STE100。這些規則只是提示詞指示，沒有自動檢查合規性。
-
----
-
-## 🚀 安裝與設定
-
-使用 [`skills`](https://github.com/vercel-labs/skills) CLI 安裝。
-
-1. **安裝增強版 skills**：
-   ```bash
-   npx skills add s16777216/openspec-improve
-   ```
-   - 加上 `-g` 可改為全域安裝；加上 `-a <agent>`（例如 `-a claude-code -a codex`）可略過互動式選擇 agent。
-2. **請 agent 執行 setup skill**：`openspec-setup`（Codex 使用 `$openspec-setup`）。可隨時重複執行，它會：
-   - 檢查 OpenSpec CLI，未安裝時詢問是否安裝（`npm install -g openspec@latest`）；
-   - 若 `openspec/` 不存在，執行 `openspec init --no-animation --tools none`；
-   - 若 `openspec/VERIFY.md` 與 `openspec/GLOSSARY.md` 不存在，依據[初始模板規範](#templates)建立。
-
-   每一步都會先徵求確認，且絕不覆蓋既有檔案。當缺少上述檔案時，`openspec-status`、`openspec-new-change`、`openspec-propose`、`openspec-onboard` 也會建議執行 `openspec-setup`。
-   - **Windows 用戶**：若 PowerShell 因執行政策阻擋 `openspec`，agent 會改用 `openspec.cmd`。
-
-repo 根目錄也內含一份符合規範的 `plugin.json`，讓遵循 [Agent Plugins 規範](https://agent-plugins.org/) 的 client 可以直接從此 repo 載入。上面的 `npx skills add` 仍是安裝到 Claude Code 或 Codex 的主要、推薦方式。
-
----
-
-### <a id="templates"></a> 📄 專案初始模板規範 (VERIFY.md 與 GLOSSARY.md)
-
-`openspec-setup` 會在專案 `openspec/` 目錄建立以下範本（若尚不存在）。範本內容內嵌於 `skills/openspec-setup/SKILL.md`，請保持兩處同步：
-
-1. **`openspec/VERIFY.md`**（宣告式自訂驗證）
-
-   ````markdown
-   # Verification
-
-   ## <專案或模組名稱>
-
-   ```bash
-   # 請依據專案實際語言與工具填入驗證指令（例如 npm test / cargo test 等）
-   npm test
-   ```
-   ````
-
-2. **`openspec/GLOSSARY.md`**（領域專有名詞表）
-   ```markdown
-   # Glossary
-
-   ## core
-
-   - **ExampleTerm** — 範例專有名詞定義。別名：alias1、alias2。
-   ```
 
 ---
 
