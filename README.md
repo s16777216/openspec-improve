@@ -225,7 +225,7 @@ The repo root also carries a spec-compliant `plugin.json`, so clients that follo
 | `openspec-update-change` | Revise existing planning artifacts and keep them consistent; no code edits |
 | `openspec-apply-change` | Implement tasks from a change |
 | `openspec-verify-change` | Verify implementation matches artifacts |
-| `openspec-sync-specs` | Sync delta specs from a change to main specs |
+| `openspec-sync-specs` | Sync main specs and refresh local SPEC.md from implemented code |
 | `openspec-archive-change` | Archive a completed change |
 | `openspec-bulk-archive-change` | Archive multiple completed changes at once |
 | `openspec-onboard` | Guided onboarding through a complete workflow cycle |
@@ -287,7 +287,9 @@ Example at an API repo root:
 - Interfaces: Session API used by the web repo.
 ```
 
-When implementation changes, update the affected local `SPEC.md` files. Verification checks their mappings. Keep requirement and scenario text in the central spec, so a change has one behavioral source of truth. A local file can reference `identity/authentication` even when the central `openspec/` directory lives in another repo.
+Apply records affected local `SPEC.md` paths as pending sync notes in the change artifacts. `openspec-sync-specs` integrates main specs and refreshes local files from actual code at the same time. Unimplemented or inaccessible portions remain pending; a later sync revisits them even if main specs are already current. Verification reports pending integration separately from implementation failures, and archive uses the same sync workflow. Resolve pending entries before normal archival; archiving with outstanding updates requires explicit confirmation with warnings.
+
+Keep requirement and scenario text in the central spec, so a change has one behavioral source of truth. A local file can reference `identity/authentication` even when the central `openspec/` directory lives in another repo.
 
 ---
 

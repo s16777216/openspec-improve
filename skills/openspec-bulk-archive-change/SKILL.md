@@ -48,7 +48,7 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
       - List each capability by its full directory path relative to `specs/` (for example, `identity/authentication`)
       - For each, extract requirement names (lines matching `### Requirement: <name>`)
 
-   d. **Local implementation specs** - Check the affected repos/modules' `SPEC.md` files for current capability IDs, central spec references, responsibilities, and entry points. Report missing or stale mappings before the batch confirmation; keep these files with their code, outside the change archive.
+   d. **Local implementation specs** - Check the affected repos/modules' `SPEC.md` files and pending sync notes in the change artifacts. Include needed local refreshes in the batch sync plan, even when main specs are already current or there are no delta specs. Keep local files with their code, outside the change archive.
 
 4. **Detect spec conflicts**
 
@@ -122,10 +122,10 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
 
    Process changes in the determined order (respecting conflict resolution):
 
-   a. **Sync specs** if delta specs exist:
-      - Use the openspec-sync-specs approach (agent-driven intelligent merge)
+   a. **Sync specs** if delta specs or local documentation updates exist:
+      - Use `openspec-sync-specs` for both main specs and local `SPEC.md` refreshes from actual code
       - For conflicts, apply in resolved order
-      - Track if sync was done
+      - Track main and local sync status separately. If local updates remain pending, resolve them before normal archival; archive with outstanding updates only when explicitly confirmed with those warnings.
 
    b. **Merge GLOSSARY (if present)** for each change, in the determined order:
       - Check if `openspec/changes/<name>/GLOSSARY.md` exists
@@ -257,9 +257,9 @@ No active changes found. Create a new change to get started.
 - Always prompt for selection, never auto-select
 - Detect spec conflicts early and resolve by checking codebase
 - When both changes are implemented, apply specs in chronological order
-- Skip spec sync only when implementation is missing (warn user)
+- For conflicting unimplemented changes, preserve the main-spec conflict decision above; record local documentation as pending rather than describing planned code as implemented
 - Show clear per-change status before confirming
-- Use single confirmation for entire batch
+- Use one confirmation for the batch; seek further confirmation only for newly discovered outstanding updates not covered by that choice
 - Track and report all outcomes (success/skip/fail)
 - Preserve .openspec.yaml when moving to archive
 - Archive directory target uses current date: YYYY-MM-DD-<name>

@@ -46,7 +46,7 @@ Implement tasks from an OpenSpec change.
 
    **Handle states:**
    - If `state: "blocked"` (missing artifacts): show message, suggest using `openspec-continue-change`
-   - If `state: "all_done"`: congratulate, suggest archive
+   - If `state: "all_done"`: report implementation complete, review pending sync notes, and suggest `openspec-sync-specs` before archive
    - Otherwise: proceed to implementation
 
 4. **Read context files**
@@ -76,11 +76,11 @@ Implement tasks from an OpenSpec change.
    - Show which task is being worked on
    - Make the code changes required
    - Keep changes minimal and focused
-   - Update the affected repo/module's `SPEC.md` when its long-lived implementation mapping changes. If none exists, create one at the relevant repo or module root for the capabilities implemented there, rather than one in every code directory. Record the capability ID and a link or stable path to its central spec, local responsibility, code entry points, and important interfaces or dependencies. Do not copy requirement/scenario text into `SPEC.md`.
+   - Record affected local `SPEC.md` paths and capability IDs as pending sync notes in the change's design artifact (or a separate notes section in the tasks artifact if no design exists). Include implementation locations useful for the refresh. Local `SPEC.md` creation and updates belong to `openspec-sync-specs`.
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`
    - Continue to next task
 
-   Before reporting all tasks done, check every affected repo/module has an accurate local `SPEC.md` entry for the capabilities implemented there. If a repo is inaccessible, report the outstanding documentation update.
+   On completion or pause, report pending local documentation updates and recommend `openspec-sync-specs`. These notes track documentation integration separately from implementation task completion.
 
    **Pause if:**
    - Task is unclear → ask for clarification
@@ -93,7 +93,7 @@ Implement tasks from an OpenSpec change.
    Display:
    - Tasks completed this session
    - Overall progress: "N/M tasks complete"
-   - If all done: suggest archive
+   - If all done: suggest `openspec-sync-specs` to integrate main specs and local documentation before archive
    - If paused: explain why and wait for guidance
 
 **Output During Implementation**
@@ -124,7 +124,7 @@ Working on task 4/7: <task description>
 - [x] Task 2
 ...
 
-All tasks complete! You can archive this change with `openspec-archive-change`.
+All implementation tasks complete! Run `openspec-sync-specs` to integrate main specs and local documentation, then use `openspec-archive-change`.
 ```
 
 **Output On Pause (Issue Encountered)**

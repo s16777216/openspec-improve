@@ -1,6 +1,6 @@
 ---
 name: openspec-sync-specs
-description: Sync delta specs from a change to main specs. Use when the user wants to update main specs with changes from a delta spec, without archiving the change.
+description: Sync a change's delta specs to main specs and refresh local SPEC.md files from implemented code. Use to integrate specs or finish pending local documentation updates without archiving the change.
 license: MIT
 compatibility: Requires openspec CLI.
 metadata:
@@ -9,7 +9,7 @@ metadata:
   generatedBy: "1.8.0"
 ---
 
-Sync delta specs from a change to main specs.
+Sync delta specs from a change to main specs and refresh the implementing repos/modules' local `SPEC.md` files.
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
@@ -21,7 +21,7 @@ This is an **agent-driven** operation - you will read delta specs and directly e
 
    Run `openspec list --json` to get available changes. Use the **AskUserQuestion tool** to let the user select.
 
-   Show changes that have delta specs (under `specs/` directory).
+   Show changes that have delta specs (under `specs/` directory) or pending local `SPEC.md` updates recorded in their artifacts.
 
    **IMPORTANT**: Do NOT guess or auto-select a change. Always let the user choose.
 
@@ -35,7 +35,7 @@ This is an **agent-driven** operation - you will read delta specs and directly e
    - `## REMOVED Requirements` - Requirements to remove
    - `## RENAMED Requirements` - Requirements to rename (FROM:/TO: format)
 
-   If no delta specs found, inform user and stop.
+   Also read the change's design/tasks artifacts for affected repos/modules and pending local `SPEC.md` paths. If no delta specs exist, continue with local documentation updates when needed; stop only when neither kind of update is needed.
 
 3. **For each delta spec, apply changes to main specs**
 
@@ -70,11 +70,20 @@ This is an **agent-driven** operation - you will read delta specs and directly e
       - Add Purpose section (can be brief, mark as TBD)
       - Add Requirements section with the ADDED requirements
 
-4. **Show summary**
+4. **Refresh local implementation specs**
+
+   Perform this step even when main specs already match the delta. Use the change's artifacts and actual code to identify affected repos/modules and their capability IDs.
+
+   - For implemented portions, update the relevant repo/module root's `SPEC.md`, creating it there if absent. Record the full capability ID, a link or stable path to the central spec, local responsibility, code entry points, and important interfaces/dependencies. Preserve unrelated content and avoid a file in every directory. Keep requirement/scenario text in the central spec.
+   - Describe only the implementation that exists. If a repo is inaccessible or a portion is not implemented, leave that local content unchanged and record its path, capability ID, and reason as pending in the change's design artifact (or a separate notes section in the tasks artifact when no design exists). Do not turn these notes into incomplete implementation task checkboxes.
+   - Resolve recorded pending entries when their local updates are completed. A later sync must revisit them even if the main spec needs no further edits. Report main-spec integration and local documentation completion separately.
+
+5. **Show summary**
 
    After applying all changes, summarize:
    - Which capabilities were updated
    - What changes were made (requirements added/modified/removed/renamed)
+   - Local `SPEC.md` files updated or already current, and pending paths with reasons
 
 **Delta Spec Format Reference**
 
@@ -127,12 +136,17 @@ Updated main specs:
 - Created new spec file
 - Added requirement: "Another Feature"
 
-Main specs are now updated. The change remains active - archive when implementation is complete.
+Local implementation specs:
+- Updated: api/SPEC.md (identity/authentication)
+- Pending: web/SPEC.md (identity/authentication; frontend not implemented)
+
+Main specs are now updated. The change remains active - finish implementation and pending local updates before archive.
 ```
 
 **Guardrails**
 - Read both delta and main specs before making changes
 - Preserve existing content not mentioned in delta
+- Main specs express intended behavior; local `SPEC.md` describes actual code. Never document planned code as implemented.
 - If something is unclear, ask for clarification
 - Show what you're changing as you go
 - The operation should be idempotent - running twice should give same result

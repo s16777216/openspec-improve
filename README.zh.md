@@ -231,7 +231,7 @@ repo 根目錄也內含一份符合規範的 `plugin.json`，讓遵循 [Agent Pl
 | `openspec-update-change`       | 修訂既有規劃工件並保持一致，不修改程式碼 |
 | `openspec-apply-change`        | 根據提案實作任務                         |
 | `openspec-verify-change`       | 驗證實作是否符合工件                     |
-| `openspec-sync-specs`          | 將 delta specs 同步至主規格              |
+| `openspec-sync-specs`          | 同步主規格，並依實作更新在地 SPEC.md     |
 | `openspec-archive-change`      | 歸檔已完成的提案                         |
 | `openspec-bulk-archive-change` | 一次歸檔多個已完成的提案                 |
 | `openspec-onboard`             | 引導式入門，完整工作流程週期             |
@@ -293,7 +293,9 @@ openspec/
 - 介面：供 web repo 使用的 session API。
 ```
 
-實作變更時，更新受影響的在地 `SPEC.md`；驗證流程檢查其對應是否正確。需求與情境文字只寫在集中式規格，避免兩邊各維護一份。即使集中式 `openspec/` 位於另一個 repo，在地文件仍可引用 `identity/authentication` 這個能力 ID。
+apply 在 change 工件中記錄待同步的在地 `SPEC.md` 路徑。`openspec-sync-specs` 同時整合主規格，並依實際程式碼更新在地文件。尚未實作或無法存取的部分保留為待辦；即使主規格已同步，下次同步仍會補齊這些文件。驗證流程將待整合文件與實作失敗分別回報；歸檔沿用同一套同步流程。一般歸檔前先清完待辦；若要帶著未完成的文件更新歸檔，須明確確認相關警告。
+
+需求與情境文字只寫在集中式規格，避免兩邊各維護一份。即使集中式 `openspec/` 位於另一個 repo，在地文件仍可引用 `identity/authentication` 這個能力 ID。
 
 ---
 
