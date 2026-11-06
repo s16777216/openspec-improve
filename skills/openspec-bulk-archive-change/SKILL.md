@@ -48,6 +48,8 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
       - List each capability by its full directory path relative to `specs/` (for example, `identity/authentication`)
       - For each, extract requirement names (lines matching `### Requirement: <name>`)
 
+   d. **Local implementation specs** - Check the affected repos/modules' `SPEC.md` files for current capability IDs, central spec references, responsibilities, and entry points. Report missing or stale mappings before the batch confirmation; keep these files with their code, outside the change archive.
+
 4. **Detect spec conflicts**
 
    Build a map of `full relative capability ID -> [changes that touch it]`. Never group by the final directory name alone:

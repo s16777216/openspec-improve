@@ -60,6 +60,8 @@ Implement tasks from an OpenSpec change.
    - `openspec/GLOSSARY.md` (project-level terms, if exists)
    - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
 
+   Read existing `SPEC.md` files at the affected repo or module roots. They describe the current implementation and link to central capability specs. Use them as implementation context; the central `openspec/specs/<capability-id>/spec.md` remains the source for behavioral requirements.
+
 5. **Show current progress**
 
    Display:
@@ -74,8 +76,11 @@ Implement tasks from an OpenSpec change.
    - Show which task is being worked on
    - Make the code changes required
    - Keep changes minimal and focused
+   - Update the affected repo/module's `SPEC.md` when its long-lived implementation mapping changes. If none exists, create one at the relevant repo or module root for the capabilities implemented there, rather than one in every code directory. Record the capability ID and a link or stable path to its central spec, local responsibility, code entry points, and important interfaces or dependencies. Do not copy requirement/scenario text into `SPEC.md`.
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`
    - Continue to next task
+
+   Before reporting all tasks done, check every affected repo/module has an accurate local `SPEC.md` entry for the capabilities implemented there. If a repo is inaccessible, report the outstanding documentation update.
 
    **Pause if:**
    - Task is unclear → ask for clarification

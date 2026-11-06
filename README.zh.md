@@ -11,7 +11,7 @@
 | **反向提問與問答樹**    | N/A                                | 追加具有 openspec 意識的 grill-me          |
 | **自訂驗證**            | ❌ 不支援                          | **`VERIFY.md`** — 宣告式、具範圍感知       |
 | **專有名詞表**          | ❌ 不支援                          | **`GLOSSARY.md`** — 專案級 + change 級術語 |
-| **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 單一 repo 簡潔性                 |
+| **Store/Registry 支援** | 完整 (`--store`, `openspec store`) | ❌ 移除 — 不必註冊 store                  |
 
 ---
 
@@ -269,6 +269,31 @@ openspec/
 `specs/` 以下的相對路徑就是能力 ID。新增規格依業務領域與能力分層，例如 `identity/authentication`。提案的 delta spec 使用**相同的相對路徑**，且只建立本次變更涉及的能力。既有 `auth` 等單層能力 ID 仍可使用；修改既有規格時沿用其 ID。需求與情境寫在能力的 `spec.md` 內，不為每項需求另建資料夾。
 
 規格描述跨 repo 的行為，不在行為規格 `spec.md` 中標示單一程式碼 repo。提案涉及的 repo 與實作位置記錄在 `design.md`；各 repo 的驗證指令放在 `VERIFY.md`。
+
+### 在地 `SPEC.md` 與集中式規格
+
+在實作該能力的 repo 或模組根目錄放置 `SPEC.md`，記錄長期有效的程式碼導覽。同一能力可以出現在多個 repo 的 `SPEC.md`。依真正的模組責任選擇放置位置，不在每個資料夾都建立一份。
+
+| 文件 | 職責 |
+| --- | --- |
+| `openspec/specs/<capability-id>/spec.md` | 正式行為規格：需求與情境，不依程式碼 repo 分類。 |
+| `openspec/changes/<name>/specs/<capability-id>/spec.md` | 本次提案對行為的修改。 |
+| `openspec/changes/<name>/design.md` | 本次變更涉及的 repo、模組與實作決策。 |
+| `<repo-or-module>/SPEC.md` | 此處的責任、程式碼入口、介面／依賴，以及指向正式能力規格的連結或穩定路徑。 |
+
+例如 API repo 根目錄的文件：
+
+```markdown
+# API 實作
+
+## identity/authentication
+- 正式規格：spec repo 中的 `openspec/specs/identity/authentication/spec.md`
+- 責任：驗證登入請求並建立 session。
+- 程式碼入口：`src/auth/routes.ts`、`src/auth/service.ts`
+- 介面：供 web repo 使用的 session API。
+```
+
+實作變更時，更新受影響的在地 `SPEC.md`；驗證流程檢查其對應是否正確。需求與情境文字只寫在集中式規格，避免兩邊各維護一份。即使集中式 `openspec/` 位於另一個 repo，在地文件仍可引用 `identity/authentication` 這個能力 ID。
 
 ---
 

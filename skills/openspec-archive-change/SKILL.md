@@ -52,6 +52,8 @@ Archive a completed change in the experimental workflow.
 
 4. **Assess delta spec sync state**
 
+   Check that affected repos/modules have up-to-date local `SPEC.md` mappings for the capabilities they implement. If a mapping is missing or stale, report it before archival; local `SPEC.md` files remain with their code and are updated during implementation, not moved into the archive.
+
    Recursively find delta `spec.md` files under `openspec/changes/<name>/specs/`. If none exist, proceed without sync prompt. Use each file's full directory path relative to `specs/` as its capability ID.
 
    **If delta specs exist:**

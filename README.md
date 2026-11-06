@@ -11,7 +11,7 @@
 | **Reverse Questioning & Q&A Tree** | N/A                                | **Added openspec-grill with Q&A integration**           |
 | **Custom Verification**            | ❌ Not supported                    | **`VERIFY.md`** — declarative, scope-aware              |
 | **Glossary**                       | ❌ Not supported                    | **`GLOSSARY.md`** — project + change-level domain terms |
-| **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — single-repo simplicity                      |
+| **Store/Registry Support**         | Full (`--store`, `openspec store`) | ❌ Removed — no store registration required              |
 
 ---
 
@@ -263,6 +263,31 @@ openspec/
 The path below `specs/` is the capability ID. Organize new specs by business domain and capability (for example, `identity/authentication`). A proposal uses the **same relative path** for its delta spec and creates files only for capabilities it changes. An existing flat ID such as `auth` remains valid; reuse that ID when modifying its spec. Keep requirements and scenarios inside the capability's `spec.md`, rather than making a directory per requirement.
 
 Specs describe behavior across repositories. Do not label a behavioral `spec.md` as belonging to one code repository. Record the repositories and implementation locations for a change in its `design.md`; place repository-specific checks in `VERIFY.md`.
+
+### Local `SPEC.md` alongside central specs
+
+Use `SPEC.md` at an implementing repo or module root as a durable guide to that code. One capability may have entries in several local `SPEC.md` files. Choose ownership roots that match real modules; do not create a file in every directory.
+
+| Document | Responsibility |
+| --- | --- |
+| `openspec/specs/<capability-id>/spec.md` | Canonical behavior: requirements and scenarios, independent of implementation repos. |
+| `openspec/changes/<name>/specs/<capability-id>/spec.md` | Proposed change to that behavior. |
+| `openspec/changes/<name>/design.md` | Repos, modules, and implementation decisions for this change. |
+| `<repo-or-module>/SPEC.md` | Current local responsibility, code entry points, interfaces/dependencies, and a link or stable path to each central capability spec implemented here. |
+
+Example at an API repo root:
+
+```markdown
+# API implementation
+
+## identity/authentication
+- Central spec: `openspec/specs/identity/authentication/spec.md` in the spec repo
+- Responsibility: Validate login requests and issue sessions.
+- Entry points: `src/auth/routes.ts`, `src/auth/service.ts`
+- Interfaces: Session API used by the web repo.
+```
+
+When implementation changes, update the affected local `SPEC.md` files. Verification checks their mappings. Keep requirement and scenario text in the central spec, so a change has one behavioral source of truth. A local file can reference `identity/authentication` even when the central `openspec/` directory lives in another repo.
 
 ---
 

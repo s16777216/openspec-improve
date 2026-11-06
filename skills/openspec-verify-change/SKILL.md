@@ -111,6 +111,10 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
      - Add SUGGESTION: "Code pattern deviation: <details>"
      - Recommendation: "Consider following project pattern: <example>"
 
+   **Local Implementation Specs**:
+   - For each affected repo/module, read its `SPEC.md` at the chosen ownership root. Check that it names the full capability ID, links to the matching central spec (or gives a stable path when that spec is in another repo), and accurately describes responsibility, entry points, and interfaces.
+   - Treat a missing, broken, or stale local mapping as a WARNING with the affected path and a concrete update. Do not compare local `SPEC.md` as a second copy of behavioral requirements; requirement and scenario checks use the central spec.
+
 8. **Execute Custom Verification from VERIFY.md (if any)**
 
    After the built-in three-dimension checks, look for and execute user-defined verification via `VERIFY.md`. This is a **supplement** — built-in checks always run first, custom verification adds domain-specific validation on top.
