@@ -52,7 +52,7 @@ Archive a completed change in the experimental workflow.
 
 4. **Assess delta spec sync state**
 
-   Assess both main spec integration and affected repos/modules' local `SPEC.md` updates, including pending sync notes in the change's artifacts. Local files remain with their code and are refreshed by `openspec-sync-specs`.
+   Assess both main spec integration and affected repos/modules' local `SPEC.md` updates, including pending sync notes in the change's artifacts. Local files remain with their code and are refreshed by `openspec-sync-specs`, which asks the user to approve each `SPEC.md` change.
 
    Recursively find delta `spec.md` files under `openspec/changes/<name>/specs/`. Use each file's full directory path relative to `specs/` as its capability ID. Proceed without a sync prompt only when there are no delta specs and no local updates needed.
 

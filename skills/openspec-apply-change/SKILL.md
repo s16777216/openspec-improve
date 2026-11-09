@@ -60,7 +60,7 @@ Implement tasks from an OpenSpec change.
    - `openspec/GLOSSARY.md` (project-level terms, if exists)
    - `openspec/changes/<name>/GLOSSARY.md` (change-level terms, if exists)
 
-   Read existing `SPEC.md` files at the affected repo or module roots. They describe the current implementation and link to central capability specs. Use them as implementation context; the central `openspec/specs/<capability-id>/spec.md` remains the source for behavioral requirements.
+   Read the `SPEC.md` folder guide of each directory you will work in, plus its parent `SPEC.md` files up to the module root; do not load unrelated ones. They summarize what each directory contains and link to central capability specs. Use them as implementation context; the central `openspec/specs/<capability-id>/spec.md` remains the source for behavioral requirements.
 
 5. **Show current progress**
 
@@ -76,7 +76,7 @@ Implement tasks from an OpenSpec change.
    - Show which task is being worked on
    - Make the code changes required
    - Keep changes minimal and focused
-   - Record affected local `SPEC.md` paths and capability IDs as pending sync notes in the change's design artifact (or a separate notes section in the tasks artifact if no design exists). Include implementation locations useful for the refresh. Local `SPEC.md` creation and updates belong to `openspec-sync-specs`.
+   - Record affected local `SPEC.md` paths (directories whose files changed) and capability IDs as pending sync notes in the change's design artifact (or a separate notes section in the tasks artifact if no design exists). Local `SPEC.md` creation and updates belong to `openspec-sync-specs`, which asks the user for approval first; do not write them here.
    - Mark task complete in the tasks file: `- [ ]` → `- [x]`
    - Continue to next task
 

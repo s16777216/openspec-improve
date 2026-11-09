@@ -195,29 +195,36 @@ openspec/
 
 ### 在地 `SPEC.md` 與集中式規格
 
-在實作該能力的 repo 或模組根目錄放置 `SPEC.md`，記錄長期有效的程式碼導覽。同一能力可以出現在多個 repo 的 `SPEC.md`。依真正的模組責任選擇放置位置，不在每個資料夾都建立一份。
+`SPEC.md` 是簡短的**資料夾導覽**，讓 agent 快速了解某個資料夾有什麼、做什麼。每份只描述自己所在的資料夾（約 30 行以內）。repo／模組根目錄一定有一份；其他資料夾只有在具備上層一行說明無法交代的獨立職責、且經使用者同意時才建立。agent 只讀自己要處理的資料夾（及其上層）的 `SPEC.md`，避免上下文過大。建立或修改任何 `SPEC.md` 都須經使用者審核。
 
 | 文件                                                    | 職責                                                                       |
 | ------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `openspec/specs/<capability-id>/spec.md`                | 正式行為規格：需求與情境，不依程式碼 repo 分類。                           |
 | `openspec/changes/<name>/specs/<capability-id>/spec.md` | 本次提案對行為的修改。                                                     |
 | `openspec/changes/<name>/design.md`                     | 本次變更涉及的 repo、模組與實作決策。                                      |
-| `<repo-or-module>/SPEC.md`                              | 此處的責任、程式碼入口、介面／依賴，以及指向正式能力規格的連結或穩定路徑。 |
+| `<dir>/SPEC.md`                                         | 資料夾導覽：用途、各項目一行說明，以及此處實作的能力 ID 與正式規格連結。不寫流程、數值、版本或測試清單。 |
 
 例如 API repo 根目錄的文件：
 
 ```markdown
-# API 實作
+# api
 
-## identity/authentication
+## Purpose
 
-- 正式規格：spec repo 中的 `openspec/specs/identity/authentication/spec.md`
-- 責任：驗證登入請求並建立 session。
-- 程式碼入口：`src/auth/routes.ts`、`src/auth/service.ts`
-- 介面：供 web repo 使用的 session API。
+HTTP API：登入、session 與使用者資料。
+
+## Contents
+
+- `src/auth/` - 登入與 session 處理（見 `src/auth/SPEC.md`）
+- `src/routes.ts` - 路由註冊
+- `src/db.ts` - 資料庫存取
+
+## Capabilities
+
+- `identity/authentication` - spec repo 中的 `openspec/specs/identity/authentication/spec.md`
 ```
 
-apply 在 change 工件中記錄待同步的在地 `SPEC.md` 路徑。`openspec-sync-specs` 同時整合主規格，並依實際程式碼更新在地文件。尚未實作或無法存取的部分保留為待辦；即使主規格已同步，下次同步仍會補齊這些文件。驗證流程將待整合文件與實作失敗分別回報；歸檔沿用同一套同步流程。一般歸檔前先清完待辦；若要帶著未完成的文件更新歸檔，須明確確認相關警告。
+apply 在 change 工件中記錄待同步的在地 `SPEC.md` 路徑。`openspec-sync-specs` 同時整合主規格，並在使用者逐一審核後，依實際程式碼更新在地 `SPEC.md`（只處理這次 change 動到的資料夾）。尚未實作或無法存取的部分保留為待辦；即使主規格已同步，下次同步仍會補齊這些文件。驗證流程將待整合文件與實作失敗分別回報；歸檔沿用同一套同步流程。一般歸檔前先清完待辦；若要帶著未完成的文件更新歸檔，須明確確認相關警告。
 
 需求與情境文字只寫在集中式規格，避免兩邊各維護一份。即使集中式 `openspec/` 位於另一個 repo，在地文件仍可引用 `identity/authentication` 這個能力 ID。
 

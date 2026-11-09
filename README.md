@@ -190,28 +190,33 @@ Specs describe behavior across repositories. Do not label a behavioral `spec.md`
 
 ### Local `SPEC.md` alongside central specs
 
-Use `SPEC.md` at an implementing repo or module root as a durable guide to that code. One capability may have entries in several local `SPEC.md` files. Choose ownership roots that match real modules; do not create a file in every directory.
+Use `SPEC.md` as a short **folder guide**: it lets an agent quickly learn what a directory contains and what it is for. Each file describes only its own directory (about 30 lines at most). A repo/module root always gets one; another directory gets one only when it has a distinct responsibility its parent's one-line entry cannot convey, and the user approves it. Agents read only the `SPEC.md` of the directories they work in (plus parents), so context stays small. Creating or modifying any `SPEC.md` requires user approval.
 
 | Document | Responsibility |
 | --- | --- |
 | `openspec/specs/<capability-id>/spec.md` | Canonical behavior: requirements and scenarios, independent of implementation repos. |
 | `openspec/changes/<name>/specs/<capability-id>/spec.md` | Proposed change to that behavior. |
 | `openspec/changes/<name>/design.md` | Repos, modules, and implementation decisions for this change. |
-| `<repo-or-module>/SPEC.md` | Current local responsibility, code entry points, interfaces/dependencies, and a link or stable path to each central capability spec implemented here. |
+| `<dir>/SPEC.md` | Folder guide: purpose, one-line contents, and the capability IDs implemented here with links to their central specs. No flows, numeric limits, versions, or test lists. |
 
 Example at an API repo root:
 
 ```markdown
-# API implementation
+# api
 
-## identity/authentication
-- Central spec: `openspec/specs/identity/authentication/spec.md` in the spec repo
-- Responsibility: Validate login requests and issue sessions.
-- Entry points: `src/auth/routes.ts`, `src/auth/service.ts`
-- Interfaces: Session API used by the web repo.
+## Purpose
+HTTP API: login, sessions, and user data.
+
+## Contents
+- `src/auth/` - login and session handling (see `src/auth/SPEC.md`)
+- `src/routes.ts` - route registration
+- `src/db.ts` - database access
+
+## Capabilities
+- `identity/authentication` - `openspec/specs/identity/authentication/spec.md` in the spec repo
 ```
 
-Apply records affected local `SPEC.md` paths as pending sync notes in the change artifacts. `openspec-sync-specs` integrates main specs and refreshes local files from actual code at the same time. Unimplemented or inaccessible portions remain pending; a later sync revisits them even if main specs are already current. Verification reports pending integration separately from implementation failures, and archive uses the same sync workflow. Resolve pending entries before normal archival; archiving with outstanding updates requires explicit confirmation with warnings.
+Apply records affected local `SPEC.md` paths as pending sync notes in the change artifacts. `openspec-sync-specs` integrates main specs and, after the user approves each proposed file, refreshes local `SPEC.md` files from actual code (only for directories the change touched). Unimplemented or inaccessible portions remain pending; a later sync revisits them even if main specs are already current. Verification reports pending integration separately from implementation failures, and archive uses the same sync workflow. Resolve pending entries before normal archival; archiving with outstanding updates requires explicit confirmation with warnings.
 
 Keep requirement and scenario text in the central spec, so a change has one behavioral source of truth. A local file can reference `identity/authentication` even when the central `openspec/` directory lives in another repo.
 

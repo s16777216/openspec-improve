@@ -108,7 +108,7 @@ Common artifact patterns:
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - list each capability by its full path relative to `specs/`, such as `identity/authentication`. Reuse an existing main spec's ID for changes to that capability. Each listed capability needs a spec file.
 - **specs/<capability-id>/spec.md**: Create one delta spec per capability ID listed in the proposal. Preserve all domain path segments; do not use the change name or a repo name as the capability ID. A legacy flat ID remains valid.
-- **design.md**: Document technical decisions, architecture, and implementation approach. Read affected repos' existing `SPEC.md` files as context. Map capability IDs to implementing repos/modules and identify local `SPEC.md` files for `openspec-sync-specs` to refresh from implemented code. Do not edit those files during planning.
+- **design.md**: Document technical decisions, architecture, and implementation approach. Read the `SPEC.md` folder guide of each affected directory (and its parents up to the module root) as context; do not load unrelated ones. Map capability IDs to implementing directories and identify local `SPEC.md` files for `openspec-sync-specs` to refresh from implemented code. Do not edit those files during planning.
 - **tasks.md**: Break down implementation into checkboxed tasks.
 
 For other schemas, follow the `instruction` field from the CLI output.
@@ -119,7 +119,7 @@ Common artifact patterns:
 - **proposal.md**: Ask user about the change if not clear. Fill in Why, What Changes, Capabilities, Impact.
   - The Capabilities section is critical - list each capability by its full path relative to `specs/`, such as `identity/authentication`. Reuse an existing main spec's ID for changes to that capability. Each listed capability needs a spec file.
 - **specs/<capability-id>/spec.md**: Create one delta spec per capability ID listed in the proposal. Preserve all domain path segments; do not use the change name or a repo name as the capability ID. A legacy flat ID remains valid.
-- **design.md**: Document technical decisions, architecture, and implementation approach. Read affected repos' existing `SPEC.md` files as context. Map capability IDs to implementing repos/modules and identify local `SPEC.md` files for `openspec-sync-specs` to refresh from implemented code. Do not edit those files during planning.
+- **design.md**: Document technical decisions, architecture, and implementation approach. Read the `SPEC.md` folder guide of each affected directory (and its parents up to the module root) as context; do not load unrelated ones. Map capability IDs to implementing directories and identify local `SPEC.md` files for `openspec-sync-specs` to refresh from implemented code. Do not edit those files during planning.
 - **tasks.md**: Break down implementation into checkboxed tasks.
 
 For other schemas, follow the `instruction` field from the CLI output.
