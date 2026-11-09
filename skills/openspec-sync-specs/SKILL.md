@@ -9,7 +9,7 @@ metadata:
   generatedBy: "1.8.0"
 ---
 
-Sync delta specs from a change to main specs and refresh the implementing repos/modules' local `SPEC.md` files.
+Sync delta specs from a change to main specs and refresh the affected directories' local `SPEC.md` folder guides (with user approval).
 
 This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
 
@@ -70,11 +70,23 @@ This is an **agent-driven** operation - you will read delta specs and directly e
       - Add Purpose section (can be brief, mark as TBD)
       - Add Requirements section with the ADDED requirements
 
-4. **Refresh local implementation specs**
+4. **Refresh local folder guides (`SPEC.md`)**
 
-   Perform this step even when main specs already match the delta. Use the change's artifacts and actual code to identify affected repos/modules and their capability IDs.
+   Perform this step even when main specs already match the delta. Use the change's artifacts and actual code to identify the directories whose files this change added, removed, renamed, or re-purposed, and the capability IDs implemented there.
 
-   - For implemented portions, update the relevant repo/module root's `SPEC.md`, creating it there if absent. Record the full capability ID, a link or stable path to the central spec, local responsibility, code entry points, and important interfaces/dependencies. Preserve unrelated content and avoid a file in every directory. Keep requirement/scenario text in the central spec.
+   A `SPEC.md` is a **folder guide**: it lets an agent quickly learn what a directory contains and what it is for. Each file describes only its own directory, stays short (about 30 lines at most), and has three sections:
+   - **Purpose** - 1-2 sentences on what this directory is responsible for.
+   - **Contents** - one line per file or subfolder stating its responsibility. For a subfolder that has its own `SPEC.md`, write one line that points to it; do not expand it.
+   - **Capabilities** - the full capability IDs implemented here, each with a link or stable path to the central spec. IDs and links only.
+
+   Never put these in a `SPEC.md`: flows or step-by-step behavior, locking/rollback details, numeric limits, dependency versions, test inventories, or copies of requirement/scenario text. They go stale and pollute agent context; they belong in code, the central spec, or design.
+
+   **Where to create one**: a repo/module root gets one. For any other directory, propose a new `SPEC.md` only when it has a distinct responsibility that the parent's one-line Contents entry cannot convey, and say why in the approval request; the user decides. Otherwise the parent's Contents covers it. Do not create a file in every directory.
+
+   **What to update**: only the `SPEC.md` of directories touched by this change. Leave every other `SPEC.md` alone and preserve unrelated content.
+
+   **User approval is required** before creating or modifying any `SPEC.md`. For each file, show its path, whether it is a create or an update, and the proposed content (full text for a new file, a diff for an existing one). Then use the **AskUserQuestion tool** to let the user approve, request edits, or skip. Write only approved content. A skipped file stays unchanged and is reported as "skipped by user", not as a failure. This applies on every run, including when invoked from archive, and never write `SPEC.md` without approval.
+
    - Describe only the implementation that exists. If a repo is inaccessible or a portion is not implemented, leave that local content unchanged and record its path, capability ID, and reason as pending in the change's design artifact (or a separate notes section in the tasks artifact when no design exists). Do not turn these notes into incomplete implementation task checkboxes.
    - Resolve recorded pending entries when their local updates are completed. A later sync must revisit them even if the main spec needs no further edits. Report main-spec integration and local documentation completion separately.
 
@@ -137,7 +149,8 @@ Updated main specs:
 - Added requirement: "Another Feature"
 
 Local implementation specs:
-- Updated: api/SPEC.md (identity/authentication)
+- Updated (approved): api/SPEC.md (identity/authentication)
+- Skipped by user: api/src/auth/SPEC.md
 - Pending: web/SPEC.md (identity/authentication; frontend not implemented)
 
 Main specs are now updated. The change remains active - finish implementation and pending local updates before archive.
@@ -146,7 +159,8 @@ Main specs are now updated. The change remains active - finish implementation an
 **Guardrails**
 - Read both delta and main specs before making changes
 - Preserve existing content not mentioned in delta
-- Main specs express intended behavior; local `SPEC.md` describes actual code. Never document planned code as implemented.
+- Main specs express intended behavior; local `SPEC.md` is a short folder guide of actual code. Never document planned code as implemented.
+- Never create or modify a `SPEC.md` without showing the proposed content and getting user approval first
 - If something is unclear, ask for clarification
 - Show what you're changing as you go
 - The operation should be idempotent - running twice should give same result

@@ -303,7 +303,7 @@ Here's the spec:
 This format—WHEN/THEN/AND—makes requirements testable. You can literally read them as test cases.
 ```
 
-Save to `openspec/changes/<name>/specs/<capability-id>/spec.md`. Use the same capability ID under `openspec/specs/` when syncing. If multiple repos implement the capability, record their implementation mapping and affected local `SPEC.md` files in `design.md`, not in the behavioral spec. Read existing local `SPEC.md` files as design context; refresh them together with main specs through `openspec-sync-specs`.
+Save to `openspec/changes/<name>/specs/<capability-id>/spec.md`. Use the same capability ID under `openspec/specs/` when syncing. If multiple repos implement the capability, record their implementation mapping and affected local `SPEC.md` files in `design.md`, not in the behavioral spec. Read the `SPEC.md` folder guides of the affected directories as design context; refresh them together with main specs through `openspec-sync-specs` (it asks for your approval before writing any `SPEC.md`).
 
 ---
 
@@ -404,7 +404,7 @@ Now we implement each task, checking them off as we go. I'll announce each one a
 1. Announce: "Working on task N: [description]"
 2. Implement the change in the codebase
 3. Reference specs/design naturally: "The spec says X, so I'm doing Y"
-4. Record affected local `SPEC.md` paths and capability IDs as pending sync notes in design.md. `openspec-sync-specs` will create or refresh those files from actual code alongside main spec integration.
+4. Record affected local `SPEC.md` paths and capability IDs as pending sync notes in design.md. `openspec-sync-specs` will propose creating or refreshing those files from actual code alongside main spec integration, and writes them only after you approve.
 5. Mark complete in tasks.md: `- [ ]` → `- [x]`
 6. Brief status: "✓ Task N complete"
 

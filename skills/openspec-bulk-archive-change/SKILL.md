@@ -48,7 +48,7 @@ This skill allows you to batch-archive changes, handling spec conflicts intellig
       - List each capability by its full directory path relative to `specs/` (for example, `identity/authentication`)
       - For each, extract requirement names (lines matching `### Requirement: <name>`)
 
-   d. **Local implementation specs** - Check the affected repos/modules' `SPEC.md` files and pending sync notes in the change artifacts. Include needed local refreshes in the batch sync plan, even when main specs are already current or there are no delta specs. Keep local files with their code, outside the change archive.
+   d. **Local implementation specs** - Check the `SPEC.md` folder guides of directories touched by each change and pending sync notes in the change artifacts. Include needed local refreshes in the batch sync plan, even when main specs are already current or there are no delta specs. Each `SPEC.md` change still needs user approval via `openspec-sync-specs`. Keep local files with their code, outside the change archive.
 
 4. **Detect spec conflicts**
 
