@@ -86,7 +86,7 @@ Keep it **scan-friendly**. One section per change, each condensed. Suggested sha
 
 ### fix-db-migration — "Repair flaky migration ordering"
 - Stage: ready-for-review  •  Progress: 7/7 tasks
-- Next: run `openspec-verify-change fix-db-migration` then archive
+- Next: run `openspec-verify-change fix-db-migration`, then `openspec-archive-change fix-db-migration`
 
 ### dark-mode — "UI theme toggle"
 - Stage: ideation  •  Progress: 0/4 tasks
@@ -103,11 +103,11 @@ Use this rough priority to pick the single best next move:
 
 | If a change is...                | Recommended next action                       |
 | -------------------------------- | --------------------------------------------- |
-| `ready-for-review`               | verify then archive (`openspec-verify-change <name>`)   |
+| `ready-for-review`               | verify (`openspec-verify-change <name>`), then archive (`openspec-archive-change <name>`) |
 | `in-progress` + no blocker       | continue applying (`openspec-apply-change <name>`)      |
 | `in-progress` + blocker found    | surface the blocker, suggest `openspec-explore`  |
 | `ideation`                       | grill to firm up (`openspec-grill`)              |
-| multiple changes ready           | archive ready ones first to reduce queue      |
+| multiple changes ready           | archive ready ones first with `openspec-archive-change` (or `openspec-bulk-archive-change`) |
 
 If nothing is clearly highest-leverage, say so honestly instead of forcing a pick.
 
