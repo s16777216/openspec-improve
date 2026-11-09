@@ -278,7 +278,7 @@ When it feels like things are crystallizing, you might summarize:
 **Open questions**: [if any remain]
 
 **Next steps** (if ready):
-- Create a change proposal
+- Create a change proposal with `openspec-propose` (or start step by step with `openspec-new-change`)
 - Keep exploring: just keep talking
 ```
 

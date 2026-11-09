@@ -259,9 +259,10 @@ Verify that an implementation matches the change artifacts (specs, tasks, design
 
    **Final Assessment**:
    - If local documentation is pending integration: state that separately from implementation findings and recommend `openspec-sync-specs` (after completing any unimplemented portions) before archive. Do not report ready for archive while these entries remain unresolved.
-   - If CRITICAL issues: "X critical issue(s) found. Fix before archiving."
-   - If only warnings: "No critical issues. Y warning(s) to consider. Ready for archive (with noted improvements)."
-   - If all clear: "All checks passed. Ready for archive."
+   - If CRITICAL issues: "X critical issue(s) found. Fix before archiving. Next step: continue implementation with `openspec-apply-change`, then re-run `openspec-verify-change`."
+   - If only warnings: "No critical issues. Y warning(s) to consider. Ready for archive (with noted improvements). Next step: `openspec-archive-change`."
+   - If all clear: "All checks passed. Ready for archive. Next step: `openspec-archive-change`."
+   - Refer to next steps only by these skill names. Never use `/opsx-*` or `/opsx:*` command names.
 
 **Verification Heuristics**
 
