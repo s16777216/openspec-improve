@@ -202,7 +202,7 @@ openspec/
 | `openspec/specs/<capability-id>/spec.md`                | 正式行為規格：需求與情境，不依程式碼 repo 分類。                           |
 | `openspec/changes/<name>/specs/<capability-id>/spec.md` | 本次提案對行為的修改。                                                     |
 | `openspec/changes/<name>/design.md`                     | 本次變更涉及的 repo、模組與實作決策。                                      |
-| `<dir>/SPEC.md`                                         | 資料夾導覽：用途、各項目一行說明，以及此處實作的能力 ID 與正式規格連結。不寫流程、數值、版本或測試清單。 |
+| `<dir>/SPEC.md`                                         | 資料夾導覽：用途、各項目一行說明，以及（選填）此處主要負責的少數能力與正式規格連結。不寫流程、數值、版本或測試清單。 |
 
 例如 API repo 根目錄的文件：
 
@@ -219,7 +219,7 @@ HTTP API：登入、session 與使用者資料。
 - `src/routes.ts` - 路由註冊
 - `src/db.ts` - 資料庫存取
 
-## Capabilities
+## Capabilities（選填）
 
 - `identity/authentication` - spec repo 中的 `openspec/specs/identity/authentication/spec.md`
 ```

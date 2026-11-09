@@ -197,7 +197,7 @@ Use `SPEC.md` as a short **folder guide**: it lets an agent quickly learn what a
 | `openspec/specs/<capability-id>/spec.md` | Canonical behavior: requirements and scenarios, independent of implementation repos. |
 | `openspec/changes/<name>/specs/<capability-id>/spec.md` | Proposed change to that behavior. |
 | `openspec/changes/<name>/design.md` | Repos, modules, and implementation decisions for this change. |
-| `<dir>/SPEC.md` | Folder guide: purpose, one-line contents, and the capability IDs implemented here with links to their central specs. No flows, numeric limits, versions, or test lists. |
+| `<dir>/SPEC.md` | Folder guide: purpose, one-line contents, and, optionally, the few capabilities this directory is primarily responsible for with links to their central specs. No flows, numeric limits, versions, or test lists. |
 
 Example at an API repo root:
 
@@ -212,7 +212,7 @@ HTTP API: login, sessions, and user data.
 - `src/routes.ts` - route registration
 - `src/db.ts` - database access
 
-## Capabilities
+## Capabilities (optional)
 - `identity/authentication` - `openspec/specs/identity/authentication/spec.md` in the spec repo
 ```
 

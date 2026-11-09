@@ -74,10 +74,10 @@ This is an **agent-driven** operation - you will read delta specs and directly e
 
    Perform this step even when main specs already match the delta. Use the change's artifacts and actual code to identify the directories whose files this change added, removed, renamed, or re-purposed, and the capability IDs implemented there.
 
-   A `SPEC.md` is a **folder guide**: it lets an agent quickly learn what a directory contains and what it is for. Each file describes only its own directory, stays short (about 30 lines at most), and has three sections:
+   A `SPEC.md` is a **folder guide**: it lets an agent quickly learn what a directory contains and what it is for. Each file describes only its own directory, stays short (about 30 lines at most), and has two required sections and one optional section:
    - **Purpose** - 1-2 sentences on what this directory is responsible for.
    - **Contents** - one line per file or subfolder stating its responsibility. For a subfolder that has its own `SPEC.md`, write one line that points to it; do not expand it.
-   - **Capabilities** - the full capability IDs implemented here, each with a link or stable path to the central spec. IDs and links only.
+   - **Capabilities** (optional) - include only when this directory is primarily responsible for specific capabilities: the full capability ID with a link or stable path to the central spec, one line each. Do not enumerate every capability the directory or module touches; if the list would be long (for example at a module root), omit the section and let the subdirectories that own those capabilities list them. Omit the section entirely when nothing applies; never write an empty section or "N/A".
 
    Never put these in a `SPEC.md`: flows or step-by-step behavior, locking/rollback details, numeric limits, dependency versions, test inventories, or copies of requirement/scenario text. They go stale and pollute agent context; they belong in code, the central spec, or design.
 
